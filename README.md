@@ -6,7 +6,7 @@ This project aims to create a extensible RayTrace Engine for the Java Programmin
 General Assumptions
 -------------------
 
-=== World Axes Orientation ===
+### World Axes Orientation
   * X Axis grows from left to right of the screen;
   * Y Axis grows from the bottom to the top of the screen;
   * Z Axis grows from the inside to the outside of the screen.
