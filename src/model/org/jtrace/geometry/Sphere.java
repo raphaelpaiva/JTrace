@@ -8,14 +8,12 @@ public class Sphere {
 	private float radius;
 
 	public Sphere(final Point3D center, final float radius) {
-		super();
 		this.center = center;
 		this.radius = radius;
 	}
 
 	public boolean hit(final Jay jay)
 	{
-
 		return false;
 	}
 

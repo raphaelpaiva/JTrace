@@ -10,6 +10,10 @@ public class Point3D {
 		this.y = y;
 		this.z = z;
 	}
+	
+	public Point3D subtract(Point3D a) {
+		return new Point3D(x - a.getX(), y - a.getY(), z - a.getZ());
+	}
 
 	public double getX() {
 		return x;
@@ -66,5 +70,6 @@ public class Point3D {
 			return false;
 		return true;
 	}
+
 	
 }

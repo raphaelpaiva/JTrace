@@ -15,6 +15,10 @@ public class Vector3D {
 		this(v2.getCoordinate());
 	}
 
+	public Vector3D(Point3D a, Point3D b) {
+		this(b.subtract(a));
+	}
+
 	public Point3D getCoordinate() {
 		return coordinate;
 	}

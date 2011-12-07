@@ -66,4 +66,13 @@ public class Vector3DUnitTest {
 		
 		Assert.assertEquals(normalizedV, expected);
 	}
+	
+	@Test
+	public void testTwoPointsConstructor_trivialCase()
+	{
+		Point3D a = new Point3D(0, 0, 0);
+		Point3D b = new Point3D(2, 2, 2);
+		
+		Assert.assertEquals(new Vector3D(a, b), new Vector3D(2, 2, 2));
+	}
 }
