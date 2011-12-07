@@ -20,7 +20,10 @@ public class Vector3D {
 	}
 
 	public double dot(final Vector3D v2) {
-		return 0;
+		double result = coordinate.getX() * v2.getCoordinate().getX();
+		result += coordinate.getY() * v2.getCoordinate().getY();
+		result += coordinate.getZ() * v2.getCoordinate().getZ();
+		return result;
 	}
 
 }
