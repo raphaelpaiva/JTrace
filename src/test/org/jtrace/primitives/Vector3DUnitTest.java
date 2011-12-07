@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class Vector3DUnitTest {
 
-	private static final int PERPENDICULAR_VECTORS_DOT_PRODUCT_RESULT = 0;
+	private static final double PERPENDICULAR_VECTORS_DOT_PRODUCT_RESULT = 0;
 
 	@Test
 	public void testDotProduct_PerpendicularVectors()
