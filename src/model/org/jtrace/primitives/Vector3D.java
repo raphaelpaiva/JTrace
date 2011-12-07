@@ -1,13 +1,13 @@
 package org.jtrace.primitives;
 
-public class Vector {
+public class Vector3D {
 	private Point3D coordinate;
 
-	public Vector(final Point3D coordinate) {
+	public Vector3D(final Point3D coordinate) {
 		this.coordinate = coordinate;
 	}
 
-	public Vector(final float x, final float y, final float z) {
+	public Vector3D(final float x, final float y, final float z) {
 		this(new Point3D(x, y, z));
 	}
 
@@ -17,6 +17,10 @@ public class Vector {
 
 	public void setCoordinate(final Point3D coordinate) {
 		this.coordinate = coordinate;
+	}
+
+	public double dot(final Vector3D v2) {
+		return 0;
 	}
 
 }
