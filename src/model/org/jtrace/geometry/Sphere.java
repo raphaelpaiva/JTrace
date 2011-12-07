@@ -2,6 +2,7 @@ package org.jtrace.geometry;
 
 import org.jtrace.Jay;
 import org.jtrace.primitives.Point3D;
+import org.jtrace.primitives.Vector3D;
 
 public class Sphere {
 	private Point3D center;
@@ -12,9 +13,20 @@ public class Sphere {
 		this.radius = radius;
 	}
 
-	public boolean hit(final Jay jay)
-	{
-		return false;
+	public boolean hit(final Jay jay) {
+		Vector3D temp = new Vector3D(jay.getPoint().subtract(center));
+		
+		double a = jay.getDirection().dot();
+		double b = temp.multiply(2).dot(jay.getDirection());
+		double c = temp.dot() - radius * radius;
+
+		double delta = b * b - 4 * a * c;
+
+		if (delta < 0.0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public Point3D getCenter() {
