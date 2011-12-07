@@ -10,7 +10,7 @@ public class Vector3D {
 	public Vector3D(final double x, final double y, final double z) {
 		this(new Point3D(x, y, z));
 	}
-	
+
 	public Vector3D(final Vector3D v2) {
 		this(v2.getCoordinate());
 	}
@@ -19,12 +19,9 @@ public class Vector3D {
 		this(b.subtract(a));
 	}
 
-	public Point3D getCoordinate() {
-		return coordinate;
-	}
-
-	public void setCoordinate(final Point3D coordinate) {
-		this.coordinate = coordinate;
+	public Vector3D multiply(double multiplier) {
+		return new Vector3D(coordinate.getX() * multiplier, coordinate.getY()
+				* multiplier, coordinate.getZ() * multiplier);
 	}
 
 	public double dot(final Vector3D v2) {
@@ -32,6 +29,10 @@ public class Vector3D {
 		result += coordinate.getY() * v2.getCoordinate().getY();
 		result += coordinate.getZ() * v2.getCoordinate().getZ();
 		return result;
+	}
+
+	public double dot() {
+		return dot(this);
 	}
 
 	public double module() {
@@ -43,12 +44,20 @@ public class Vector3D {
 
 	public Vector3D normal() {
 		double module = module();
-		
+
 		double x = coordinate.getX() / module;
 		double y = coordinate.getY() / module;
 		double z = coordinate.getZ() / module;
-		
+
 		return new Vector3D(x, y, z);
+	}
+
+	public Point3D getCoordinate() {
+		return coordinate;
+	}
+
+	public void setCoordinate(final Point3D coordinate) {
+		this.coordinate = coordinate;
 	}
 
 	@Override
@@ -76,5 +85,5 @@ public class Vector3D {
 			return false;
 		return true;
 	}
-	
+
 }
