@@ -7,8 +7,12 @@ public class Vector3D {
 		this.coordinate = coordinate;
 	}
 
-	public Vector3D(final float x, final float y, final float z) {
+	public Vector3D(final double x, final double y, final double z) {
 		this(new Point3D(x, y, z));
+	}
+	
+	public Vector3D(final Vector3D v2) {
+		this(v2.getCoordinate());
 	}
 
 	public Point3D getCoordinate() {
@@ -26,4 +30,47 @@ public class Vector3D {
 		return result;
 	}
 
+	public double module() {
+		double result = coordinate.getX() * coordinate.getX();
+		result += coordinate.getY() * coordinate.getY();
+		result += coordinate.getZ() * coordinate.getZ();
+		return Math.sqrt(result);
+	}
+
+	public Vector3D normal() {
+		double module = module();
+		
+		double x = coordinate.getX() / module;
+		double y = coordinate.getY() / module;
+		double z = coordinate.getZ() / module;
+		
+		return new Vector3D(x, y, z);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((coordinate == null) ? 0 : coordinate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vector3D other = (Vector3D) obj;
+		if (coordinate == null) {
+			if (other.coordinate != null)
+				return false;
+		} else if (!coordinate.equals(other.coordinate))
+			return false;
+		return true;
+	}
+	
 }
