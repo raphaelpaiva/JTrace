@@ -1,8 +1,22 @@
 package org.jtrace.primitives;
-
+/**
+ * Basic class to represent a color in RGB format.
+ * 
+ * @author raphaelpaiva
+ * @author brunocosta
+ * @author flaviocdc
+ *
+ */
 public class ColorRGB {
 	private int r, g, b;
 
+	/**
+	 * Create a color from its components values.
+	 * 
+	 * @param r red component
+	 * @param g green component
+	 * @param b blue component
+	 */
 	public ColorRGB(final int r, final int g, final int b) {
 		super();
 		this.r = r;
