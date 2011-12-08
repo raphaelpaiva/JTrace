@@ -14,9 +14,9 @@ public class Point3D {
 	/**
 	 * Create a point from its coordinates
 	 *  
-	 * @param x value
-	 * @param y value
-	 * @param z value
+	 * @param x axis value
+	 * @param y axis value
+	 * @param z axis value
 	 */
 	public Point3D(final double x, final double y, final double z) {
 		super();
