@@ -8,43 +8,43 @@ package org.jtrace.primitives;
  *
  */
 public class ColorRGB {
-	private int r, g, b;
+    private int r, g, b;
 
-	/**
-	 * Create a color from its components values.
-	 * 
-	 * @param r red component
-	 * @param g green component
-	 * @param b blue component
-	 */
-	public ColorRGB(final int r, final int g, final int b) {
-		super();
-		this.r = r;
-		this.g = g;
-		this.b = b;
-	}
+    /**
+     * Create a color from its components values.
+     * 
+     * @param r red component
+     * @param g green component
+     * @param b blue component
+     */
+    public ColorRGB(final int r, final int g, final int b) {
+        super();
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
 
-	public int getR() {
-		return r;
-	}
+    public int getR() {
+        return r;
+    }
 
-	public void setR(final int r) {
-		this.r = r;
-	}
+    public void setR(final int r) {
+        this.r = r;
+    }
 
-	public int getG() {
-		return g;
-	}
+    public int getG() {
+        return g;
+    }
 
-	public void setG(final int g) {
-		this.g = g;
-	}
+    public void setG(final int g) {
+        this.g = g;
+    }
 
-	public int getB() {
-		return b;
-	}
+    public int getB() {
+        return b;
+    }
 
-	public void setB(final int b) {
-		this.b = b;
-	}
+    public void setB(final int b) {
+        this.b = b;
+    }
 }
