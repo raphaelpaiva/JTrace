@@ -1,9 +1,23 @@
 package org.jtrace.primitives;
 
-
+/**
+ * Basic class to represent a point in a three-dimensional space.
+ * 
+ * @author raphaelpaiva
+ * @author brunocosta
+ * @author flaviocdc
+ *
+ */
 public class Point3D {
 	private double x, y, z;
 
+	/**
+	 * Create a point from its coordinates
+	 *  
+	 * @param x value
+	 * @param y value
+	 * @param z value
+	 */
 	public Point3D(final double x, final double y, final double z) {
 		super();
 		this.x = x;
@@ -11,8 +25,19 @@ public class Point3D {
 		this.z = z;
 	}
 	
-	public Point3D subtract(Point3D a) {
-		return new Point3D(x - a.getX(), y - a.getY(), z - a.getZ());
+	/**
+	 * Subtract operation
+	 * 
+	 * Performs the basic point subtraction. <br/>
+	 * Suppose the points A(x, y, z) and B(u, v, w). 
+	 * 
+	 * A - B = C(x - u, y - v, z - w)
+	 * 
+	 * @param otherVector the point to subtract.
+	 * @return a new {@link Point3D} where equivalent to (this - otherVector)
+	 */
+	public Point3D subtract(Point3D otherVector) {
+		return new Point3D(x - otherVector.getX(), y - otherVector.getY(), z - otherVector.getZ());
 	}
 
 	public double getX() {
