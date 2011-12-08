@@ -17,13 +17,4 @@ References
 
   * Kevin Suffern's [RayTracing from the Ground Up][1]
 
-Libraries
----------
-
-  * [JBLAS][2]
-
-
-
-
 [1]: http://www.raytracegroundup.com/
-[2]: http://jblas.org/
