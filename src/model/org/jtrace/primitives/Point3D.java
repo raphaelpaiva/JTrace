@@ -34,7 +34,7 @@ public class Point3D {
 	 * A - B = C(x - u, y - v, z - w)
 	 * 
 	 * @param otherVector the point to subtract.
-	 * @return a new {@link Point3D} equivalent to (this - otherVector)
+	 * @return a new {@link Point3D} equivalent to <code>(this - otherVector)</code>
 	 */
 	public Point3D subtract(Point3D otherVector) {
 		return new Point3D(x - otherVector.getX(), y - otherVector.getY(), z - otherVector.getZ());
