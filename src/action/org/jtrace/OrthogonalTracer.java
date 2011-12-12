@@ -14,8 +14,8 @@ import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
 public class OrthogonalTracer {
-	private static ColorRGB BACKGROUND_COLOR = new ColorRGB(0, 0, 0);
-	private static ColorRGB DEFAULT_COLOR = new ColorRGB(255, 255, 0);
+	private static ColorRGB BACKGROUND_COLOR = ColorRGB.BLACK;
+	private static ColorRGB DEFAULT_COLOR = ColorRGB.RED;
 
 	private List<Sphere> world;
 	private ViewPlane viewPlane;

@@ -8,6 +8,11 @@ package org.jtrace.primitives;
  *
  */
 public class ColorRGB {
+	public static ColorRGB BLACK = new ColorRGB(0, 0, 0);
+	public static ColorRGB RED   = new ColorRGB(255, 0, 0);
+	public static ColorRGB GREEN = new ColorRGB(0, 255, 0);
+	public static ColorRGB BLUE  = new ColorRGB(0, 0, 255);
+	
     private int r, g, b;
 
     /**
