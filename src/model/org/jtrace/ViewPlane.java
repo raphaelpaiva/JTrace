@@ -33,21 +33,27 @@ public class ViewPlane {
 		this.vres = vres;
 		this.pixelSize = pixelSize;
 	}
+	
 	public int getHres() {
 		return hres;
 	}
+	
 	public void setHres(int hres) {
 		this.hres = hres;
 	}
+	
 	public int getVres() {
 		return vres;
 	}
+	
 	public void setVres(int vres) {
 		this.vres = vres;
 	}
+	
 	public double getPixelSize() {
 		return pixelSize;
 	}
+	
 	public void setPixelSize(double pixelSize) {
 		this.pixelSize = pixelSize;
 	}
