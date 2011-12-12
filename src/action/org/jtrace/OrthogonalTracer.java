@@ -3,11 +3,10 @@ package org.jtrace;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.jtrace.geometry.GeometricObject;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
@@ -17,12 +16,9 @@ public class OrthogonalTracer {
 	private static ColorRGB BACKGROUND_COLOR = ColorRGB.BLACK;
 	private static ColorRGB DEFAULT_COLOR = ColorRGB.RED;
 
-	private List<Sphere> world;
-	private ViewPlane viewPlane;
-
-	public ColorRGB trace(Jay jay) {
-		for (Sphere sphere : world) {
-			if (sphere.hit(jay)) {
+	public ColorRGB trace(Scene scene, Jay jay) {
+		for (GeometricObject object : scene) {
+			if (object.hit(jay)) {
 				return DEFAULT_COLOR;
 			}
 		}
@@ -30,7 +26,7 @@ public class OrthogonalTracer {
 		return BACKGROUND_COLOR;
 	}
 	
-	public void render() throws IOException
+	public void render(Scene scene, ViewPlane viewPlane) throws IOException
 	{
 		double x, y;
 		int hres = viewPlane.getHres();
@@ -50,7 +46,7 @@ public class OrthogonalTracer {
 				
 				Jay jay = new Jay(origin, direction);
 				
-				ColorRGB color = trace(jay);
+				ColorRGB color = trace(scene, jay);
 				
 				bi.setRGB(c, r, color.toInt());
 			}
@@ -60,38 +56,17 @@ public class OrthogonalTracer {
 	}
 
 	public static void main(String[] args) throws IOException {
-		ViewPlane vp = new ViewPlane(300, 300, 1.0);
+		ViewPlane viewPlane = new ViewPlane(300, 300, 1.0);
 		Point3D c = new Point3D(-42.5, 0, 0);
-		Point3D c2 = new Point3D(42.5, 0, -1000);
 		Sphere s = new Sphere(c, 85.0f);
-		Sphere s2 = new Sphere(c2, 85.0f);
 		
-		List<Sphere> world = new ArrayList<Sphere>();
+		Scene scene = new Scene();
 		
-		world.add(s);
-		world.add(s2);
+		scene.add(s);
 		
 		OrthogonalTracer ot = new OrthogonalTracer();
-		ot.setViewPlane(vp);
-		ot.setWorld(world);
 		
-		ot.render();
+		ot.render(scene, viewPlane);
 	}
 	
-	public List<Sphere> getWorld() {
-		return world;
-	}
-
-	public void setWorld(List<Sphere> world) {
-		this.world = world;
-	}
-
-	public ViewPlane getViewPlane() {
-		return viewPlane;
-	}
-
-	public void setViewPlane(ViewPlane viewPlane) {
-		this.viewPlane = viewPlane;
-	}
-
 }
