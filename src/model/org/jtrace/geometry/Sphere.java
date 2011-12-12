@@ -11,7 +11,7 @@ import org.jtrace.primitives.Vector3D;
  * @author brunocosta
  *
  */
-public class Sphere {
+public class Sphere extends GeometricObject {
     private Point3D center;
     private float radius;
 
