@@ -15,7 +15,7 @@ import org.jtrace.primitives.Vector3D;
 
 public class OrthogonalTracer {
 	private static ColorRGB BACKGROUND_COLOR = new ColorRGB(0, 0, 0);
-	private static ColorRGB DEFAULT_COLOR = new ColorRGB(255, 0, 0);
+	private static ColorRGB DEFAULT_COLOR = new ColorRGB(255, 255, 0);
 
 	private List<Sphere> world;
 	private ViewPlane viewPlane;
@@ -52,7 +52,7 @@ public class OrthogonalTracer {
 				
 				ColorRGB color = trace(jay);
 				
-				bi.setRGB(r, c, color.getR() + color.getG() + color.getB());
+				bi.setRGB(c, r, color.toInt());
 			}
 		}
 		
@@ -60,13 +60,16 @@ public class OrthogonalTracer {
 	}
 
 	public static void main(String[] args) throws IOException {
-		ViewPlane vp = new ViewPlane(200, 200, 1.25);
-		Point3D c = new Point3D(0, 0, 0);
+		ViewPlane vp = new ViewPlane(300, 300, 1.0);
+		Point3D c = new Point3D(-42.5, 0, 0);
+		Point3D c2 = new Point3D(42.5, 0, -1000);
 		Sphere s = new Sphere(c, 85.0f);
+		Sphere s2 = new Sphere(c2, 85.0f);
 		
 		List<Sphere> world = new ArrayList<Sphere>();
 		
 		world.add(s);
+		world.add(s2);
 		
 		OrthogonalTracer ot = new OrthogonalTracer();
 		ot.setViewPlane(vp);
