@@ -23,6 +23,14 @@ public class ColorRGB {
         this.g = g;
         this.b = b;
     }
+    
+    public int toInt() {
+    	int rgb = r;
+    	rgb = (rgb << 8) + g;
+    	rgb = (rgb << 8) + b;
+    	
+    	return rgb;
+    }
 
     public int getR() {
         return r;
