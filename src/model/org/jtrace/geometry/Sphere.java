@@ -1,6 +1,7 @@
 package org.jtrace.geometry;
 
 import org.jtrace.Jay;
+import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
@@ -20,8 +21,10 @@ public class Sphere extends GeometricObject {
      * 
      * @param center a {@link Point3D} representing the coordinates of the center of the {@link Sphere}
      * @param radius the radius of the {@link Sphere}
+     * @param color the color of the {@link Sphere}
      */
-    public Sphere(final Point3D center, final float radius) {
+    public Sphere(final Point3D center, final float radius, ColorRGB color) {
+    	super(color);
         this.center = center;
         this.radius = radius;
     }

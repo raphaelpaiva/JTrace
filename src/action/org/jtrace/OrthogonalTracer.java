@@ -14,19 +14,16 @@ import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
 public class OrthogonalTracer {
-	private static ColorRGB BACKGROUND_COLOR = ColorRGB.BLACK;
-	private static ColorRGB DEFAULT_COLOR = ColorRGB.RED;
-
 	private List<TracerListener> listeners = new LinkedList<TracerListener>();
 
 	public ColorRGB trace(Scene scene, Jay jay) {
 		for (GeometricObject object : scene) {
 			if (object.hit(jay)) {
-				return DEFAULT_COLOR;
+				return object.getColor();
 			}
 		}
 
-		return BACKGROUND_COLOR;
+		return scene.getBackgroundColor();
 	}
 
 	public void render(Scene scene, ViewPlane viewPlane) throws IOException {
@@ -82,7 +79,7 @@ public class OrthogonalTracer {
 	public static void main(String[] args) throws IOException {
 		ViewPlane viewPlane = new ViewPlane(300, 300, 1.0);
 		Point3D c = new Point3D(-42.5, 0, 0);
-		Sphere s = new Sphere(c, 85.0f);
+		Sphere s = new Sphere(c, 85.0f, ColorRGB.RED);
 
 		Scene scene = new Scene();
 

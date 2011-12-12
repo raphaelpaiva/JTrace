@@ -1,6 +1,7 @@
 package org.jtrace.geometry;
 
 import org.jtrace.Jay;
+import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 import org.testng.Assert;
@@ -10,7 +11,7 @@ public class SphereUnitTest {
 	
 	private static final int SPHERE_RADIUS = 1;
 	public static final Point3D SPHERE_CENTER = new Point3D(0, 0, -5);
-	public static final Sphere SPHERE = new Sphere(SPHERE_CENTER, SPHERE_RADIUS);
+	public static final Sphere SPHERE = new Sphere(SPHERE_CENTER, SPHERE_RADIUS, ColorRGB.RED);
 	
 	@Test
 	public void testHit_NoHit()

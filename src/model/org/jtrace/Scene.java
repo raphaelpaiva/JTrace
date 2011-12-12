@@ -7,10 +7,17 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.jtrace.geometry.GeometricObject;
+import org.jtrace.primitives.ColorRGB;
 
 public class Scene implements Iterable<GeometricObject> {
 	private Set<GeometricObject> objects = new LinkedHashSet<GeometricObject>();
+	private ColorRGB backgroundColor = ColorRGB.BLACK;
 
+	public Scene withBackground(ColorRGB color) {
+		backgroundColor = color;
+		return this;
+	}
+	
 	public Scene add(GeometricObject object) {
 		objects.add(object);
 		return this;
@@ -26,4 +33,8 @@ public class Scene implements Iterable<GeometricObject> {
 		return objects.iterator();
 	}
 
+	public ColorRGB getBackgroundColor() {
+		return backgroundColor;
+	}
+	
 }
