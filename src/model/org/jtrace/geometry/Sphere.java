@@ -39,7 +39,7 @@ public class Sphere extends GeometricObject {
      * @return {@link Hit} if the {@link Jay} hits the object.
      */
     public Hit hit(final Jay jay) {
-        Vector3D temp = new Vector3D(jay.getPoint().subtract(center));
+        Vector3D temp = new Vector3D(jay.getOrigin().subtract(center));
         
         double a = jay.getDirection().dot();
         double b = temp.multiply(2).dot(jay.getDirection());

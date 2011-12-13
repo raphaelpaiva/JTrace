@@ -20,7 +20,7 @@ public class Plane extends GeometricObject {
 
 	@Override
 	public Hit hit(Jay jay) {
-		double b = new Vector3D(jay.getPoint(), point).dot(normal);
+		double b = new Vector3D(jay.getOrigin(), point).dot(normal);
 		double a = jay.getDirection().dot(normal);
 		
 		double t = b / a;

@@ -26,7 +26,7 @@ public class Jay {
 		this.direction = direction;
 	}
 
-	public Point3D getPoint() {
+	public Point3D getOrigin() {
 		return origin;
 	}
 
