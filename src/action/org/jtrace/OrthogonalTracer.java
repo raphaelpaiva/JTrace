@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.jtrace.geometry.GeometricObject;
+import org.jtrace.geometry.Plane;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.primitives.ColorRGB;
@@ -85,13 +86,17 @@ public class OrthogonalTracer {
 
 	public static void main(String[] args) throws IOException {
 		ViewPlane viewPlane = new ViewPlane(1024, 768, 0.5);
+		
 		final Point3D centerRed = new Point3D(0, 0, -10);
-		final Point3D centerBlue = new Point3D(0, 0, -20);
+		final Point3D centerBlue = new Point3D(0, 0, -100);
+		final Point3D planePoint = new Point3D(0, 0, -300);
+		final Vector3D planeNormal = new Vector3D(0, 0, 1);
 		
 		final Sphere red = new Sphere(centerRed, 100, ColorRGB.RED);
 		final Sphere blue = new Sphere(centerBlue, 180, ColorRGB.BLUE);
+		final Plane purple = new Plane(planePoint, planeNormal, ColorRGB.PURPLE);
 		
-		Scene scene = new Scene().add(blue, red);
+		Scene scene = new Scene().add(blue, red, purple);
 
 		OrthogonalTracer ot = new OrthogonalTracer();
 		

@@ -1,5 +1,6 @@
 package org.jtrace;
 
+import org.jtrace.geometry.Plane;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
@@ -50,5 +51,29 @@ public class OrthogonalTracerUnitTest {
 		scene = new Scene().add(red, blue);
 		
 		Assert.assertEquals(TRACER.trace(scene, JAY), ColorRGB.RED);
+	}
+	
+	@Test
+	public void testRender_PlaneInFrontOfViewPlane() {
+		final Point3D point = new Point3D(0, 0, -5);
+		final Vector3D normal = new Vector3D(0, 0, 1);
+		
+		final Plane plane = new Plane(point, normal, ColorRGB.YELLOW);
+		
+		Scene scene = new Scene().add(plane);
+
+		Assert.assertEquals(TRACER.trace(scene, JAY), ColorRGB.YELLOW);
+	}
+	
+	@Test
+	public void testRender_PlaneBehindViewPlane() {
+		final Point3D point = new Point3D(0, 0, 5);
+		final Vector3D normal = new Vector3D(0, 0, 1);
+		
+		final Plane plane = new Plane(point, normal, ColorRGB.YELLOW);
+		
+		Scene scene = new Scene().add(plane);
+
+		Assert.assertEquals(TRACER.trace(scene, JAY), ColorRGB.BLACK);
 	}
 }
