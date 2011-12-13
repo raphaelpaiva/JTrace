@@ -18,13 +18,19 @@ public class OrthogonalTracer {
 	private List<TracerListener> listeners = new LinkedList<TracerListener>();
 
 	public ColorRGB trace(Scene scene, Jay jay) {
+		double tmin = Double.MAX_VALUE;
+		ColorRGB finalColor = scene.getBackgroundColor();
+		
 		for (GeometricObject object : scene) {
-			if (object.hit(jay).isHit()) {
-				return object.getColor();
+			Hit hit = object.hit(jay);
+			
+			if (hit.isHit() && hit.getT() < tmin) {
+				tmin = hit.getT();
+				finalColor = object.getColor();
 			}
 		}
 
-		return scene.getBackgroundColor();
+		return finalColor;
 	}
 
 	public void render(Scene scene, ViewPlane viewPlane) throws IOException {
@@ -78,17 +84,18 @@ public class OrthogonalTracer {
 	}
 
 	public static void main(String[] args) throws IOException {
-		ViewPlane viewPlane = new ViewPlane(300, 300, 1.0);
-		Point3D c = new Point3D(-42.5, 0, 0);
-		Sphere s = new Sphere(c, 85.0f, ColorRGB.RED);
-
-		Scene scene = new Scene();
-
-		scene.add(s);
+		ViewPlane viewPlane = new ViewPlane(1024, 768, 0.5);
+		final Point3D centerRed = new Point3D(0, 0, -10);
+		final Point3D centerBlue = new Point3D(0, 0, -20);
+		
+		final Sphere red = new Sphere(centerRed, 100, ColorRGB.RED);
+		final Sphere blue = new Sphere(centerBlue, 180, ColorRGB.BLUE);
+		
+		Scene scene = new Scene().add(blue, red);
 
 		OrthogonalTracer ot = new OrthogonalTracer();
 		
-		ot.addListeners(new ImageListener("result.jpg", "jpeg"));
+		ot.addListeners(new ImageListener("result.png", "png"));
 
 		ot.render(scene, viewPlane);
 	}
