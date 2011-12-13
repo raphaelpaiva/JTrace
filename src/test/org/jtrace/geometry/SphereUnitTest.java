@@ -1,6 +1,8 @@
 package org.jtrace.geometry;
 
+import org.jtrace.Hit;
 import org.jtrace.Jay;
+import org.jtrace.NotHit;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
@@ -9,11 +11,13 @@ import org.testng.annotations.Test;
 
 public class SphereUnitTest {
 	
+	private static final double FRONTAL_JAY_PARAMETER = 4.0;
+	private static final double TANGENTIAL_JAY_PARAMETER = 5.0;
 	private static final int SPHERE_RADIUS = 1;
 	public static final Point3D SPHERE_CENTER = new Point3D(0, 0, -5);
 	public static final Sphere SPHERE = new Sphere(SPHERE_CENTER, SPHERE_RADIUS, ColorRGB.RED);
 	
-	@Test
+	@Test(expectedExceptions={IllegalStateException.class})
 	public void testHit_NoHit()
 	{
 		Point3D  jayOrigin    = new Point3D(0, 0, 0);
@@ -21,7 +25,11 @@ public class SphereUnitTest {
 		
 		Jay jay = new Jay(jayOrigin, jayDirection);
 		
-		Assert.assertFalse(SPHERE.hit(jay), "Expected no hit!");
+		Hit hit = SPHERE.hit(jay);
+		
+		Assert.assertFalse(hit.isHit(), "Expected no hit!");
+		Assert.assertTrue(hit instanceof NotHit, "Expected Hit instanceof NoHit");
+		hit.getT();
 	}
 	
 	@Test
@@ -32,7 +40,11 @@ public class SphereUnitTest {
 		
 		Jay jay = new Jay(jayOrigin, jayDirection);
 		
-		Assert.assertTrue(SPHERE.hit(jay), "Expected one hit!");
+		Hit hit = SPHERE.hit(jay);
+		
+		Assert.assertTrue(hit.isHit(), "Expected one hit!");
+		Assert.assertFalse(hit instanceof NotHit, "Expected Hit not to be an instanceof NoHit");
+		Assert.assertEquals(hit.getT(), TANGENTIAL_JAY_PARAMETER);
 	}
 	
 	@Test
@@ -43,7 +55,10 @@ public class SphereUnitTest {
 		
 		Jay jay = new Jay(jayOrigin, jayDirection);
 		
-		Assert.assertTrue(SPHERE.hit(jay), "Expected two hits!");
+		Hit hit = SPHERE.hit(jay);
+		
+		Assert.assertTrue(hit.isHit(), "Expected two hits!");
+		Assert.assertFalse(hit instanceof NotHit, "Expected Hit not to be an instanceof NoHit");
+		Assert.assertEquals(hit.getT(), FRONTAL_JAY_PARAMETER);
 	}
-
 }

@@ -14,11 +14,12 @@ import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
 public class OrthogonalTracer {
+	private static final int VIEW_PLANE_POSITION = 100;
 	private List<TracerListener> listeners = new LinkedList<TracerListener>();
 
 	public ColorRGB trace(Scene scene, Jay jay) {
 		for (GeometricObject object : scene) {
-			if (object.hit(jay)) {
+			if (object.hit(jay).isHit()) {
 				return object.getColor();
 			}
 		}
@@ -41,7 +42,7 @@ public class OrthogonalTracer {
 				x = s * (c - 0.5 * (hres - 1.0));
 				y = s * (r - 0.5 * (vres - 1.0));
 
-				Point3D origin = new Point3D(x, y, 100);
+				Point3D origin = new Point3D(x, y, VIEW_PLANE_POSITION);
 
 				Jay jay = new Jay(origin, direction);
 
