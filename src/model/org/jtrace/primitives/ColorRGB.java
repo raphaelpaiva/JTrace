@@ -60,4 +60,38 @@ public class ColorRGB {
     public void setB(final int b) {
         this.b = b;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + b;
+		result = prime * result + g;
+		result = prime * result + r;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ColorRGB other = (ColorRGB) obj;
+		if (b != other.b)
+			return false;
+		if (g != other.g)
+			return false;
+		if (r != other.r)
+			return false;
+		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "Color(" + r + ", " + g + ", " + b + ")";
+	}
+    
 }
