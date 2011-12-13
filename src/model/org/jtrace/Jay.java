@@ -34,4 +34,9 @@ public class Jay {
 		return direction;
 	}
 
+	@Override
+	public String toString() {
+		return "o" + origin.toString() + ", d" + direction.toString();
+	}
+	
 }

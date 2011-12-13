@@ -179,4 +179,9 @@ public class Vector3D {
         return true;
     }
 
+    @Override
+    public String toString() {
+    	return coordinate.toString();
+    }
+    
 }
