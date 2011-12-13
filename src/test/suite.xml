@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+ 
+<suite name="JTrace" verbose="1" >
+  <test name="UnitTests"   >
+    <packages>
+      <package name="org.jtrace.*" />
+   </packages>
+ </test>
+</suite>
