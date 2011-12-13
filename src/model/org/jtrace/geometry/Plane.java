@@ -48,4 +48,9 @@ public class Plane extends GeometricObject {
 		this.normal = normal;
 	}
 	
+	@Override
+	public String toString() {
+		return "p" + point.toString() + ", n" + normal.toString();
+	}
+	
 }
