@@ -15,8 +15,16 @@ import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
 public class OrthogonalTracer {
-	private static final int VIEW_PLANE_POSITION = 100;
+	private static final int DEFAULT_VIEW_PLANE_POSITION = 100;
 	private List<TracerListener> listeners = new LinkedList<TracerListener>();
+	
+	private double viewPlanePosition = DEFAULT_VIEW_PLANE_POSITION; 
+
+	public OrthogonalTracer() {}
+	
+	public OrthogonalTracer(double viewPlanePosition) {
+		this.viewPlanePosition = viewPlanePosition;
+	}
 
 	public ColorRGB trace(Scene scene, Jay jay) {
 		double tmin = Double.MAX_VALUE;
@@ -49,7 +57,7 @@ public class OrthogonalTracer {
 				x = s * (c - 0.5 * (hres - 1.0));
 				y = s * (r - 0.5 * (vres - 1.0));
 
-				Point3D origin = new Point3D(x, y, VIEW_PLANE_POSITION);
+				Point3D origin = new Point3D(x, y, viewPlanePosition);
 
 				Jay jay = new Jay(origin, direction);
 
@@ -84,11 +92,19 @@ public class OrthogonalTracer {
 		listeners.addAll(asList(paramListeners));
 	}
 
+	public double getViewPlanePosition() {
+		return viewPlanePosition;
+	}
+
+	public void setViewPlanePosition(double viewPlanePosition) {
+		this.viewPlanePosition = viewPlanePosition;
+	}
+
 	public static void main(String[] args) throws IOException {
 		ViewPlane viewPlane = new ViewPlane(1024, 768, 0.5);
 		
-		final Point3D centerRed = new Point3D(0, 0, -10);
-		final Point3D centerBlue = new Point3D(0, 0, -100);
+		final Point3D centerRed = new Point3D(0, 0, -100);
+		final Point3D centerBlue = new Point3D(0, 0, -380);
 		final Point3D planePoint = new Point3D(0, 0, -300);
 		final Vector3D planeNormal = new Vector3D(0, 0, 1);
 		
