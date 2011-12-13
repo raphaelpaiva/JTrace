@@ -1,3 +1,4 @@
 bin/*
 test-output/*
 *.jpg
+*.png
