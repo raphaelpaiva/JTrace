@@ -23,7 +23,7 @@ public class OrthogonalTracerUnitTest {
 		
 		Scene scene = new Scene().add(sphere);
 
-		Assert.assertEquals(TRACER.trace(scene, JAY), ColorRGB.RED);
+		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.RED);
 	}
 	
 	@Test
@@ -33,7 +33,7 @@ public class OrthogonalTracerUnitTest {
 		
 		Scene scene = new Scene().add(sphere).withBackground(ColorRGB.GREEN);
 		
-		Assert.assertEquals(TRACER.trace(scene, JAY), ColorRGB.GREEN);
+		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.GREEN);
 	}
 	
 	@Test
@@ -46,11 +46,11 @@ public class OrthogonalTracerUnitTest {
 		
 		Scene scene = new Scene().add(blue, red);
 		
-		Assert.assertEquals(TRACER.trace(scene, JAY), ColorRGB.RED);
+		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.RED);
 		
 		scene = new Scene().add(red, blue);
 		
-		Assert.assertEquals(TRACER.trace(scene, JAY), ColorRGB.RED);
+		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.RED);
 	}
 	
 	@Test
@@ -62,7 +62,7 @@ public class OrthogonalTracerUnitTest {
 		
 		Scene scene = new Scene().add(plane);
 
-		Assert.assertEquals(TRACER.trace(scene, JAY), ColorRGB.YELLOW);
+		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.YELLOW);
 	}
 	
 	@Test
@@ -74,6 +74,6 @@ public class OrthogonalTracerUnitTest {
 		
 		Scene scene = new Scene().add(plane);
 
-		Assert.assertEquals(TRACER.trace(scene, JAY), ColorRGB.BLACK);
+		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.BLACK);
 	}
 }
