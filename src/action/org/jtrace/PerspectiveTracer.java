@@ -21,19 +21,15 @@ public class PerspectiveTracer extends Tracer {
 	}
 
 	public void render(Scene scene, ViewPlane viewPlane) {
-		double xDirection, yDirection;
 		int hres = viewPlane.getHres();
 		int vres = viewPlane.getVres();
-		double s = viewPlane.getPixelSize();
+		double pixelSize = viewPlane.getPixelSize();
 
 		fireStart(viewPlane);
 
 		for (int r = 0; r < vres; r++) {
 			for (int c = 0; c < hres; c++) {
-				xDirection = s * (c - 0.5 * (hres - 1.0));
-				yDirection = s * (r - 0.5 * (vres - 1.0));
-
-				Vector3D jayDirection = new Vector3D(xDirection, yDirection, -viewPlaneDistance);
+				Vector3D jayDirection = calculateJayDirection(hres, vres, pixelSize, r, c);
 
 				Jay jay = new Jay(eyePoint, jayDirection);
 
@@ -46,20 +42,55 @@ public class PerspectiveTracer extends Tracer {
 		fireFinish();
 	}
 
+	/**
+	 * Calculates the Jay Direction.
+	 * 
+	 * 
+	 * @param hres
+	 * @param vres
+	 * @param pixelSize
+	 * @param r
+	 * @param c
+	 * @return
+	 */
+	protected Vector3D calculateJayDirection(int hres, int vres, double pixelSize, int r, int c) {
+		double xDirection = calculateRayCoordinate(hres, pixelSize, c);
+		double yDirection = calculateRayCoordinate(vres, pixelSize, r);
+
+		Vector3D jayDirection = new Vector3D(xDirection, yDirection, -viewPlaneDistance);
+		
+		return jayDirection.normal();
+	}
+
+	/**
+	 * Calculates the Ray direction coordinate according to the res param. <br>
+	 * 
+	 * If res is vres, calculates the y coordinate. <br>
+	 * If res is hres, calculates the x coordinate. <br>
+	 * 
+	 * @param res vres or hres.
+	 * @param pixelSize the pixel size.
+	 * @param viewPlaneCoordinate the coordinate on the viewPlane.
+	 * @return a coordinate of the ray according to the res param passed.
+	 */
+	private double calculateRayCoordinate(int res, double pixelSize, int viewPlaneCoordinate) {
+		return pixelSize * (viewPlaneCoordinate - 0.5 * (res - 1.0));
+	}
+
 
 	public static void main(String[] args) throws IOException {
-		ViewPlane viewPlane = new ViewPlane(24, 16, 0.05);
+		ViewPlane viewPlane = new ViewPlane(1024, 768, 0.05);
 		
-		final Point3D centerRed = new Point3D(0, 0, -10);
-		final Point3D centerBlue = new Point3D(0, 0, -100);
+		final Point3D centerRed = new Point3D(10, 0, -10);
+		final Point3D centerBlue = new Point3D(-10, 0, -20);
 		
 		final Sphere red = new Sphere(centerRed, 10, ColorRGB.RED);
-		final Sphere blue = new Sphere(centerBlue, 18, ColorRGB.BLUE);
+		final Sphere blue = new Sphere(centerBlue, 10, ColorRGB.BLUE);
 		
 		Scene scene = new Scene().add(blue, red);
 		
 		Point3D eyePoint = new Point3D(0, 0, 10);
-		double viewPlaneDistance = 20.0;
+		double viewPlaneDistance = 10.0;
 		
 		PerspectiveTracer ot = new PerspectiveTracer(eyePoint, viewPlaneDistance);
 		
