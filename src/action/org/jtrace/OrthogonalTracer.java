@@ -9,6 +9,11 @@ import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
+/**
+ * The simplest Tracer, it traces Rays that are all parallel to each other from
+ * a fixed ViewPlane at z = 100.
+ * 
+ */
 public class OrthogonalTracer extends Tracer {
 	private static final int VIEW_PLANE_POSITION = 100;
 
@@ -42,20 +47,20 @@ public class OrthogonalTracer extends Tracer {
 
 	public static void main(String[] args) throws IOException {
 		ViewPlane viewPlane = new ViewPlane(1024, 768, 0.5);
-		
+
 		final Point3D centerRed = new Point3D(0, 0, -10);
 		final Point3D centerBlue = new Point3D(0, 0, -100);
 		final Point3D planePoint = new Point3D(0, 0, -300);
 		final Vector3D planeNormal = new Vector3D(0, 0, 1);
-		
+
 		final Sphere red = new Sphere(centerRed, 100, ColorRGB.RED);
 		final Sphere blue = new Sphere(centerBlue, 180, ColorRGB.BLUE);
 		final Plane purple = new Plane(planePoint, planeNormal, ColorRGB.PURPLE);
-		
+
 		Scene scene = new Scene().add(blue, red, purple);
 
 		OrthogonalTracer ot = new OrthogonalTracer();
-		
+
 		ot.addListeners(new ImageListener("result.png", "png"));
 
 		ot.render(scene, viewPlane);
