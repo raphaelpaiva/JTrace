@@ -1,6 +1,5 @@
 package org.jtrace;
 
-import org.jtrace.geometry.Plane;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
