@@ -184,7 +184,7 @@ public class Vector3D {
     	return coordinate.toString();
     }
 
-	public Object cross(Vector3D otherVector) {
+	public Vector3D cross(Vector3D otherVector) {
 		double newX, newY, newZ;
 		
 		newX = getY() * otherVector.getZ() - getZ() * otherVector.getY();
