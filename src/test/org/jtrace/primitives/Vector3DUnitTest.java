@@ -82,4 +82,29 @@ public class Vector3DUnitTest {
 		
 		Assert.assertEquals(v.multiply(2), expected);
 	}
+	
+	@Test
+	public void testCross_byNilVector() {
+		Vector3D base = new Vector3D(1, 1, 1);
+		Vector3D nil = new Vector3D(0, 0, 0);
+		
+		Assert.assertEquals(base.cross(nil), nil);
+	}
+	
+	@Test
+	public void testCross_sameVector() {
+		Vector3D vector = new Vector3D(2, 2, 2);
+		Vector3D expected = new Vector3D(0, 0, 0);
+		
+		Assert.assertEquals(vector.cross(vector), expected);
+	}
+	
+	@Test
+	public void testCross_differentVectors() {
+		Vector3D vector = new Vector3D(1, 2, 3);
+		Vector3D otherVector = new Vector3D(4, 5, 6);
+		Vector3D expected = new Vector3D(-3, 6, -3);
+		
+		Assert.assertEquals(vector.cross(otherVector), expected);
+	}
 }

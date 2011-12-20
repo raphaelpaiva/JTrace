@@ -131,9 +131,9 @@ public class Vector3D {
      * 
      * Suppose a vector A:<br>
      * 
-     * Â = A/|A|
+     * ï¿½ = A/|A|
      * 
-     * @return a new {@link Vector3D} equivalent to Â
+     * @return a new {@link Vector3D} equivalent to ï¿½
      */
     public Vector3D normal() {
         double module = module();
@@ -183,5 +183,26 @@ public class Vector3D {
     public String toString() {
     	return coordinate.toString();
     }
+
+	public Object cross(Vector3D otherVector) {
+		double newX, newY, newZ;
+		
+		newX = getY() * otherVector.getZ() - getZ() * otherVector.getY();
+		newY = getZ() * otherVector.getX() - getX() * otherVector.getZ();
+		newZ = getX() * otherVector.getY() - getY() * otherVector.getX();
+		
+		return new Vector3D(newX, newY, newZ);
+	}
     
+	public double getX() {
+		return coordinate.getX();
+	}
+	
+	public double getY() {
+		return coordinate.getY();
+	}
+	
+	public double getZ() {
+		return coordinate.getZ();
+	}
 }
