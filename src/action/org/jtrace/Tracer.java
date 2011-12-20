@@ -67,6 +67,11 @@ public abstract class Tracer {
 		}
 	}
 
+	/**
+	 * Adds a {@link TracerListener} to the {@link Tracer}.
+	 * 
+	 * @param paramListeners one or more listeners.
+	 */
 	public void addListeners(TracerListener... paramListeners) {
 		listeners.addAll(asList(paramListeners));
 	}
