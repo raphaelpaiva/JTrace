@@ -3,6 +3,7 @@ package org.jtrace;
 import java.io.IOException;
 
 import org.jtrace.geometry.Sphere;
+import org.jtrace.lights.Light;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
@@ -93,7 +94,9 @@ public class PerspectiveTracer extends Tracer {
 		final Sphere red = new Sphere(centerRed, 10, redMaterial);
 		final Sphere blue = new Sphere(centerBlue, 10, blueMaterial);
 		
-		Scene scene = new Scene().add(blue, red);
+		final Light light = new Light(0, 10, 0);
+		
+		Scene scene = new Scene().add(blue, red).add(light);
 		
 		Point3D eyePoint = new Point3D(0, 0, 10);
 		double viewPlaneDistance = 10.0;

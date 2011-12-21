@@ -53,5 +53,27 @@ public class PlaneUnitTest {
 		Assert.assertFalse(hit instanceof NotHit, "Expected Hit not to be an instanceof NoHit");
 		Assert.assertEquals(hit.getT(), 10.0);
 	}
-
+	
+	@Test
+	public void testNormal()
+	{
+		Point3D planePoint = new Point3D(0, 0, -10);
+		Vector3D normal = new Vector3D(0, 0, 1);
+		
+		Plane plane = new Plane(planePoint, normal, GREEN_MATERIAL);
+		
+		Point3D jayOrigin = new Point3D(0, 0, 0);
+		Vector3D jayDirection = new Vector3D(0, 0, -1);
+		
+		Jay jay = new Jay(jayOrigin, jayDirection);
+		
+		Hit hit = plane.hit(jay);
+		
+		Vector3D expected = new Vector3D(0, 0, 1);
+		
+		Assert.assertTrue(hit.isHit(), "Expected one hit!");
+		Assert.assertFalse(hit instanceof NotHit, "Expected Hit not to be an instanceof NoHit");
+		Assert.assertEquals(hit.getT(), 10.0);
+		Assert.assertEquals(hit.getNormal().normal(), expected);
+	}
 }

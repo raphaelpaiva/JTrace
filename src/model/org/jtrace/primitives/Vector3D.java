@@ -193,6 +193,14 @@ public class Vector3D {
 		
 		return new Vector3D(newX, newY, newZ);
 	}
+	
+	public Vector3D add(Vector3D v2) {
+		return new Vector3D(this.getX() + v2.getX(), this.getY() + v2.getY(), this.getZ() + v2.getZ());
+	}
+	
+	public Vector3D divide(double d) {
+		return new Vector3D(this.getX() / d, this.getY() / d, this.getZ() / d);
+	}
     
 	public double getX() {
 		return coordinate.getX();
@@ -205,4 +213,5 @@ public class Vector3D {
 	public double getZ() {
 		return coordinate.getZ();
 	}
+
 }

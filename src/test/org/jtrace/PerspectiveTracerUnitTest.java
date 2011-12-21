@@ -63,6 +63,24 @@ public class PerspectiveTracerUnitTest {
 	}
 	
 	@Test
+	public void testRender_RedSphereInFrontOfViewPlane_AmbientLightOff() {
+		final Point3D center = new Point3D(0, 0, -5);
+		final Material material = new Material(ColorRGB.RED, KAMBIENT);
+		
+		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
+		final int hres = 1;
+		final int vres = 1;
+		final double pixelSize = 0.5; 
+		
+		Scene scene = new Scene().add(sphere).turnOffAmbientLight();
+
+		Vector3D jayDirection = TRACER.calculateJayDirection(hres, vres, pixelSize, 0, 0);
+		Jay jay = new Jay(EYE_POINT, jayDirection);
+		
+		Assert.assertEquals(TRACER.cast(scene, jay), ColorRGB.BLACK);
+	}
+	
+	@Test
 	public void testRender_RedSphereBehindViewPlane() {
 		final Point3D center = new Point3D(0, 0, 50);
 		final Material material = new Material(ColorRGB.RED, KAMBIENT);

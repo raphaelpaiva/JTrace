@@ -31,7 +31,7 @@ public abstract class Tracer {
 		GeometricObject hitObject = null;
 		ColorRGB finalColor = scene.getBackgroundColor();
 
-		for (GeometricObject object : scene) {
+		for (GeometricObject object : scene.getObjects()) {
 			Hit hit = object.hit(jay);
 
 			if (hit.isHit() && hit.getT() < tmin) {
@@ -43,16 +43,18 @@ public abstract class Tracer {
 		// if there was a collision, calculate illumination
 		if (hitObject != null) {
 			ColorRGB objectColor = hitObject.getMaterial().getColor();
-			double red = objectColor.getR();
-			double green = objectColor.getG();
-			double blue = objectColor.getB();
+			double red = 0.0;
+			double green = 0.0;
+			double blue = 0.0;
 			
 			ReflectanceCoefficient kAmbient = hitObject.getMaterial().getkAmbient();
 			
 			//ambient light
-			red = kAmbient.getRed() * red;
-			green = kAmbient.getGreen() * green;
-			blue = kAmbient.getBlue() * blue;
+			if (scene.isAmbientLightOn()) {
+				red = kAmbient.getRed() * objectColor.getR();
+				green = kAmbient.getGreen() * objectColor.getG();
+				blue = kAmbient.getBlue() * objectColor.getB();
+			}
 			
 			finalColor = new ColorRGB(red, green, blue);
 		}
