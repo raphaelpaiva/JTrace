@@ -18,7 +18,8 @@ public class SphereUnitTest {
 	private static final int SPHERE_RADIUS = 1;
 	private static final Point3D SPHERE_CENTER = new Point3D(0, 0, -5);
 	private static final ReflectanceCoefficient KAMBIENT = new ReflectanceCoefficient(0.2, 0.2, 0.2);
-	private static final Material RED_MATERIAL = new Material(ColorRGB.RED, KAMBIENT);
+	private static final ReflectanceCoefficient KDIFFUSE = new ReflectanceCoefficient(1.0, 1.0, 1.0);
+	private static final Material RED_MATERIAL = new Material(ColorRGB.RED, KAMBIENT, KDIFFUSE);
 	private static final Sphere SPHERE = new Sphere(SPHERE_CENTER, SPHERE_RADIUS, RED_MATERIAL);
 	
 	@Test(expectedExceptions={IllegalStateException.class})

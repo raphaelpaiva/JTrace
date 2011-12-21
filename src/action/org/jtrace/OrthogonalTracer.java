@@ -55,10 +55,11 @@ public class OrthogonalTracer extends Tracer {
 		final Vector3D planeNormal = new Vector3D(0, 0, 1);
 
 		final ReflectanceCoefficient kAmbient = new ReflectanceCoefficient(1, 1, 1);
+		final ReflectanceCoefficient kDiffuse = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 		
-		final Material redMaterial = new Material(ColorRGB.RED, kAmbient);
-		final Material blueMaterial = new Material(ColorRGB.BLUE, kAmbient);
-		final Material purpleMaterial = new Material(ColorRGB.PURPLE, kAmbient);
+		final Material redMaterial = new Material(ColorRGB.RED, kAmbient, kDiffuse);
+		final Material blueMaterial = new Material(ColorRGB.BLUE, kAmbient, kDiffuse);
+		final Material purpleMaterial = new Material(ColorRGB.PURPLE, kAmbient, kDiffuse);
 		
 		final Sphere red = new Sphere(centerRed, 100, redMaterial);
 		final Sphere blue = new Sphere(centerBlue, 180, blueMaterial);

@@ -87,14 +87,15 @@ public class PerspectiveTracer extends Tracer {
 		final Point3D centerBlue = new Point3D(-10, 0, -20);
 		
 		final ReflectanceCoefficient kAmbient = new ReflectanceCoefficient(0.2, 0.2, 0.2);
+		final ReflectanceCoefficient kDiffuse = new ReflectanceCoefficient(0.2, 0.2, 0.2);
 		
-		final Material redMaterial = new Material(ColorRGB.RED, kAmbient);
-		final Material blueMaterial = new Material(ColorRGB.BLUE, kAmbient);
+		final Material redMaterial = new Material(ColorRGB.RED, kAmbient, kDiffuse);
+		final Material blueMaterial = new Material(ColorRGB.BLUE, kAmbient, kDiffuse);
 		
 		final Sphere red = new Sphere(centerRed, 10, redMaterial);
 		final Sphere blue = new Sphere(centerBlue, 10, blueMaterial);
 		
-		final Light light = new Light(0, 10, 0);
+		final Light light = new Light(-30, -30, 0);
 		
 		Scene scene = new Scene().add(blue, red).add(light);
 		

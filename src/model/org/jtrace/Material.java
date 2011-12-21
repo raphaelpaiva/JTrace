@@ -8,10 +8,13 @@ public class Material {
 	private ColorRGB color;
 	
 	private ReflectanceCoefficient kAmbient;
+	
+	private ReflectanceCoefficient kDiffuse;
 
-	public Material(ColorRGB color, ReflectanceCoefficient kAmbient) {
+	public Material(ColorRGB color, ReflectanceCoefficient kAmbient, ReflectanceCoefficient kDiffuse) {
 		this.color = color;
 		this.kAmbient = kAmbient;
+		this.kDiffuse = kDiffuse;
 	}
 
 	public ColorRGB getColor() {
@@ -22,4 +25,8 @@ public class Material {
 		return kAmbient;
 	}
 
+	public ReflectanceCoefficient getkDiffuse() {
+		return kDiffuse;
+	}
+	
 }

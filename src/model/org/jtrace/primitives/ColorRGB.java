@@ -9,6 +9,7 @@ package org.jtrace.primitives;
  */
 public class ColorRGB {
 	private static double MAX_COLOR_VALUE = 1;
+	private static double MIN_COLOR_VALUE = 0;
 	
 	public static ColorRGB BLACK   = new ColorRGB(0.0, 0.0, 0.0);
 	public static ColorRGB RED     = new ColorRGB(1.0, 0.0, 0.0);
@@ -27,9 +28,9 @@ public class ColorRGB {
      * @param paramB blue component
      */
     public ColorRGB(final double paramR, final double paramG, final double paramB) {
-        this.r = Math.min(MAX_COLOR_VALUE, paramR);
-        this.g = Math.min(MAX_COLOR_VALUE, paramG);
-        this.b = Math.min(MAX_COLOR_VALUE, paramB);
+        setR(paramR);
+        setG(paramG);
+        setB(paramB);
     }
     
     public int toInt() {
@@ -39,6 +40,10 @@ public class ColorRGB {
     	
     	return (int) rgb;
     }
+    
+    public ColorRGB add(ColorRGB color2) {
+    	return new ColorRGB(this.getR() + color2.getR(), this.getG() + color2.getG(), this.getB() + color2.getB());
+    }
 
     public double getR() {
         return r;
@@ -46,6 +51,7 @@ public class ColorRGB {
 
     public void setR(final double r) {
         this.r = Math.min(MAX_COLOR_VALUE, r);
+        this.r = Math.max(MIN_COLOR_VALUE, this.r);
     }
 
     public double getG() {
@@ -54,6 +60,7 @@ public class ColorRGB {
 
     public void setG(final double g) {
         this.g = Math.min(MAX_COLOR_VALUE, g);
+        this.g = Math.max(MIN_COLOR_VALUE, this.g);
     }
 
     public double getB() {
@@ -62,6 +69,7 @@ public class ColorRGB {
 
     public void setB(final double b) {
         this.b = Math.min(MAX_COLOR_VALUE, b);
+        this.b = Math.max(MIN_COLOR_VALUE, this.b);
     }
 
 	@Override

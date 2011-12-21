@@ -14,6 +14,7 @@ public class PerspectiveTracerUnitTest {
 	private static final double VIEW_DISTANCE = 10.0;
 	private static final PerspectiveTracer TRACER = new PerspectiveTracer(EYE_POINT, VIEW_DISTANCE);
 	private static final ReflectanceCoefficient KAMBIENT = new ReflectanceCoefficient(1.0, 1.0, 1.0);
+	private static final ReflectanceCoefficient KDIFFUSE = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 	private static final int SPHERE_RADIUS = 1;
 	
 	@Test
@@ -47,7 +48,7 @@ public class PerspectiveTracerUnitTest {
 	@Test
 	public void testRender_RedSphereInFrontOfViewPlane() {
 		final Point3D center = new Point3D(0, 0, -5);
-		final Material material = new Material(ColorRGB.RED, KAMBIENT);
+		final Material material = new Material(ColorRGB.RED, KAMBIENT, KDIFFUSE);
 		
 		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
 		final int hres = 1;
@@ -65,7 +66,7 @@ public class PerspectiveTracerUnitTest {
 	@Test
 	public void testRender_RedSphereInFrontOfViewPlane_AmbientLightOff() {
 		final Point3D center = new Point3D(0, 0, -5);
-		final Material material = new Material(ColorRGB.RED, KAMBIENT);
+		final Material material = new Material(ColorRGB.RED, KAMBIENT, KDIFFUSE);
 		
 		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
 		final int hres = 1;
@@ -83,7 +84,7 @@ public class PerspectiveTracerUnitTest {
 	@Test
 	public void testRender_RedSphereBehindViewPlane() {
 		final Point3D center = new Point3D(0, 0, 50);
-		final Material material = new Material(ColorRGB.RED, KAMBIENT);
+		final Material material = new Material(ColorRGB.RED, KAMBIENT, KDIFFUSE);
 		
 		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
 		final int hres = 1;

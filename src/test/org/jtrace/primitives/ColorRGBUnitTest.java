@@ -25,4 +25,33 @@ public class ColorRGBUnitTest {
 		
 		Assert.assertEquals(c.toInt(), 0xFFFFFF);
 	}
+	
+	@Test
+	public void testAdd_ResultLessThan255_GreaterThan0() {
+		ColorRGB c = new ColorRGB(0.3, 0.3, 0.3);
+		ColorRGB c2 = new ColorRGB(0.3, 0.3, 0.3);
+		
+		ColorRGB expected = new ColorRGB(0.6, 0.6, 0.6);
+		
+		Assert.assertEquals(c.add(c2), expected);
+	}
+	
+	@Test
+	public void testAdd_ResultGreaterThan255() {
+		ColorRGB c = new ColorRGB(1.0, 1.0, 1.0);
+		ColorRGB c2 = new ColorRGB(0.3, 0.3, 0.3);
+		
+		ColorRGB expected = new ColorRGB(1.0, 1.0, 1.0);
+		
+		Assert.assertEquals(c.add(c2), expected);
+	}
+	
+	@Test
+	public void testConstructor_ResultLesserThanZero() {
+		ColorRGB c = new ColorRGB(-1.0, -1.0, -1.0);
+		
+		ColorRGB expected = new ColorRGB(0.0, 0.0, 0.0);
+		
+		Assert.assertEquals(c, expected);
+	}
 }

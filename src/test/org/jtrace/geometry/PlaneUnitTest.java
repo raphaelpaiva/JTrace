@@ -14,7 +14,8 @@ import org.testng.annotations.Test;
 public class PlaneUnitTest {
 	
 	private static final ReflectanceCoefficient KAMBIENT = new ReflectanceCoefficient(0.2, 0.2, 0.2);
-	private static final Material GREEN_MATERIAL = new Material(ColorRGB.GREEN, KAMBIENT);
+	private static final ReflectanceCoefficient KDIFFUSE = new ReflectanceCoefficient(1.0, 1.0, 1.0);
+	private static final Material GREEN_MATERIAL = new Material(ColorRGB.GREEN, KAMBIENT, KDIFFUSE);
 	
 	@Test(expectedExceptions={IllegalStateException.class})
 	public void testHit_NotHit() {
