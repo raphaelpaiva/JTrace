@@ -68,7 +68,7 @@ public class SphereUnitTest {
 	}
 	
 	@Test
-	public void testNormal()
+	public void testNormal_FrontalJay()
 	{
 		Point3D  jayOrigin    = new Point3D(0, 0, 0);
 		Vector3D jayDirection = new Vector3D(0, 0, -1);
