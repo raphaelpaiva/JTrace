@@ -87,11 +87,11 @@ public class Point3D {
         if (getClass() != obj.getClass())
             return false;
         Point3D other = (Point3D) obj;
-        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
+        if (x != other.x)
             return false;
-        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
+        if (y != other.y)
             return false;
-        if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z))
+        if (z != other.z)
             return false;
         return true;
     }
