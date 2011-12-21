@@ -9,6 +9,10 @@ public class Light {
 	public Light(Point3D posicao) {
 		this.posicao = posicao;
 	}
+	
+	public Light(final double x, final double y, final double z) {
+		this.posicao = new Point3D(x, y, z);
+	}
 
 	public Point3D getPosicao() {
 		return posicao;
