@@ -57,14 +57,14 @@ public class Sphere extends GeometricObject {
         	t = (-b - deltaRoot) / 2*a;
         	if (t > Constants.epsilon) {
         		Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-        		return new Hit(t, normal);
+        		return new Hit(t, normal.normal());
         	}
         	
         	//larger root
         	t = (-b + deltaRoot) / 2*a;
         	if (t > Constants.epsilon) {
         		Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-        		return new Hit(t, normal);
+        		return new Hit(t, normal.normal());
         	}
         	
             return new NotHit();

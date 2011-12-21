@@ -26,7 +26,7 @@ public class Plane extends GeometricObject {
 		double t = b / a;
 		
 		if (a != 0 && t > Constants.epsilon) {
-			return new Hit(t, this.getNormal());
+			return new Hit(t, this.getNormal().normal());
 		}
 		
 		return new NotHit();
