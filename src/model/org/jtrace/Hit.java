@@ -4,7 +4,7 @@ public class Hit {
 	private double t;
 	
 	private boolean hit;
-
+	
 	public Hit(double t) {
 		this.t = t;
 		this.hit = true;

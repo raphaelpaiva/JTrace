@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.primitives.ColorRGB;
+import org.jtrace.primitives.ReflectanceCoefficient;
 
 /**
  * Abstract class containing the common operation and fields of a Tracer.
@@ -27,6 +28,7 @@ public abstract class Tracer {
 	 */
 	public ColorRGB cast(Scene scene, Jay jay) {
 		double tmin = Double.MAX_VALUE;
+		GeometricObject hitObject = null;
 		ColorRGB finalColor = scene.getBackgroundColor();
 
 		for (GeometricObject object : scene) {
@@ -34,10 +36,27 @@ public abstract class Tracer {
 
 			if (hit.isHit() && hit.getT() < tmin) {
 				tmin = hit.getT();
-				finalColor = object.getColor();
+				hitObject = object;
 			}
 		}
 
+		// if there was a collision, calculate illumination
+		if (hitObject != null) {
+			ColorRGB objectColor = hitObject.getMaterial().getColor();
+			double red = objectColor.getR();
+			double green = objectColor.getG();
+			double blue = objectColor.getB();
+			
+			ReflectanceCoefficient kAmbient = hitObject.getMaterial().getkAmbient();
+			
+			//ambient light
+			red = kAmbient.getRed() * red;
+			green = kAmbient.getGreen() * green;
+			blue = kAmbient.getBlue() * blue;
+			
+			finalColor = new ColorRGB(red, green, blue);
+		}
+		
 		return finalColor;
 	}
 

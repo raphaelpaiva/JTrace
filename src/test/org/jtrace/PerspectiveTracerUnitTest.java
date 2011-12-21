@@ -3,6 +3,7 @@ package org.jtrace;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
+import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,7 +13,7 @@ public class PerspectiveTracerUnitTest {
 	private static final Point3D EYE_POINT = new Point3D(0, 0, 10);
 	private static final double VIEW_DISTANCE = 10.0;
 	private static final PerspectiveTracer TRACER = new PerspectiveTracer(EYE_POINT, VIEW_DISTANCE);
-	
+	private static final ReflectanceCoefficient KAMBIENT = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 	private static final int SPHERE_RADIUS = 1;
 	
 	@Test
@@ -46,7 +47,9 @@ public class PerspectiveTracerUnitTest {
 	@Test
 	public void testRender_RedSphereInFrontOfViewPlane() {
 		final Point3D center = new Point3D(0, 0, -5);
-		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, ColorRGB.RED);
+		final Material material = new Material(ColorRGB.RED, KAMBIENT);
+		
+		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
 		final int hres = 1;
 		final int vres = 1;
 		final double pixelSize = 0.5; 
@@ -62,7 +65,9 @@ public class PerspectiveTracerUnitTest {
 	@Test
 	public void testRender_RedSphereBehindViewPlane() {
 		final Point3D center = new Point3D(0, 0, 50);
-		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, ColorRGB.RED);
+		final Material material = new Material(ColorRGB.RED, KAMBIENT);
+		
+		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
 		final int hres = 1;
 		final int vres = 1;
 		final double pixelSize = 0.5;

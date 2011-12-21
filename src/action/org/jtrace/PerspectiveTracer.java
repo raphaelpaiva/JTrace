@@ -6,6 +6,7 @@ import org.jtrace.geometry.Sphere;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
+import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
 
 public class PerspectiveTracer extends Tracer {
@@ -84,8 +85,13 @@ public class PerspectiveTracer extends Tracer {
 		final Point3D centerRed = new Point3D(10, 0, -10);
 		final Point3D centerBlue = new Point3D(-10, 0, -20);
 		
-		final Sphere red = new Sphere(centerRed, 10, ColorRGB.RED);
-		final Sphere blue = new Sphere(centerBlue, 10, ColorRGB.BLUE);
+		final ReflectanceCoefficient kAmbient = new ReflectanceCoefficient(0.2, 0.2, 0.2);
+		
+		final Material redMaterial = new Material(ColorRGB.RED, kAmbient);
+		final Material blueMaterial = new Material(ColorRGB.BLUE, kAmbient);
+		
+		final Sphere red = new Sphere(centerRed, 10, redMaterial);
+		final Sphere blue = new Sphere(centerBlue, 10, blueMaterial);
 		
 		Scene scene = new Scene().add(blue, red);
 		
@@ -95,7 +101,7 @@ public class PerspectiveTracer extends Tracer {
 		PerspectiveTracer ot = new PerspectiveTracer(eyePoint, viewPlaneDistance);
 		
 		ot.addListeners(new ImageListener("result_Perspective.png", "png"));
-
+		
 		ot.render(scene, viewPlane);
 	}
 

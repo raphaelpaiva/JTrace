@@ -7,6 +7,7 @@ import org.jtrace.geometry.Sphere;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
+import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
 
 /**
@@ -53,9 +54,15 @@ public class OrthogonalTracer extends Tracer {
 		final Point3D planePoint = new Point3D(0, 0, -300);
 		final Vector3D planeNormal = new Vector3D(0, 0, 1);
 
-		final Sphere red = new Sphere(centerRed, 100, ColorRGB.RED);
-		final Sphere blue = new Sphere(centerBlue, 180, ColorRGB.BLUE);
-		final Plane purple = new Plane(planePoint, planeNormal, ColorRGB.PURPLE);
+		final ReflectanceCoefficient kAmbient = new ReflectanceCoefficient(1, 1, 1);
+		
+		final Material redMaterial = new Material(ColorRGB.RED, kAmbient);
+		final Material blueMaterial = new Material(ColorRGB.BLUE, kAmbient);
+		final Material purpleMaterial = new Material(ColorRGB.PURPLE, kAmbient);
+		
+		final Sphere red = new Sphere(centerRed, 100, redMaterial);
+		final Sphere blue = new Sphere(centerBlue, 180, blueMaterial);
+		final Plane purple = new Plane(planePoint, planeNormal, purpleMaterial);
 
 		Scene scene = new Scene().add(blue, red, purple);
 

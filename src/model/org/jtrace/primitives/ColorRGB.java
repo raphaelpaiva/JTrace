@@ -8,68 +8,73 @@ package org.jtrace.primitives;
  *
  */
 public class ColorRGB {
-	public static ColorRGB BLACK   = new ColorRGB(0, 0, 0);
-	public static ColorRGB RED     = new ColorRGB(255, 0, 0);
-	public static ColorRGB GREEN   = new ColorRGB(0, 255, 0);
-	public static ColorRGB BLUE    = new ColorRGB(0, 0, 255);
-	public static ColorRGB YELLOW  = new ColorRGB(255, 255, 0);
-	public static ColorRGB PURPLE   = new ColorRGB(128, 0, 128);
+	private static double MAX_COLOR_VALUE = 1;
 	
-    private int r, g, b;
+	public static ColorRGB BLACK   = new ColorRGB(0.0, 0.0, 0.0);
+	public static ColorRGB RED     = new ColorRGB(1.0, 0.0, 0.0);
+	public static ColorRGB GREEN   = new ColorRGB(0.0, 1.0, 0.0);
+	public static ColorRGB BLUE    = new ColorRGB(0.0, 0.0, 1.0);
+	public static ColorRGB YELLOW  = new ColorRGB(1.0, 1.0, 0.0);
+	public static ColorRGB PURPLE  = new ColorRGB(0.5, 0.0, 0.5);
+	
+    private double r, g, b;
 
     /**
      * Create a color from its components values.
      * 
-     * @param r red component
-     * @param g green component
-     * @param b blue component
+     * @param paramR red component
+     * @param paramG green component
+     * @param paramB blue component
      */
-    public ColorRGB(final int r, final int g, final int b) {
-        super();
-        this.r = r;
-        this.g = g;
-        this.b = b;
+    public ColorRGB(final double paramR, final double paramG, final double paramB) {
+        this.r = Math.min(MAX_COLOR_VALUE, paramR);
+        this.g = Math.min(MAX_COLOR_VALUE, paramG);
+        this.b = Math.min(MAX_COLOR_VALUE, paramB);
     }
     
     public int toInt() {
-    	int rgb = r;
-    	rgb = (rgb << 8) + g;
-    	rgb = (rgb << 8) + b;
+    	long rgb = Math.round(r * 255);
+    	rgb = (rgb << 8) + Math.round(g * 255);
+    	rgb = (rgb << 8) + Math.round(b * 255);
     	
-    	return rgb;
+    	return (int) rgb;
     }
 
-    public int getR() {
+    public double getR() {
         return r;
     }
 
-    public void setR(final int r) {
-        this.r = r;
+    public void setR(final double r) {
+        this.r = Math.min(MAX_COLOR_VALUE, r);
     }
 
-    public int getG() {
+    public double getG() {
         return g;
     }
 
-    public void setG(final int g) {
-        this.g = g;
+    public void setG(final double g) {
+        this.g = Math.min(MAX_COLOR_VALUE, g);
     }
 
-    public int getB() {
+    public double getB() {
         return b;
     }
 
-    public void setB(final int b) {
-        this.b = b;
+    public void setB(final double b) {
+        this.b = Math.min(MAX_COLOR_VALUE, b);
     }
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + b;
-		result = prime * result + g;
-		result = prime * result + r;
+		long temp;
+		temp = Double.doubleToLongBits(b);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(g);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(r);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -82,11 +87,11 @@ public class ColorRGB {
 		if (getClass() != obj.getClass())
 			return false;
 		ColorRGB other = (ColorRGB) obj;
-		if (b != other.b)
+		if (Double.doubleToLongBits(b) != Double.doubleToLongBits(other.b))
 			return false;
-		if (g != other.g)
+		if (Double.doubleToLongBits(g) != Double.doubleToLongBits(other.g))
 			return false;
-		if (r != other.r)
+		if (Double.doubleToLongBits(r) != Double.doubleToLongBits(other.r))
 			return false;
 		return true;
 	}
