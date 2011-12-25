@@ -82,7 +82,7 @@ public abstract class Tracer {
 		
 		Vector3D lightDirection = new Vector3D(hitPoint, light.getPosicao()).normal();
 		double dotLight = lightDirection.dot(hit.getNormal().normal());
-		return dotLight;
+		return Math.max(dotLight, 0);
 	}
 	
 	protected Point3D calculateHitPoint(Jay jay, Hit hit) {
