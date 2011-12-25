@@ -3,6 +3,7 @@ package org.jtrace;
 import junit.framework.Assert;
 
 import org.jtrace.geometry.Sphere;
+import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
@@ -46,5 +47,37 @@ public class TracerUnitTest {
 		Scene scene = new Scene().add(SPHERE).turnOffAmbientLight();
 		
 		Assert.assertEquals(ColorRGB.BLACK, PERSPECTIVE_TRACER.cast(scene, JAY));
+	}
+	
+	@Test
+	public void testHitPoint() {
+		Hit hit = SPHERE.hit(JAY);
+		Point3D hitPoint = PERSPECTIVE_TRACER.calculateHitPoint(JAY, hit);
+		
+		Point3D expectedPoint = new Point3D(0, 0, -8);
+		
+		Assert.assertEquals(expectedPoint, hitPoint);
+	}
+	
+	@Test
+	public void testCalculusDiffuseContribution_0Degrees() {
+		Light light = new Light(0, 0, 15);	
+		Hit hit = SPHERE.hit(JAY);
+		
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(light, hit, JAY);
+		double expectedDiffuseContribution = 1.0f;
+		
+		Assert.assertEquals(expectedDiffuseContribution, diffuseCotribution);
+	}
+	
+	@Test
+	public void testCalculusDiffuseContribution_45Degrees() {
+		Light light = new Light(0, 8, 0);	
+		Hit hit = SPHERE.hit(JAY);
+		
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(light, hit, JAY);
+		double expectedDiffuseContribution = 1.0 / Math.sqrt(2.0);
+		
+		Assert.assertEquals(expectedDiffuseContribution, diffuseCotribution, 0.00000001);
 	}
 }
