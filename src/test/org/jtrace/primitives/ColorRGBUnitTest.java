@@ -47,6 +47,28 @@ public class ColorRGBUnitTest {
 	}
 	
 	@Test
+	public void testMultiply_ResultLessThan255_GreaterThan0() {
+		float multiplier = 0.3f;
+		ColorRGB c = new ColorRGB(0.3, 0.3, 0.3).multiply(multiplier);
+		
+		ColorRGB expected = new ColorRGB(0.09, 0.09, 0.09);
+		
+		Assert.assertEquals(c.getR(), expected.getR(), 0.000001);
+		Assert.assertEquals(c.getG(), expected.getG(), 0.000001);
+		Assert.assertEquals(c.getB(), expected.getB(), 0.000001);
+	}
+	
+	@Test
+	public void testMultiply_ResultGreaterThan255() {
+		ColorRGB c = new ColorRGB(0.5, 0.5, 0.5);
+		float multiplier = 2.0f;
+		
+		ColorRGB expected = new ColorRGB(1.0, 1.0, 1.0);
+		
+		Assert.assertEquals(c.multiply(multiplier), expected);
+	}
+	
+	@Test
 	public void testConstructor_ResultLesserThanZero() {
 		ColorRGB c = new ColorRGB(-1.0, -1.0, -1.0);
 		

@@ -45,6 +45,10 @@ public class ColorRGB {
     	return new ColorRGB(this.getR() + color2.getR(), this.getG() + color2.getG(), this.getB() + color2.getB());
     }
 
+    public ColorRGB multiply(float multiplier) {
+    	return new ColorRGB(this.getR() * multiplier, this.getG() * multiplier, this.getB() * multiplier);
+    }
+    
     public double getR() {
         return r;
     }
