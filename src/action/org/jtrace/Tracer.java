@@ -67,14 +67,19 @@ public abstract class Tracer {
 		ColorRGB objectColor = material.getColor();
 		ReflectanceCoefficient kDiffuse = material.getkDiffuse();
 		
-		Vector3D lightDirection = new Vector3D(light.getPosicao());
-		double dotLight = lightDirection.dot(hit.getNormal());
+		double dotLight = calculateDiffuseContribution(light, hit);
 		
 		double red = kDiffuse.getRed() * objectColor.getRed() * dotLight;
 		double green = kDiffuse.getGreen() * objectColor.getGreen() * dotLight;
 		double blue = kDiffuse.getBlue() * objectColor.getBlue() * dotLight;
 		
 		return new ColorRGB(red, green, blue);
+	}
+
+	protected double calculateDiffuseContribution(Light light, Hit hit) {
+		Vector3D lightDirection = new Vector3D(light.getPosicao()).normal();
+		double dotLight = lightDirection.dot(hit.getNormal().normal());
+		return dotLight;
 	}
 
 	private ColorRGB calculateAmbientLight(Material material) {
