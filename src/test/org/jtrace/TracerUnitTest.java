@@ -12,6 +12,10 @@ import org.testng.annotations.Test;
 
 public class TracerUnitTest {
 	
+	private static final Light LIGHT_GREATER_90DEGREES = new Light(0, 10, -20);
+	private static final Light LIGHT_90DEGREES = new Light(0, 10, -8);
+	private static final Light LIGHT_45DEGREES = new Light(0, 8, 0);
+	private static final Light LIGHT_0DEGREES = new Light(0, 0, 15);
 	private static Point3D CENTER = new Point3D(0, 0, -10);
 	private static float RADIUS = 2.0f;
 	private static ReflectanceCoefficient K_AMBIENT = new ReflectanceCoefficient(0.2, 0.2, 0.2);
@@ -61,10 +65,9 @@ public class TracerUnitTest {
 	
 	@Test
 	public void testCalculusDiffuseContribution_0Degrees() {
-		Light light = new Light(0, 0, 15);	
 		Hit hit = SPHERE.hit(JAY);
 		
-		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(light, hit, JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_0DEGREES, hit, JAY);
 		double expectedDiffuseContribution = 1.0f;
 		
 		Assert.assertEquals(expectedDiffuseContribution, diffuseCotribution);
@@ -72,10 +75,9 @@ public class TracerUnitTest {
 	
 	@Test
 	public void testCalculusDiffuseContribution_45Degrees() {
-		Light light = new Light(0, 8, 0);	
 		Hit hit = SPHERE.hit(JAY);
 		
-		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(light, hit, JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_45DEGREES, hit, JAY);
 		double expectedDiffuseContribution = 1.0 / Math.sqrt(2.0);
 		
 		Assert.assertEquals(expectedDiffuseContribution, diffuseCotribution, 0.00000001);
@@ -83,10 +85,9 @@ public class TracerUnitTest {
 	
 	@Test
 	public void testCalculusDiffuseContribution_90Degrees() {
-		Light light = new Light(0, 10, -8);	
 		Hit hit = SPHERE.hit(JAY);
 		
-		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(light, hit, JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_90DEGREES, hit, JAY);
 		double expectedDiffuseContribution = 0.0f;
 		
 		Assert.assertEquals(expectedDiffuseContribution, diffuseCotribution);
@@ -94,33 +95,155 @@ public class TracerUnitTest {
 	
 	@Test
 	public void testCalculusDiffuseContribution_Greater_90Degrees() {
-		Light light = new Light(0, 10, -20);	
 		Hit hit = SPHERE.hit(JAY);
 		
-		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(light, hit, JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_GREATER_90DEGREES, hit, JAY);
 		double expectedDiffuseContribution = 0.0f;
 		
 		Assert.assertEquals(expectedDiffuseContribution, diffuseCotribution);
 	}
 	
-	/*
 	@Test
 	public void testDiffuse_Light_Jay_0Degrees_With_AmbientLight_On() {
-		Light light = new Light(0, 0, 15);
-		
-		Scene scene = new Scene().add(SPHERE).add(light);
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_0DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
-		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(light, hit);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_0DEGREES, hit, JAY);
 		
 		double red = ColorRGB.BLUE.getRed() * K_AMBIENT.getRed();
 		double green = ColorRGB.BLUE.getGreen() * K_AMBIENT.getGreen();
 		double blue = ColorRGB.BLUE.getBlue() * K_AMBIENT.getBlue();
+		
+		red += ColorRGB.BLUE.getRed() * K_DIFFUSE.getRed() * diffuseCotribution;
+		green += ColorRGB.BLUE.getGreen() * K_DIFFUSE.getGreen() * diffuseCotribution;
+		blue += ColorRGB.BLUE.getBlue() * K_DIFFUSE.getBlue() * diffuseCotribution;
+		
 		ColorRGB expectedColor = new ColorRGB(red, green, blue);
-		
-		
 		
 		Assert.assertEquals(expectedColor, PERSPECTIVE_TRACER.cast(scene, JAY));
 	}
-	*/
+	
+	@Test
+	public void testDiffuse_Light_Jay_45Degrees_With_AmbientLight_On() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_45DEGREES);
+		
+		Hit hit = SPHERE.hit(JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_45DEGREES, hit, JAY);
+		
+		double red = ColorRGB.BLUE.getRed() * K_AMBIENT.getRed();
+		double green = ColorRGB.BLUE.getGreen() * K_AMBIENT.getGreen();
+		double blue = ColorRGB.BLUE.getBlue() * K_AMBIENT.getBlue();
+		
+		red += ColorRGB.BLUE.getRed() * K_DIFFUSE.getRed() * diffuseCotribution;
+		green += ColorRGB.BLUE.getGreen() * K_DIFFUSE.getGreen() * diffuseCotribution;
+		blue += ColorRGB.BLUE.getBlue() * K_DIFFUSE.getBlue() * diffuseCotribution;
+		
+		ColorRGB expectedColor = new ColorRGB(red, green, blue);
+		
+		Assert.assertEquals(expectedColor, PERSPECTIVE_TRACER.cast(scene, JAY));
+	}
+	
+	@Test
+	public void testDiffuse_Light_Jay_90Degrees_With_AmbientLight_On() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_90DEGREES);
+		
+		Hit hit = SPHERE.hit(JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_90DEGREES, hit, JAY);
+		
+		double red = ColorRGB.BLUE.getRed() * K_AMBIENT.getRed();
+		double green = ColorRGB.BLUE.getGreen() * K_AMBIENT.getGreen();
+		double blue = ColorRGB.BLUE.getBlue() * K_AMBIENT.getBlue();
+		
+		red += ColorRGB.BLUE.getRed() * K_DIFFUSE.getRed() * diffuseCotribution;
+		green += ColorRGB.BLUE.getGreen() * K_DIFFUSE.getGreen() * diffuseCotribution;
+		blue += ColorRGB.BLUE.getBlue() * K_DIFFUSE.getBlue() * diffuseCotribution;
+		
+		ColorRGB expectedColor = new ColorRGB(red, green, blue);
+		
+		Assert.assertEquals(expectedColor, PERSPECTIVE_TRACER.cast(scene, JAY));
+	}
+	
+	@Test
+	public void testDiffuse_Light_Jay_Greater_90Degrees_With_AmbientLight_On() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_GREATER_90DEGREES);
+		
+		Hit hit = SPHERE.hit(JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_GREATER_90DEGREES, hit, JAY);
+		
+		double red = ColorRGB.BLUE.getRed() * K_AMBIENT.getRed();
+		double green = ColorRGB.BLUE.getGreen() * K_AMBIENT.getGreen();
+		double blue = ColorRGB.BLUE.getBlue() * K_AMBIENT.getBlue();
+		
+		red += ColorRGB.BLUE.getRed() * K_DIFFUSE.getRed() * diffuseCotribution;
+		green += ColorRGB.BLUE.getGreen() * K_DIFFUSE.getGreen() * diffuseCotribution;
+		blue += ColorRGB.BLUE.getBlue() * K_DIFFUSE.getBlue() * diffuseCotribution;
+		
+		ColorRGB expectedColor = new ColorRGB(red, green, blue);
+		
+		Assert.assertEquals(expectedColor, PERSPECTIVE_TRACER.cast(scene, JAY));
+	}
+	
+	@Test
+	public void testDiffuse_Light_Jay_0Degrees_With_AmbientLight_Off() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_0DEGREES).turnOffAmbientLight();
+		
+		Hit hit = SPHERE.hit(JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_0DEGREES, hit, JAY);
+		
+		double red = ColorRGB.BLUE.getRed() * K_DIFFUSE.getRed() * diffuseCotribution;
+		double green = ColorRGB.BLUE.getGreen() * K_DIFFUSE.getGreen() * diffuseCotribution;
+		double blue = ColorRGB.BLUE.getBlue() * K_DIFFUSE.getBlue() * diffuseCotribution;
+		
+		ColorRGB expectedColor = new ColorRGB(red, green, blue);
+		
+		Assert.assertEquals(expectedColor, PERSPECTIVE_TRACER.cast(scene, JAY));
+	}
+	
+	@Test
+	public void testDiffuse_Light_Jay_45Degrees_With_AmbientLight_Off() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_45DEGREES).turnOffAmbientLight();
+		
+		Hit hit = SPHERE.hit(JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_45DEGREES, hit, JAY);
+		
+		double red = ColorRGB.BLUE.getRed() * K_DIFFUSE.getRed() * diffuseCotribution;
+		double green = ColorRGB.BLUE.getGreen() * K_DIFFUSE.getGreen() * diffuseCotribution;
+		double blue = ColorRGB.BLUE.getBlue() * K_DIFFUSE.getBlue() * diffuseCotribution;
+		
+		ColorRGB expectedColor = new ColorRGB(red, green, blue);
+		
+		Assert.assertEquals(expectedColor, PERSPECTIVE_TRACER.cast(scene, JAY));
+	}
+	
+	@Test
+	public void testDiffuse_Light_Jay_90Degrees_With_AmbientLight_Off() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_90DEGREES).turnOffAmbientLight();
+		
+		Hit hit = SPHERE.hit(JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_90DEGREES, hit, JAY);
+		
+		double red = ColorRGB.BLUE.getRed() * K_DIFFUSE.getRed() * diffuseCotribution;
+		double green = ColorRGB.BLUE.getGreen() * K_DIFFUSE.getGreen() * diffuseCotribution;
+		double blue = ColorRGB.BLUE.getBlue() * K_DIFFUSE.getBlue() * diffuseCotribution;
+		
+		ColorRGB expectedColor = new ColorRGB(red, green, blue);
+		
+		Assert.assertEquals(expectedColor, PERSPECTIVE_TRACER.cast(scene, JAY));
+	}
+	
+	@Test
+	public void testDiffuse_Light_Jay_Greater_90Degrees_With_AmbientLight_Off() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_GREATER_90DEGREES).turnOffAmbientLight();
+		
+		Hit hit = SPHERE.hit(JAY);
+		double diffuseCotribution = PERSPECTIVE_TRACER.calculateDiffuseContribution(LIGHT_GREATER_90DEGREES, hit, JAY);
+		
+		double red = ColorRGB.BLUE.getRed() * K_DIFFUSE.getRed() * diffuseCotribution;
+		double green = ColorRGB.BLUE.getGreen() * K_DIFFUSE.getGreen() * diffuseCotribution;
+		double blue = ColorRGB.BLUE.getBlue() * K_DIFFUSE.getBlue() * diffuseCotribution;
+		
+		ColorRGB expectedColor = new ColorRGB(red, green, blue);
+		
+		Assert.assertEquals(expectedColor, PERSPECTIVE_TRACER.cast(scene, JAY));
+	}
 }
