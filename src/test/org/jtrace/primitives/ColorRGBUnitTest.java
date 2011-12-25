@@ -53,9 +53,9 @@ public class ColorRGBUnitTest {
 		
 		ColorRGB expected = new ColorRGB(0.09, 0.09, 0.09);
 		
-		Assert.assertEquals(c.getR(), expected.getR(), 0.000001);
-		Assert.assertEquals(c.getG(), expected.getG(), 0.000001);
-		Assert.assertEquals(c.getB(), expected.getB(), 0.000001);
+		Assert.assertEquals(c.getRed(), expected.getRed(), 0.000001);
+		Assert.assertEquals(c.getGreen(), expected.getGreen(), 0.000001);
+		Assert.assertEquals(c.getBlue(), expected.getBlue(), 0.000001);
 	}
 	
 	@Test

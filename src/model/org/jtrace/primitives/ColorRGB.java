@@ -18,7 +18,7 @@ public class ColorRGB {
 	public static ColorRGB YELLOW  = new ColorRGB(1.0, 1.0, 0.0);
 	public static ColorRGB PURPLE  = new ColorRGB(0.5, 0.0, 0.5);
 	
-    private double r, g, b;
+    private double red, green, blue;
 
     /**
      * Create a color from its components values.
@@ -28,52 +28,52 @@ public class ColorRGB {
      * @param paramB blue component
      */
     public ColorRGB(final double paramR, final double paramG, final double paramB) {
-        setR(paramR);
-        setG(paramG);
-        setB(paramB);
+        setRed(paramR);
+        setGreen(paramG);
+        setBlue(paramB);
     }
     
     public int toInt() {
-    	long rgb = Math.round(r * 255);
-    	rgb = (rgb << 8) + Math.round(g * 255);
-    	rgb = (rgb << 8) + Math.round(b * 255);
+    	long rgb = Math.round(red * 255);
+    	rgb = (rgb << 8) + Math.round(green * 255);
+    	rgb = (rgb << 8) + Math.round(blue * 255);
     	
     	return (int) rgb;
     }
     
     public ColorRGB add(ColorRGB color2) {
-    	return new ColorRGB(this.getR() + color2.getR(), this.getG() + color2.getG(), this.getB() + color2.getB());
+    	return new ColorRGB(this.getRed() + color2.getRed(), this.getGreen() + color2.getGreen(), this.getBlue() + color2.getBlue());
     }
 
     public ColorRGB multiply(float multiplier) {
-    	return new ColorRGB(this.getR() * multiplier, this.getG() * multiplier, this.getB() * multiplier);
+    	return new ColorRGB(this.getRed() * multiplier, this.getGreen() * multiplier, this.getBlue() * multiplier);
     }
     
-    public double getR() {
-        return r;
+    public double getRed() {
+        return red;
     }
 
-    public void setR(final double r) {
-        this.r = Math.min(MAX_COLOR_VALUE, r);
-        this.r = Math.max(MIN_COLOR_VALUE, this.r);
+    public void setRed(final double r) {
+        this.red = Math.min(MAX_COLOR_VALUE, r);
+        this.red = Math.max(MIN_COLOR_VALUE, this.red);
     }
 
-    public double getG() {
-        return g;
+    public double getGreen() {
+        return green;
     }
 
-    public void setG(final double g) {
-        this.g = Math.min(MAX_COLOR_VALUE, g);
-        this.g = Math.max(MIN_COLOR_VALUE, this.g);
+    public void setGreen(final double g) {
+        this.green = Math.min(MAX_COLOR_VALUE, g);
+        this.green = Math.max(MIN_COLOR_VALUE, this.green);
     }
 
-    public double getB() {
-        return b;
+    public double getBlue() {
+        return blue;
     }
 
-    public void setB(final double b) {
-        this.b = Math.min(MAX_COLOR_VALUE, b);
-        this.b = Math.max(MIN_COLOR_VALUE, this.b);
+    public void setBlue(final double b) {
+        this.blue = Math.min(MAX_COLOR_VALUE, b);
+        this.blue = Math.max(MIN_COLOR_VALUE, this.blue);
     }
 
 	@Override
@@ -81,11 +81,11 @@ public class ColorRGB {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(b);
+		temp = Double.doubleToLongBits(blue);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(g);
+		temp = Double.doubleToLongBits(green);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(r);
+		temp = Double.doubleToLongBits(red);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
@@ -99,18 +99,18 @@ public class ColorRGB {
 		if (getClass() != obj.getClass())
 			return false;
 		ColorRGB other = (ColorRGB) obj;
-		if (Double.doubleToLongBits(b) != Double.doubleToLongBits(other.b))
+		if (Double.doubleToLongBits(blue) != Double.doubleToLongBits(other.blue))
 			return false;
-		if (Double.doubleToLongBits(g) != Double.doubleToLongBits(other.g))
+		if (Double.doubleToLongBits(green) != Double.doubleToLongBits(other.green))
 			return false;
-		if (Double.doubleToLongBits(r) != Double.doubleToLongBits(other.r))
+		if (Double.doubleToLongBits(red) != Double.doubleToLongBits(other.red))
 			return false;
 		return true;
 	}
 	
 	@Override
 	public String toString() {
-		return "Color(" + r + ", " + g + ", " + b + ")";
+		return "Color(" + red + ", " + green + ", " + blue + ")";
 	}
     
 }

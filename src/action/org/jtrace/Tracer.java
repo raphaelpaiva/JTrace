@@ -70,9 +70,9 @@ public abstract class Tracer {
 		Vector3D lightDirection = new Vector3D(light.getPosicao());
 		double dotLight = lightDirection.dot(hit.getNormal());
 		
-		double red = kDiffuse.getRed() * objectColor.getR() * dotLight;
-		double green = kDiffuse.getGreen() * objectColor.getG() * dotLight;
-		double blue = kDiffuse.getBlue() * objectColor.getB() * dotLight;
+		double red = kDiffuse.getRed() * objectColor.getRed() * dotLight;
+		double green = kDiffuse.getGreen() * objectColor.getGreen() * dotLight;
+		double blue = kDiffuse.getBlue() * objectColor.getBlue() * dotLight;
 		
 		return new ColorRGB(red, green, blue);
 	}
@@ -81,9 +81,9 @@ public abstract class Tracer {
 		ColorRGB objectColor = material.getColor();
 		ReflectanceCoefficient kAmbient = material.getkAmbient();
 		
-		double red = kAmbient.getRed() * objectColor.getR();
-		double green = kAmbient.getGreen() * objectColor.getG();
-		double blue = kAmbient.getBlue() * objectColor.getB();
+		double red = kAmbient.getRed() * objectColor.getRed();
+		double green = kAmbient.getGreen() * objectColor.getGreen();
+		double blue = kAmbient.getBlue() * objectColor.getBlue();
 		
 		return new ColorRGB(red, green, blue);
 	}
