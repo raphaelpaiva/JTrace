@@ -17,6 +17,10 @@ import org.jtrace.primitives.Vector3D;
 public class OrthogonalTracer extends Tracer {
 	private static final int VIEW_PLANE_POSITION = 100;
 
+	/**
+	 * Traces Rays that are all parallel to each other from a fixed ViewPlane at
+	 * z = 100.
+	 */
 	public void render(Scene scene, ViewPlane viewPlane) {
 		double x, y;
 		int hres = viewPlane.getHres();
