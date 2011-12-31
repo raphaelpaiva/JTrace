@@ -80,7 +80,7 @@ public abstract class Tracer {
 	protected double calculateDiffuseContribution(Light light, Hit hit, Jay jay) {
 		Point3D hitPoint = calculateHitPoint(jay, hit);
 		
-		Vector3D lightDirection = new Vector3D(hitPoint, light.getPosicao()).normal();
+		Vector3D lightDirection = new Vector3D(hitPoint, light.getPosition()).normal();
 		double dotLight = lightDirection.dot(hit.getNormal().normal());
 		return Math.max(dotLight, 0);
 	}
