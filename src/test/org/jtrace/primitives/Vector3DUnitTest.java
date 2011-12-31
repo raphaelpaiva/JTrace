@@ -107,4 +107,32 @@ public class Vector3DUnitTest {
 		
 		Assert.assertEquals(vector.cross(otherVector), expected);
 	}
+	
+	@Test
+	public void testAdd_CollinearVectors() {
+		final Vector3D v1 = new Vector3D(1, 1, 1);
+		final Vector3D v2 = new Vector3D(2, 2, 2);
+
+		final Vector3D expected = new Vector3D(3, 3, 3);
+		
+		Assert.assertEquals(v1.add(v2), expected);
+	}
+	
+	@Test
+	public void testAdd_PerpendicularVectors() {
+		final Vector3D v1 = new Vector3D(1, 0, 0);
+		final Vector3D v2 = new Vector3D(0, 1, 0);
+
+		final Vector3D expected = new Vector3D(1, 1, 0);
+		
+		Assert.assertEquals(v1.add(v2), expected);
+	}
+	
+	@Test
+	public void testDivide_By2() {
+		Vector3D v = new Vector3D(4, 4, 4);
+		Vector3D expected = new Vector3D(2, 2, 2);
+		
+		Assert.assertEquals(v.divide(2), expected);
+	}
 }

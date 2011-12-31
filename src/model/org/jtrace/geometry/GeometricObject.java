@@ -2,19 +2,20 @@ package org.jtrace.geometry;
 
 import org.jtrace.Hit;
 import org.jtrace.Jay;
-import org.jtrace.primitives.ColorRGB;
+import org.jtrace.Material;
 
 public abstract class GeometricObject {
-	protected ColorRGB color;
 	
-	public GeometricObject(ColorRGB color) {
-		this.color = color;
+	private Material material;
+	
+	public GeometricObject(Material material) {
+		this.material = material;
 	}
 
 	public abstract Hit hit(Jay jay);
 	
-	public ColorRGB getColor() {
-		return color;
+	public Material getMaterial() {
+		return material;
 	}
 
 }

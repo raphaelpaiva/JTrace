@@ -3,8 +3,8 @@ package org.jtrace.geometry;
 import org.jtrace.Constants;
 import org.jtrace.Hit;
 import org.jtrace.Jay;
+import org.jtrace.Material;
 import org.jtrace.NotHit;
-import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
@@ -26,8 +26,8 @@ public class Sphere extends GeometricObject {
      * @param radius the radius of the {@link Sphere}
      * @param color the color of the {@link Sphere}
      */
-    public Sphere(final Point3D center, final float radius, ColorRGB color) {
-    	super(color);
+    public Sphere(final Point3D center, final float radius, Material material) {
+    	super(material);
         this.center = center;
         this.radius = radius;
     }
@@ -56,13 +56,15 @@ public class Sphere extends GeometricObject {
         	//smaller root
         	t = (-b - deltaRoot) / 2*a;
         	if (t > Constants.epsilon) {
-        		return new Hit(t);
+        		Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
+        		return new Hit(t, normal.normal());
         	}
         	
         	//larger root
         	t = (-b + deltaRoot) / 2*a;
         	if (t > Constants.epsilon) {
-        		return new Hit(t);
+        		Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
+        		return new Hit(t, normal.normal());
         	}
         	
             return new NotHit();

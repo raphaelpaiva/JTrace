@@ -6,7 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.jtrace.geometry.GeometricObject;
+import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
+import org.jtrace.primitives.Point3D;
+import org.jtrace.primitives.ReflectanceCoefficient;
+import org.jtrace.primitives.Vector3D;
 
 /**
  * Abstract class containing the common operation and fields of a Tracer.
@@ -26,19 +30,82 @@ public abstract class Tracer {
 	 *         {@link Scene}'s background color if there was no hit.
 	 */
 	public ColorRGB cast(Scene scene, Jay jay) {
-		double tmin = Double.MAX_VALUE;
+		double tMin = Double.MAX_VALUE;
+		GeometricObject hitObject = null;
+		Hit hitMin = null;
 		ColorRGB finalColor = scene.getBackgroundColor();
 
-		for (GeometricObject object : scene) {
+		for (GeometricObject object : scene.getObjects()) {
 			Hit hit = object.hit(jay);
 
-			if (hit.isHit() && hit.getT() < tmin) {
-				tmin = hit.getT();
-				finalColor = object.getColor();
+			if (hit.isHit() && hit.getT() < tMin) {
+				tMin = hit.getT();
+				hitObject = object;
+				hitMin = hit;
 			}
 		}
 
+		// if there was a collision, calculate illumination
+		if (hitObject != null) {
+			Material objectMaterial = hitObject.getMaterial();
+			finalColor = ColorRGB.BLACK;
+			
+			//ambient light
+			if (scene.isAmbientLightOn()) {
+				finalColor = finalColor.add(calculateAmbientLight(objectMaterial));
+			}
+
+			//diffuse light
+			for (Light light : scene.getLigths()) {
+				finalColor = finalColor.add(calculateDiffuseLight(light, hitMin, jay, objectMaterial));
+			}
+		}
+		
 		return finalColor;
+	}
+
+	private ColorRGB calculateDiffuseLight(Light light, Hit hit, Jay jay, Material material) {
+		ColorRGB objectColor = material.getColor();
+		ReflectanceCoefficient kDiffuse = material.getkDiffuse();
+		
+		double dotLight = calculateDiffuseContribution(light, hit, jay);
+		
+		double red = kDiffuse.getRed() * objectColor.getRed() * dotLight;
+		double green = kDiffuse.getGreen() * objectColor.getGreen() * dotLight;
+		double blue = kDiffuse.getBlue() * objectColor.getBlue() * dotLight;
+		
+		return new ColorRGB(red, green, blue);
+	}
+
+	protected double calculateDiffuseContribution(Light light, Hit hit, Jay jay) {
+		Point3D hitPoint = calculateHitPoint(jay, hit);
+		
+		Vector3D lightDirection = new Vector3D(hitPoint, light.getPosicao()).normal();
+		double dotLight = lightDirection.dot(hit.getNormal().normal());
+		return Math.max(dotLight, 0);
+	}
+	
+	protected Point3D calculateHitPoint(Jay jay, Hit hit) {
+		double x = jay.getOrigin().getX();
+		double y = jay.getOrigin().getY();
+		double z = jay.getOrigin().getZ();
+		
+		x += jay.getDirection().getX() * hit.getT();
+		y += jay.getDirection().getY() * hit.getT();
+		z += jay.getDirection().getZ() * hit.getT();
+		
+		return new Point3D(x, y, z);
+	}
+	
+	private ColorRGB calculateAmbientLight(Material material) {
+		ColorRGB objectColor = material.getColor();
+		ReflectanceCoefficient kAmbient = material.getkAmbient();
+		
+		double red = kAmbient.getRed() * objectColor.getRed();
+		double green = kAmbient.getGreen() * objectColor.getGreen();
+		double blue = kAmbient.getBlue() * objectColor.getBlue();
+		
+		return new ColorRGB(red, green, blue);
 	}
 
 	/**

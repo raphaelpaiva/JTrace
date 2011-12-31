@@ -3,6 +3,7 @@ package org.jtrace;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
+import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,7 +13,8 @@ public class PerspectiveTracerUnitTest {
 	private static final Point3D EYE_POINT = new Point3D(0, 0, 10);
 	private static final double VIEW_DISTANCE = 10.0;
 	private static final PerspectiveTracer TRACER = new PerspectiveTracer(EYE_POINT, VIEW_DISTANCE);
-	
+	private static final ReflectanceCoefficient KAMBIENT = new ReflectanceCoefficient(1.0, 1.0, 1.0);
+	private static final ReflectanceCoefficient KDIFFUSE = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 	private static final int SPHERE_RADIUS = 1;
 	
 	@Test
@@ -46,7 +48,9 @@ public class PerspectiveTracerUnitTest {
 	@Test
 	public void testRender_RedSphereInFrontOfViewPlane() {
 		final Point3D center = new Point3D(0, 0, -5);
-		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, ColorRGB.RED);
+		final Material material = new Material(ColorRGB.RED, KAMBIENT, KDIFFUSE);
+		
+		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
 		final int hres = 1;
 		final int vres = 1;
 		final double pixelSize = 0.5; 
@@ -59,56 +63,39 @@ public class PerspectiveTracerUnitTest {
 		Assert.assertEquals(TRACER.cast(scene, jay), ColorRGB.RED);
 	}
 	
-	/*
+	@Test
+	public void testRender_RedSphereInFrontOfViewPlane_AmbientLightOff() {
+		final Point3D center = new Point3D(0, 0, -5);
+		final Material material = new Material(ColorRGB.RED, KAMBIENT, KDIFFUSE);
+		
+		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
+		final int hres = 1;
+		final int vres = 1;
+		final double pixelSize = 0.5; 
+		
+		Scene scene = new Scene().add(sphere).turnOffAmbientLight();
+
+		Vector3D jayDirection = TRACER.calculateJayDirection(hres, vres, pixelSize, 0, 0);
+		Jay jay = new Jay(EYE_POINT, jayDirection);
+		
+		Assert.assertEquals(TRACER.cast(scene, jay), ColorRGB.BLACK);
+	}
+	
 	@Test
 	public void testRender_RedSphereBehindViewPlane() {
 		final Point3D center = new Point3D(0, 0, 50);
-		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, ColorRGB.RED);
+		final Material material = new Material(ColorRGB.RED, KAMBIENT, KDIFFUSE);
+		
+		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
+		final int hres = 1;
+		final int vres = 1;
+		final double pixelSize = 0.5;
 		
 		Scene scene = new Scene().add(sphere).withBackground(ColorRGB.GREEN);
 		
-		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.GREEN);
+		Vector3D jayDirection = TRACER.calculateJayDirection(hres, vres, pixelSize, 0, 0);
+		Jay jay = new Jay(EYE_POINT, jayDirection);
+		
+		Assert.assertEquals(TRACER.cast(scene, jay), ColorRGB.GREEN);
 	}
-	
-	@Test
-	public void testRender_TwoSpheresRedInFront() {
-		final Point3D centerRed = new Point3D(0, 0, -10);
-		final Point3D centerBlue = new Point3D(0, 0, -20);
-		
-		final Sphere red = new Sphere(centerRed, SPHERE_RADIUS, ColorRGB.RED);
-		final Sphere blue = new Sphere(centerBlue, SPHERE_RADIUS, ColorRGB.BLUE);
-		
-		Scene scene = new Scene().add(blue, red);
-		
-		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.RED);
-		
-		scene = new Scene().add(red, blue);
-		
-		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.RED);
-	}
-	
-	@Test
-	public void testRender_PlaneInFrontOfViewPlane() {
-		final Point3D point = new Point3D(0, 0, -5);
-		final Vector3D normal = new Vector3D(0, 0, 1);
-		
-		final Plane plane = new Plane(point, normal, ColorRGB.YELLOW);
-		
-		Scene scene = new Scene().add(plane);
-
-		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.YELLOW);
-	}
-	
-	@Test
-	public void testRender_PlaneBehindViewPlane() {
-		final Point3D point = new Point3D(0, 0, 5);
-		final Vector3D normal = new Vector3D(0, 0, 1);
-		
-		final Plane plane = new Plane(point, normal, ColorRGB.YELLOW);
-		
-		Scene scene = new Scene().add(plane);
-
-		Assert.assertEquals(TRACER.cast(scene, JAY), ColorRGB.BLACK);
-	}
-	*/
 }
