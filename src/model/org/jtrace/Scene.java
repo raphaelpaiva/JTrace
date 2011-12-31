@@ -5,6 +5,7 @@ import static java.util.Arrays.asList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.jtrace.cameras.Camera;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
@@ -14,6 +15,7 @@ public class Scene {
 	private boolean hasAmbientLight = true;
 	private Set<Light> lights = new LinkedHashSet<Light>();
 	private ColorRGB backgroundColor = ColorRGB.BLACK;
+	private Camera camera;
 
 	public Scene withBackground(ColorRGB color) {
 		backgroundColor = color;
@@ -65,4 +67,14 @@ public class Scene {
 	public boolean isAmbientLightOn() {
 		return hasAmbientLight;
 	}
+
+	protected Camera getCamera() {
+		return camera;
+	}
+
+	public Scene setCamera(Camera camera) {
+		this.camera = camera;
+		return this;
+	}
+	
 }
