@@ -29,10 +29,7 @@ public class TracerUnitTest {
 	
 	private static Jay JAY = new Jay(ORIGIN, DIRECTION);
 	
-	private static Point3D EYE_POINT = new Point3D(0, 0, 20);
-	private static float VIEW_PLANE_DISTANCE = 10;
-	
-	PerspectiveTracer PERSPECTIVE_TRACER = new PerspectiveTracer(EYE_POINT, VIEW_PLANE_DISTANCE);
+	PerspectiveTracer PERSPECTIVE_TRACER = new PerspectiveTracer();
 	
 	@Test
 	public void testAmbientLight_On() {
