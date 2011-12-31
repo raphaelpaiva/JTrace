@@ -194,8 +194,12 @@ public class Vector3D {
 		return new Vector3D(newX, newY, newZ);
 	}
 	
-	public Vector3D add(Vector3D v2) {
-		return new Vector3D(this.getX() + v2.getX(), this.getY() + v2.getY(), this.getZ() + v2.getZ());
+	public Vector3D add(Vector3D otherVector) {
+		return new Vector3D(this.getX() + otherVector.getX(), this.getY() + otherVector.getY(), this.getZ() + otherVector.getZ());
+	}
+	
+	public Vector3D subtract(Vector3D otherVector) {
+		return new Vector3D(this.getX() - otherVector.getX(), this.getY() - otherVector.getY(), this.getZ() - otherVector.getZ());
 	}
 	
 	public Vector3D divide(double d) {

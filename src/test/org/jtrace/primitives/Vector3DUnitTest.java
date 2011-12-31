@@ -129,6 +129,26 @@ public class Vector3DUnitTest {
 	}
 	
 	@Test
+	public void testSubtract_CollinearVectors() {
+		final Vector3D v1 = new Vector3D(2, 2, 2);
+		final Vector3D v2 = new Vector3D(3, 3, 3);
+
+		final Vector3D expected = new Vector3D(1, 1, 1);
+		
+		Assert.assertEquals(v2.subtract(v1), expected);
+	}
+	
+	@Test
+	public void testSubtract_PerpendicularVectors() {
+		final Vector3D v1 = new Vector3D(1, 0, 0);
+		final Vector3D v2 = new Vector3D(0, 1, 0);
+
+		final Vector3D expected = new Vector3D(1, -1, 0);
+		
+		Assert.assertEquals(v1.subtract(v2), expected);
+	}
+	
+	@Test
 	public void testDivide_By2() {
 		Vector3D v = new Vector3D(4, 4, 4);
 		Vector3D expected = new Vector3D(2, 2, 2);
