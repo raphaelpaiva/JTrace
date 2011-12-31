@@ -1,5 +1,7 @@
 package org.jtrace;
 
+import org.jtrace.cameras.Camera;
+import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
@@ -11,39 +13,15 @@ import org.testng.annotations.Test;
 public class PerspectiveTracerUnitTest {
 	
 	private static final Point3D EYE_POINT = new Point3D(0, 0, 10);
-	private static final double VIEW_DISTANCE = 10.0;
-	private static final PerspectiveTracer TRACER = new PerspectiveTracer(EYE_POINT, VIEW_DISTANCE);
+	private static final Point3D ORIGIN = new Point3D(0, 0, 0);
+	private static final Vector3D UNIT_Y = new Vector3D(0, 1, 0);
+	
+	private static final PerspectiveTracer TRACER = new PerspectiveTracer();
 	private static final ReflectanceCoefficient KAMBIENT = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 	private static final ReflectanceCoefficient KDIFFUSE = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 	private static final int SPHERE_RADIUS = 1;
 	
-	@Test
-	public void testCalculateJayDirection_CenterJay() {
-		final int hres = 1;
-		final int vres = 1;
-		final double pixelSize = 0.5; 
-		
-		Vector3D jayDirection = TRACER.calculateJayDirection(hres, vres, pixelSize, 0, 0);
-		Vector3D expectedJay = new Vector3D(0, 0, -1);
-		
-		Assert.assertEquals(jayDirection, expectedJay);
-	}
-	
-	@Test
-	public void testCalculateJayDirection_TopLeftJay() {
-		final int hres = 10;
-		final int vres = 10;
-		final double pixelSize = 1; 
-		
-		Vector3D jayDirection = TRACER.calculateJayDirection(hres, vres, pixelSize, 9, 0);
-		Vector3D expectedJay = new Vector3D(-4.5, 4.5, -10).normal();
-		
-		Assert.assertEquals(jayDirection.getCoordinate().getX(), -0.379642, 0.000001);
-		Assert.assertEquals(jayDirection.getCoordinate().getY(), 0.379642, 0.000001);
-		Assert.assertEquals(jayDirection.getCoordinate().getZ(), -0.843649, 0.000001);
-
-		Assert.assertEquals(jayDirection, expectedJay);
-	}
+	private static final Camera PIN_HOLE_CAMERA = new PinHoleCamera(EYE_POINT, ORIGIN, UNIT_Y);
 	
 	@Test
 	public void testRender_RedSphereInFrontOfViewPlane() {
@@ -53,11 +31,10 @@ public class PerspectiveTracerUnitTest {
 		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
 		final int hres = 1;
 		final int vres = 1;
-		final double pixelSize = 0.5; 
 		
 		Scene scene = new Scene().add(sphere);
 
-		Vector3D jayDirection = TRACER.calculateJayDirection(hres, vres, pixelSize, 0, 0);
+		Vector3D jayDirection = PIN_HOLE_CAMERA.createJay(0, 0, vres, hres).getDirection();
 		Jay jay = new Jay(EYE_POINT, jayDirection);
 		
 		Assert.assertEquals(TRACER.cast(scene, jay), ColorRGB.RED);
@@ -71,11 +48,10 @@ public class PerspectiveTracerUnitTest {
 		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
 		final int hres = 1;
 		final int vres = 1;
-		final double pixelSize = 0.5; 
-		
+
 		Scene scene = new Scene().add(sphere).turnOffAmbientLight();
 
-		Vector3D jayDirection = TRACER.calculateJayDirection(hres, vres, pixelSize, 0, 0);
+		Vector3D jayDirection = PIN_HOLE_CAMERA.createJay(0, 0, vres, hres).getDirection();
 		Jay jay = new Jay(EYE_POINT, jayDirection);
 		
 		Assert.assertEquals(TRACER.cast(scene, jay), ColorRGB.BLACK);
@@ -89,11 +65,10 @@ public class PerspectiveTracerUnitTest {
 		final Sphere sphere = new Sphere(center, SPHERE_RADIUS, material);
 		final int hres = 1;
 		final int vres = 1;
-		final double pixelSize = 0.5;
 		
 		Scene scene = new Scene().add(sphere).withBackground(ColorRGB.GREEN);
 		
-		Vector3D jayDirection = TRACER.calculateJayDirection(hres, vres, pixelSize, 0, 0);
+		Vector3D jayDirection = PIN_HOLE_CAMERA.createJay(0, 0, vres, hres).getDirection();
 		Jay jay = new Jay(EYE_POINT, jayDirection);
 		
 		Assert.assertEquals(TRACER.cast(scene, jay), ColorRGB.GREEN);
