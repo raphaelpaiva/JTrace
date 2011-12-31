@@ -17,21 +17,15 @@ public class ViewPlane {
 	private int vres;
 	
 	/**
-	 * Pixel scale size.
-	 */
-	private double pixelSize;
-
-	/**
 	 * Creates a {@link ViewPlane}.
 	 * 
 	 * @param hres the horizontal resolution.
 	 * @param vres the vertical resolution.
 	 * @param pixelSize the scale pixel size.
 	 */
-	public ViewPlane(int hres, int vres, double pixelSize) {
+	public ViewPlane(int hres, int vres) {
 		this.hres = hres;
 		this.vres = vres;
-		this.pixelSize = pixelSize;
 	}
 	
 	public int getHres() {
@@ -48,14 +42,6 @@ public class ViewPlane {
 	
 	public void setVres(int vres) {
 		this.vres = vres;
-	}
-	
-	public double getPixelSize() {
-		return pixelSize;
-	}
-	
-	public void setPixelSize(double pixelSize) {
-		this.pixelSize = pixelSize;
 	}
 	
 }

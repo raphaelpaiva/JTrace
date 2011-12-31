@@ -26,7 +26,6 @@ public class OrthogonalTracer extends Tracer {
 		double x, y;
 		int hres = viewPlane.getHres();
 		int vres = viewPlane.getVres();
-		double s = viewPlane.getPixelSize();
 
 		Vector3D direction = new Vector3D(0, 0, -1);
 
@@ -34,8 +33,8 @@ public class OrthogonalTracer extends Tracer {
 
 		for (int r = 0; r < vres; r++) {
 			for (int c = 0; c < hres; c++) {
-				x = s * (c - 0.5 * (hres - 1.0));
-				y = s * (r - 0.5 * (vres - 1.0));
+				x = (c - 0.5 * (hres - 1.0));
+				y = (r - 0.5 * (vres - 1.0));
 
 				Point3D origin = new Point3D(x, y, VIEW_PLANE_POSITION);
 
@@ -51,7 +50,7 @@ public class OrthogonalTracer extends Tracer {
 	}
 
 	public static void main(String[] args) throws IOException {
-		ViewPlane viewPlane = new ViewPlane(1024, 768, 0.5);
+		ViewPlane viewPlane = new ViewPlane(1024, 768);
 
 		final Point3D centerRed = new Point3D(0, 0, -10);
 		final Point3D centerBlue = new Point3D(0, 0, -100);
