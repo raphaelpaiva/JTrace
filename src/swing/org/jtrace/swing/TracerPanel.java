@@ -16,11 +16,12 @@ import org.jtrace.ViewPlane;
 
 public class TracerPanel extends JPanel {
 
+  private static final long serialVersionUID = 6707782783340362498L;
+
   private Tracer tracer;
   private Scene scene;
   private ViewPlane viewPlane;
   
-  //private JLabel statusLabel = new JLabel("Inativo");
   private JProgressBar progressBar;
   
   private int height;
@@ -90,10 +91,6 @@ public class TracerPanel extends JPanel {
   public DrawablePanel getDrawablePanel() {
     return drawablePanel;
   }
-  
-  /*public void setStatusLabel(String status) {
-    statusLabel.setText(status);
-  }*/
   
   public void pixelsPainted(int pixels) {
     progressBar.setValue(pixels);

@@ -11,6 +11,8 @@ import org.jtrace.swing.TracerPanel;
 
 public class MainWindow extends JFrame {
 
+  private static final long serialVersionUID = 8122517505454630633L;
+
   public MainWindow() {
     setSize(700, 650);
     setTitle("JTrace");
