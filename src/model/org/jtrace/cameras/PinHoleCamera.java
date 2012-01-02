@@ -6,24 +6,26 @@ import org.jtrace.primitives.Vector3D;
 
 public class PinHoleCamera extends Camera {
 
-	public PinHoleCamera(Point3D eye, Point3D lookAt, Vector3D up) {
+	public PinHoleCamera(final Point3D eye, final Point3D lookAt, final Vector3D up) {
 		this.eye = eye;
 		this.lookAt = lookAt;
 		this.up = up;
-		
+
 		computeUVW();
 	}
-	
-	public Jay createJay(int r, int c, int vres, int hres) {
-		double viewPlaneX = (c - 0.5 * (hres - 1.0));
-		double viewPlaneY = (r - 0.5 * (vres - 1.0));
-		
-		Vector3D dU = u.multiply(viewPlaneX);
-		Vector3D dV = v.multiply(viewPlaneY);
-		Vector3D dW = w.multiply(viewPlaneDistance);
-		
-		Vector3D jayDirection = dU.add(dV).subtract(dW).normal();
-		
+
+
+	@Override
+	public Jay createJay(final int r, final int c, final int vres, final int hres) {
+		final double viewPlaneX = 0.5*(c - hres/2 + 0.5);
+		final double viewPlaneY = 0.5*(r - vres/2 + 0.5);
+
+		final Vector3D dU = u.multiply(viewPlaneX);
+		final Vector3D dV = v.multiply(viewPlaneY);
+		final Vector3D dW = w.multiply(viewPlaneDistance);
+
+		final Vector3D jayDirection = dU.add(dV).subtract(dW).normal();
+
 		return new Jay(eye, jayDirection);
 	}
 }
