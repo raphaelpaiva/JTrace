@@ -28,6 +28,21 @@ public class Point3D {
 	}
 
 	/**
+   * Add operation
+   * 
+   * Performs the basic point sum.<br>
+   * Suppose the points A(x, y, z) and B(u, v, w).<br>
+   * 
+   * A + B = C(x + u, y + v, z + w)
+   * 
+   * @param otherVector the point to sum.
+   * @return a new {@link Point3D} equivalent to <code>(this + otherVector)</code>
+   */
+  public Point3D add(final Point3D otherVector) {
+    return new Point3D(x + otherVector.getX(), y + otherVector.getY(), z + otherVector.getZ());
+  }
+	
+	/**
 	 * Subtract operation
 	 * 
 	 * Performs the basic point subtraction.<br>
@@ -39,8 +54,22 @@ public class Point3D {
 	 * @return a new {@link Point3D} equivalent to <code>(this - otherVector)</code>
 	 */
 	public Point3D subtract(final Point3D otherVector) {
-		return new Point3D(x - otherVector.getX(), y - otherVector.getY(), z - otherVector.getZ());
+		return add(otherVector.multiply(-1));
 	}
+	
+	/**
+   * Multiply by scalar operation
+   * 
+   * Suppose the points A(x, y, z) and a scalar 'f'.<br>
+   * 
+   * A * f = C(x * f, y * f, z * f)
+   * 
+   * @param factor scalar to multiply
+   * @return a new {@link Point3D} equivalent to <code>(this * factor)</code>
+   */
+  public Point3D multiply(final double factor) {
+    return new Point3D(x * factor, y  * factor, z * factor);
+  }
 
 	public double getX() {
 		return x;
