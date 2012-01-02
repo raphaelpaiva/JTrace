@@ -19,9 +19,9 @@ public class PinHoleCameraUnitTest {
 		final int vres = 1;
 		
 		Vector3D jayDirection = PIN_HOLE_CAMERA.createJay(0, 0, vres, hres).getDirection();
-		Vector3D expectedJay = new Vector3D(0, 0, -1);
+		Vector3D expectedJayDirection = new Vector3D(0, 0, -1);
 		
-		Assert.assertEquals(jayDirection, expectedJay);
+		Assert.assertEquals(jayDirection, expectedJayDirection);
 	}
 	
 	@Test

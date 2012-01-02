@@ -16,9 +16,11 @@ public class PinHoleCamera extends Camera {
 
 
 	@Override
-	public Jay createJay(final int r, final int c, final int vres, final int hres) {
-		final double viewPlaneX = 0.5*(c - hres/2 + 0.5);
-		final double viewPlaneY = 0.5*(r - vres/2 + 0.5);
+	public Jay createJay(final int r, final int c, int vres, int hres) {
+	  double hresD = hres;
+	  double vresD = vres;
+		final double viewPlaneX = (c - hresD/2 + 0.5);
+		final double viewPlaneY = (r - vresD/2 + 0.5);
 
 		final Vector3D dU = u.multiply(viewPlaneX);
 		final Vector3D dV = v.multiply(viewPlaneY);
