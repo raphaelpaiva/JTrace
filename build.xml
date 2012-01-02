@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="JTrace" default="pack">
+<project name="JTrace" default="dist">
 	<property file="build.properties" />
 
 	<description>
@@ -17,35 +17,49 @@
 		<mkdir dir="${model_classes_dir}" />
 		<mkdir dir="${action_classes_dir}" />
 		<mkdir dir="${test_classes_dir}" />
+		<mkdir dir="${swing_classes_dir}"/>
+		<mkdir dir="${examples_classes_dir}" />
 	</target>
 
 	<target name="compile-model" depends="prepare-compile" description="Compiles the model classes.">
-		<javac srcdir="${src_model_dir}" destdir="${model_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" includeantruntime="flase" />
+		<javac srcdir="${src_model_dir}" destdir="${model_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" includeantruntime="false" />
 	</target>
 
 	<target name="compile-action" depends="prepare-compile, compile-model" description="Compiles the action classes.">
-		<javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="flase" />
+		<javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" />
 	</target>
+	
+	<target name="compile-swing" depends="prepare-compile, compile-action" description="Compiles the Swing Extension classes.">
+	    <javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" />
+  </target>
+	
+	<target name="compile-examples" depends="prepare-compile, compile" description="Compiles the Swing Extension classes.">
+      <javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" />
+  </target>
 
 	<target name="compile-test" depends="compile-action" description="Compiles the test classes.">
-		<javac srcdir="${src_test_dir}" destdir="${test_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" includeantruntime="flase">
+		<javac srcdir="${src_test_dir}" destdir="${test_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" includeantruntime="false">
 			<classpath refid="test-classpath" />
 		</javac>
 	</target>
 
-	<target name="compile" depends="compile-action" description="Compiles the project." />
+	<target name="compile" depends="compile-model,compile-action,compile-swing,compile-test" description="Compiles the project." />
 
 	<target name="clean" description="Deletes the build directory.">
 		<delete dir="${dist_dir}" />
-		<delete dir="${build_dir}" />
+		<delete dir="${classes_dir}" includeemptydirs="true" includes="*/**/*" />
 	</target>
 	
-	<target name="pack" depends="compile-action" description="Creates the JTrace jar file.">
+	<target name="dist" depends="compile" description="Creates the JTrace jars">
 		<mkdir dir="${dist_dir}"/>
 		
 		<jar destfile="${jtrace_jar}">
 			<fileset dir="${model_classes_dir}" includes="**/*.class" />
 			<fileset dir="${action_classes_dir}" includes="**/*.class" />
 		</jar>
+		
+		<jar destfile="${jtrace_swing_jar}">
+      <fileset dir="${swing_classes_dir}" includes="**/*.class" />
+    </jar>
 	</target>
 </project>
