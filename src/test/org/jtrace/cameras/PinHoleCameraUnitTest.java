@@ -7,11 +7,9 @@ import org.testng.annotations.Test;
 
 public class PinHoleCameraUnitTest {
 
-	private static Point3D ORIGIN = new Point3D(0, 0, 0);
 	private static Point3D EYE = new Point3D(0, 0, 10);
-	private static Vector3D UNIT_Y = new Vector3D(0, 1, 0);
 	
-	private static Camera PIN_HOLE_CAMERA = new PinHoleCamera(EYE, ORIGIN, UNIT_Y);
+	private static Camera PIN_HOLE_CAMERA = new PinHoleCamera(EYE, Point3D.ORIGIN, Vector3D.UNIT_Y);
 	
 	@Test
 	public void testCalculateJayDirection_CenterJay() {
