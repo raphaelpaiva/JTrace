@@ -3,6 +3,8 @@
 	<classpathentry kind="src" path="src/model"/>
 	<classpathentry kind="src" path="src/action"/>
 	<classpathentry kind="src" path="src/test"/>
+	<classpathentry kind="src" path="src/swing"/>
+	<classpathentry kind="src" path="src/examples"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/testng-6.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
