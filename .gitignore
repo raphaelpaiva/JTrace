@@ -2,3 +2,5 @@ bin/*
 test-output/*
 *.jpg
 *.png
+build/
+dist/
