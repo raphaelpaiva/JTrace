@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="JTrace">
+<project name="JTrace" default="pack">
 	<property file="build.properties" />
 
 	<description>
@@ -41,6 +41,8 @@
 	</target>
 	
 	<target name="pack" depends="compile-action" description="Creates the JTrace jar file.">
+		<mkdir dir="${dist_dir}"/>
+		
 		<jar destfile="${jtrace_jar}">
 			<fileset dir="${model_classes_dir}" includes="**/*.class" />
 			<fileset dir="${action_classes_dir}" includes="**/*.class" />
