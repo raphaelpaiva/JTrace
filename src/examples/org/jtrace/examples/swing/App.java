@@ -3,9 +3,7 @@ package org.jtrace.examples.swing;
 import java.io.IOException;
 
 import org.jtrace.Material;
-import org.jtrace.PerspectiveTracer;
 import org.jtrace.Scene;
-import org.jtrace.Tracer;
 import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Plane;
