@@ -26,8 +26,8 @@ public class Sphere extends GeometricObject {
      * @param radius the radius of the {@link Sphere}
      * @param color the color of the {@link Sphere}
      */
-    public Sphere(final Point3D center, final float radius, Material material) {
-    	super(material);
+    public Sphere(final Point3D center, final float radius, final Material material) {
+        super(material);
         this.center = center;
         this.radius = radius;
     }
@@ -38,35 +38,36 @@ public class Sphere extends GeometricObject {
      * @param jay the casted {@link Jay}.
      * @return {@link Hit} if the {@link Jay} hits the object.
      */
+    @Override
     public Hit hit(final Jay jay) {
-        Vector3D temp = new Vector3D(jay.getOrigin().subtract(center));
-        
-        double a = jay.getDirection().dot();
-        double b = temp.multiply(2).dot(jay.getDirection());
-        double c = temp.dot() - radius * radius;
+        final Vector3D temp = new Vector3D(jay.getOrigin().subtract(center));
 
-        double delta = b * b - 4 * a * c;
-        double deltaRoot = Math.sqrt(delta); 
-        
+        final double a = jay.getDirection().dot();
+        final double b = temp.multiply(2).dot(jay.getDirection());
+        final double c = temp.dot() - radius * radius;
+
+        final double delta = b * b - 4 * a * c;
+        final double deltaRoot = Math.sqrt(delta);
+
         double t;
-        
+
         if (delta < 0.0) {
             return new NotHit();
         } else {
-        	//smaller root
-        	t = (-b - deltaRoot) / 2*a;
-        	if (t > Constants.epsilon) {
-        		Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-        		return new Hit(t, normal.normal());
-        	}
-        	
-        	//larger root
-        	t = (-b + deltaRoot) / 2*a;
-        	if (t > Constants.epsilon) {
-        		Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-        		return new Hit(t, normal.normal());
-        	}
-        	
+            //smaller root
+            t = (-b - deltaRoot) / 2*a;
+            if (t > Constants.epsilon) {
+                final Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
+                return new Hit(t, normal.normal());
+            }
+
+            //larger root
+            t = (-b + deltaRoot) / 2*a;
+            if (t > Constants.epsilon) {
+                final Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
+                return new Hit(t, normal.normal());
+            }
+
             return new NotHit();
         }
     }
@@ -86,10 +87,10 @@ public class Sphere extends GeometricObject {
     public void setRadius(final float radius) {
         this.radius = radius;
     }
-    
+
     @Override
     public String toString() {
-    	return "c" + center.toString() + ", r = " + radius;
+        return "c" + center.toString() + ", r = " + radius;
     }
 
 }
