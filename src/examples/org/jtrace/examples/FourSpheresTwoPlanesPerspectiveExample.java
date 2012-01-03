@@ -17,7 +17,7 @@ import org.jtrace.primitives.Vector3D;
 
 public class FourSpheresTwoPlanesPerspectiveExample {
     public static void main(final String[] args) {
-        final ViewPlane viewPlane = new ViewPlane(100, 100);
+        final ViewPlane viewPlane = new ViewPlane(1920, 1080);
 
         final Point3D lookAt = Point3D.ORIGIN;
         final Point3D eye = new Point3D(100, 0, -100);
