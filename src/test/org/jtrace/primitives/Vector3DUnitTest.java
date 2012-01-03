@@ -155,4 +155,29 @@ public class Vector3DUnitTest {
 		
 		Assert.assertEquals(v.divide(2), expected);
 	}
+	
+	@Test
+	public void testIsParalell_antiParallelVectors() {
+	  Vector3D vector = new Vector3D(0, 1, 0);
+	  Vector3D otherVector = new Vector3D(0, -42, 0);
+	  
+	  Assert.assertTrue(vector.isParallelTo(otherVector), "Expected vectors to be parallel!");
+	}
+	
+	@Test
+  public void testIsParalell_parallelVectors() {
+    Vector3D vector = new Vector3D(0, 1, 0);
+    Vector3D otherVector = new Vector3D(0, 42, 0);
+    
+    Assert.assertTrue(vector.isParallelTo(otherVector), "Expected vectors to be parallel!");
+  }
+	
+	@Test
+  public void testIsParalell_notParallelVectors() {
+    Vector3D vector = new Vector3D(0, 1, 0);
+    Vector3D otherVector = new Vector3D(1, 1, 0);
+    
+    Assert.assertFalse(vector.isParallelTo(otherVector), "Expected vectors not to be parallel!");
+  }
+	
 }

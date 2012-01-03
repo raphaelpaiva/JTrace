@@ -9,6 +9,7 @@ package org.jtrace.primitives;
  * 
  */
 public class Vector3D {
+  public static final Vector3D NULL = new Vector3D(0, 0, 0);
   public static final Vector3D UNIT_Y = new Vector3D(0, 1, 0);
 
   private Point3D coordinate;
@@ -209,6 +210,10 @@ public class Vector3D {
     return new Vector3D(this.getX() / d, this.getY() / d, this.getZ() / d);
   }
 
+  public boolean isParallelTo(Vector3D otherVector) {
+    return cross(otherVector).equals(NULL);
+  }
+  
   public double getX() {
     return coordinate.getX();
   }
