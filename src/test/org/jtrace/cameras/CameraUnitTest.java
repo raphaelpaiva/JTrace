@@ -28,6 +28,40 @@ public class CameraUnitTest {
 		Assert.assertEquals(camera.u.getX(), u.getX());
 	}
 	
+	@Test
+	public void testComputeUVW_UpAndLookAtAntiParallel() {
+	  Vector3D up = Vector3D.UNIT_Y;
+	  Point3D lookAt = Vector3D.UNIT_Y.getCoordinate();
+	  Point3D eye = Point3D.ORIGIN;
+	  
+	  Vector3D u = new Vector3D(0, 0, 1);
+	  Vector3D v = new Vector3D(1, 0, 0);
+	  Vector3D w = new Vector3D(0, -1, 0);
+	  
+	  Camera camera = new DummyCamera(eye, lookAt, up);
+	  
+	  Assert.assertEquals(camera.u, u);
+	  Assert.assertEquals(camera.v, v);
+	  Assert.assertEquals(camera.w, w);
+	}
+	
+	@Test
+  public void testComputeUVW_UpAndLookAtParallel() {
+    Vector3D up = Vector3D.UNIT_Y;
+    Point3D lookAt = Vector3D.UNIT_Y.multiply(-1).getCoordinate();
+    Point3D eye = Point3D.ORIGIN;
+    
+    Vector3D u = new Vector3D(0, 0, 1);
+    Vector3D v = new Vector3D(1, 0, 0);
+    Vector3D w = new Vector3D(0, 1, 0);
+    
+    Camera camera = new DummyCamera(eye, lookAt, up);
+    
+    Assert.assertEquals(camera.u, u);
+    Assert.assertEquals(camera.v, v);
+    Assert.assertEquals(camera.w, w);
+  }
+	
 	private class DummyCamera extends Camera {
 		public DummyCamera(Point3D eye, Point3D lookAt, Vector3D up) {
 			this.eye = eye;

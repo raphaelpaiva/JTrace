@@ -15,9 +15,21 @@ public abstract class Camera {
 		Vector3D lookVector = new Vector3D(lookAt, eye);
 		viewPlaneDistance = lookVector.module();
 		
-		w = lookVector.normal();
-		u = up.cross(w).normal();
-		v = w.cross(u);
+		if (lookVector.isParallelTo(up)) {
+		  if (eye.getY() > lookAt.getY()) {
+		    u = new Vector3D(0, 0, 1);
+		    v = new Vector3D(1, 0, 0);
+		    w = new Vector3D(0, 1, 0);
+		  } else {
+		    u = new Vector3D(0, 0, 1);
+		    v = new Vector3D(1, 0, 0);
+		    w = new Vector3D(0, -1, 0);
+		  }
+		} else {
+		  w = lookVector.normal();
+	    u = up.cross(w).normal();
+	    v = w.cross(u);
+		}
 	}
 
 	public abstract Jay createJay(int r, int c, int vres, int hres);
