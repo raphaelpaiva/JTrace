@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
 
 import org.jtrace.Scene;
 import org.jtrace.Tracer;
@@ -83,8 +84,11 @@ public class TracerPanel extends JPanel {
     
     statusPanel.add(progressBar);
     
+    JScrollPane scrollPane = new JScrollPane(drawablePanel);
+    
     add(statusPanel, BorderLayout.PAGE_END);
-    add(drawablePanel, BorderLayout.CENTER);
+    add(scrollPane, BorderLayout.CENTER);
+    //add(drawablePanel, BorderLayout.CENTER);
     add(renderBtn, BorderLayout.PAGE_START);
   }
   
