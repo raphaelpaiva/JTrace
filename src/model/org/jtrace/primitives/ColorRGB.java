@@ -46,7 +46,7 @@ public class ColorRGB {
         return new ColorRGB(getRed() + color2.getRed(), getGreen() + color2.getGreen(), getBlue() + color2.getBlue());
     }
 
-    public ColorRGB multiply(final float multiplier) {
+    public ColorRGB multiply(final double multiplier) {
         return new ColorRGB(getRed() * multiplier, getGreen() * multiplier, getBlue() * multiplier);
     }
 
