@@ -11,6 +11,8 @@ public abstract class Camera {
 	
 	protected double viewPlaneDistance;
 	
+	private double zoomFactor = 1;
+	
 	protected void computeUVW() {
 		Vector3D lookVector = new Vector3D(lookAt, eye);
 		viewPlaneDistance = lookVector.module();
@@ -33,5 +35,13 @@ public abstract class Camera {
 	}
 
 	public abstract Jay createJay(int r, int c, int vres, int hres);
+
+	public double getZoomFactor() {
+		return zoomFactor;
+	}
+
+	public void setZoomFactor(double zoomFactor) {
+		this.zoomFactor = zoomFactor;
+	}
 	
 }

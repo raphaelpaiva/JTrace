@@ -31,7 +31,7 @@ public class MainWindow extends JFrame {
   }
 
   private JPanel createTracerPanel() {
-    return new TracerPanel(new PerspectiveTracer(), App.createScene(), new ViewPlane(1376, 768), 500, 500);
+    return new TracerPanel(new PerspectiveTracer(), App.createScene(), new ViewPlane(500, 500), 500, 500);
   }
   
 }

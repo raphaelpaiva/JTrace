@@ -49,7 +49,7 @@ public class App {
     final Light light = new Light(0, -20, 10);
     
     final Camera pinHoleCamera = new PinHoleCamera(eye, lookAt, up);
-    
+    pinHoleCamera.setZoomFactor(10);
     return new Scene().add(blue, red, plane1, plane2).add(light).setCamera(pinHoleCamera);
   }
   

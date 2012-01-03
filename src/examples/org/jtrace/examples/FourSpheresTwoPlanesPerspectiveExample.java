@@ -41,6 +41,7 @@ public class FourSpheresTwoPlanesPerspectiveExample {
         final Light light = new Light(lightPosition);
 
         final Camera pinHoleCamera = new PinHoleCamera(eye, lookAt, up);
+        pinHoleCamera.setZoomFactor(10);
 
         final Scene scene = new Scene().add(blue, red, originSphere, lightSphere, lowerPlane, upperPlane).add(light).setCamera(pinHoleCamera);
 
