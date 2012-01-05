@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class OrthogonalTracerUnitTest {
 	
-	private static final OrthogonalTracer TRACER = new OrthogonalTracer();
+	private static final Tracer TRACER = new Tracer();
 	private static final Vector3D JAY_DIRECTION = new Vector3D(0, 0, -1);
 	private static final Point3D JAY_ORIGIN = new Point3D(0, 1, 0);
 	private static final Jay JAY = new Jay(JAY_ORIGIN, JAY_DIRECTION);

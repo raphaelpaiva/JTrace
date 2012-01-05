@@ -16,7 +16,7 @@ public class PerspectiveTracerUnitTest {
 	private static final Point3D ORIGIN = new Point3D(0, 0, 0);
 	private static final Vector3D UNIT_Y = new Vector3D(0, 1, 0);
 	
-	private static final PerspectiveTracer TRACER = new PerspectiveTracer();
+	private static final Tracer TRACER = new Tracer();
 	private static final ReflectanceCoefficient KAMBIENT = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 	private static final ReflectanceCoefficient KDIFFUSE = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 	private static final int SPHERE_RADIUS = 1;

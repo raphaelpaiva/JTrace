@@ -5,6 +5,7 @@ import static java.util.Arrays.asList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.jtrace.cameras.Camera;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
@@ -15,7 +16,7 @@ import org.jtrace.primitives.Vector3D;
 /**
  * Abstract class containing the common operation and fields of a Tracer.
  */
-public abstract class Tracer {
+public class Tracer {
 
 	private List<TracerListener> listeners = new LinkedList<TracerListener>();
 
@@ -114,7 +115,25 @@ public abstract class Tracer {
 	 * @param scene the {@link Scene} to be rendered.
 	 * @param viewPlane this should change =p.
 	 */
-	public abstract void render(Scene scene, ViewPlane viewPlane);
+	public void render(Scene scene, ViewPlane viewPlane) {
+	  final int hres = viewPlane.getHres();
+    final int vres = viewPlane.getVres();
+    final Camera camera = scene.getCamera();
+
+    fireStart(viewPlane);
+
+    for (int r = 0; r < vres; r++) {
+        for (int c = 0; c < hres; c++) {
+            final Jay jay = camera.createJay(r, c, vres, hres);
+
+            final ColorRGB color = cast(scene, jay);
+
+            fireAfterTrace(color, c, r);
+        }
+    }
+
+    fireFinish();
+	}
 
 	protected void fireFinish() {
 		for (TracerListener listener : listeners) {

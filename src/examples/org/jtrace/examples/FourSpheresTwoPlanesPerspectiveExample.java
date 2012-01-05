@@ -1,8 +1,8 @@
 package org.jtrace.examples;
 
 import org.jtrace.Materials;
-import org.jtrace.PerspectiveTracer;
 import org.jtrace.Scene;
+import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
 import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;
@@ -45,10 +45,10 @@ public class FourSpheresTwoPlanesPerspectiveExample {
 
         final Scene scene = new Scene().add(blue, red, originSphere, lightSphere, lowerPlane, upperPlane).add(light).setCamera(pinHoleCamera);
 
-        final PerspectiveTracer ot = new PerspectiveTracer();
+        final Tracer tracer = new Tracer();
 
-        ot.addListeners(new ImageListener("result_Perspective.png", "png"), new TimeListener());
+        tracer.addListeners(new ImageListener("result_Perspective.png", "png"), new TimeListener());
 
-        ot.render(scene, viewPlane);
+        tracer.render(scene, viewPlane);
     }
 }

@@ -29,7 +29,7 @@ public class TracerUnitTest {
 	
 	private static Jay JAY = new Jay(ORIGIN, DIRECTION);
 	
-	PerspectiveTracer PERSPECTIVE_TRACER = new PerspectiveTracer();
+	Tracer PERSPECTIVE_TRACER = new Tracer();
 	
 	@Test
 	public void testAmbientLight_On() {

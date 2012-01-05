@@ -5,7 +5,7 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.jtrace.PerspectiveTracer;
+import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
 import org.jtrace.swing.TracerPanel;
 
@@ -31,7 +31,7 @@ public class MainWindow extends JFrame {
   }
 
   private JPanel createTracerPanel() {
-    return new TracerPanel(new PerspectiveTracer(), App.createScene(), new ViewPlane(500, 500), 500, 500);
+    return new TracerPanel(new Tracer(), App.createScene(), new ViewPlane(500, 500), 500, 500);
   }
   
 }
