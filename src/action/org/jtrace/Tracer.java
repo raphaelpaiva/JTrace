@@ -110,8 +110,8 @@ public class Tracer {
 	}
 
 	/**
-	 * Abstract method that should define the {@link Jay} casting strategy.
-	 * 
+	 * Renders the scene.
+	 * The {@link Jay} casting strategy is defined by the {@link Camera} used in the scene.
 	 * @param scene the {@link Scene} to be rendered.
 	 * @param viewPlane this should change =p.
 	 */
