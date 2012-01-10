@@ -4,6 +4,7 @@ import static org.testng.Assert.assertEquals;
 
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
+import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -81,6 +82,26 @@ public class SceneIOUnitTest {
 		
 		Vector3D vecLoaded = (Vector3D) obj;
 		Assert.assertEquals(vecLoaded, vec);
+	}
+	
+	@Test
+	public void testReflectanceCoefficientDump() {
+		ReflectanceCoefficient reflect = new ReflectanceCoefficient(1.0, 0.0, 1.0);
+		
+		String reflectStr = io.yaml().dump(reflect);
+		
+		assertEquals(reflectStr.trim(), "!reflect {blue: 1.0, green: 0.0, red: 1.0}");
+	}
+	
+	@Test 
+	public void testReflectanceCoefficientLoad() {
+		ReflectanceCoefficient reflect = new ReflectanceCoefficient(1.0, 0.0, 1.0);
+				
+		Object obj = io.yaml().load("!reflect {blue: 1.0, green: 0.0, red: 1.0}");
+		Assert.assertTrue(obj instanceof ReflectanceCoefficient);
+		
+		ReflectanceCoefficient reflectLoaded = (ReflectanceCoefficient) obj;
+		Assert.assertEquals(reflectLoaded, reflect);
 	}
 	
 }

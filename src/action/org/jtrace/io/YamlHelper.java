@@ -3,7 +3,11 @@ package org.jtrace.io;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jtrace.primitives.ColorRGB;
+import org.jtrace.primitives.Point3D;
+import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
+import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.constructor.AbstractConstruct;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.nodes.MappingNode;
@@ -18,10 +22,15 @@ public class YamlHelper {
 
 		public JTraceConstructor() {
 			this.yamlConstructors.put(new Tag("!vector"), new ConstructVector3D());
+			
+			addTypeDescription(new TypeDescription(Point3D.class, new Tag("!pt")));
+			addTypeDescription(new TypeDescription(ColorRGB.class, new Tag("!color")));
+			addTypeDescription(new TypeDescription(ReflectanceCoefficient.class, new Tag("!reflect")));
 		}
 
 		private class ConstructVector3D extends AbstractConstruct {
-			public Object construct(Node node) {
+			@SuppressWarnings("rawtypes")
+      public Object construct(Node node) {
 				Map map = constructMapping((MappingNode) node);
 				
 				double x = (Double) map.get("x");
@@ -36,10 +45,15 @@ public class YamlHelper {
 	static class JTraceRepresenter extends Representer {
 		public JTraceRepresenter() {
 			this.representers.put(Vector3D.class, new RepresentVector3D());
+			
+			addClassTag(Point3D.class, new Tag("!pt"));
+			addClassTag(ColorRGB.class, new Tag("!color"));
+			addClassTag(ReflectanceCoefficient.class, new Tag("!reflect"));
 		}
 
 		private class RepresentVector3D implements Represent {
-			public Node representData(Object data) {
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+      public Node representData(Object data) {
 				Vector3D vec = (Vector3D) data;
 				
 				Map<String, Double> map = new HashMap<String, Double>();
