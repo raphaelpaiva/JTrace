@@ -13,6 +13,8 @@ public class Point3D {
 
 	private double x, y, z;
 
+	private Point3D() {}
+	
 	/**
 	 * Create a point from its coordinates
 	 * 
@@ -21,7 +23,7 @@ public class Point3D {
 	 * @param z axis value
 	 */
 	public Point3D(final double x, final double y, final double z) {
-		super();
+		this();
 		this.x = x;
 		this.y = y;
 		this.z = z;

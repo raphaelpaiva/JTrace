@@ -21,6 +21,8 @@ public class ColorRGB {
 
     private double red, green, blue;
 
+    private ColorRGB() {}
+    
     /**
      * Create a color from its components values.
      * 
@@ -29,9 +31,11 @@ public class ColorRGB {
      * @param paramB blue component
      */
     public ColorRGB(final double paramR, final double paramG, final double paramB) {
-        setRed(paramR);
-        setGreen(paramG);
-        setBlue(paramB);
+	    	this();
+	    	
+	      setRed(paramR);
+	      setGreen(paramG);
+	      setBlue(paramB);
     }
 
     public int toInt() {
