@@ -18,52 +18,59 @@ import org.yaml.snakeyaml.representer.Representer;
 
 public class YamlHelper {
 
-	static class JTraceConstructor extends Constructor {
+    private static final String REFLECTANCE_COEFFICIENT_TAG = "!reflect";
+    private static final String COLORRGB_TAG = "!color";
+    private static final String POINT3D_TAG = "!pt";
+    private static final String VECTOR3D_TAG = "!vector";
 
-		public JTraceConstructor() {
-			this.yamlConstructors.put(new Tag("!vector"), new ConstructVector3D());
-			
-			addTypeDescription(new TypeDescription(Point3D.class, new Tag("!pt")));
-			addTypeDescription(new TypeDescription(ColorRGB.class, new Tag("!color")));
-			addTypeDescription(new TypeDescription(ReflectanceCoefficient.class, new Tag("!reflect")));
-		}
+    static class JTraceConstructor extends Constructor {
 
-		private class ConstructVector3D extends AbstractConstruct {
-			@SuppressWarnings("rawtypes")
-      public Object construct(Node node) {
-				Map map = constructMapping((MappingNode) node);
-				
-				double x = (Double) map.get("x");
-				double y = (Double) map.get("y");
-				double z = (Double) map.get("z");
-				
-				return new Vector3D(x, y, z);
-			}
-		}
-	}
-	
-	static class JTraceRepresenter extends Representer {
-		public JTraceRepresenter() {
-			this.representers.put(Vector3D.class, new RepresentVector3D());
-			
-			addClassTag(Point3D.class, new Tag("!pt"));
-			addClassTag(ColorRGB.class, new Tag("!color"));
-			addClassTag(ReflectanceCoefficient.class, new Tag("!reflect"));
-		}
+        public JTraceConstructor() {
+            yamlConstructors.put(new Tag(VECTOR3D_TAG), new ConstructVector3D());
 
-		private class RepresentVector3D implements Represent {
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-      public Node representData(Object data) {
-				Vector3D vec = (Vector3D) data;
-				
-				Map<String, Double> map = new HashMap<String, Double>();
-				map.put("x", vec.getX());
-				map.put("y", vec.getY());
-				map.put("z", vec.getZ());
-				
-				return representMapping(new Tag("!vector"), (Map) map, Boolean.TRUE);
-			}
-		}
-	}
+            addTypeDescription(new TypeDescription(Point3D.class, new Tag(POINT3D_TAG)));
+            addTypeDescription(new TypeDescription(ColorRGB.class, new Tag(COLORRGB_TAG)));
+            addTypeDescription(new TypeDescription(ReflectanceCoefficient.class, new Tag(REFLECTANCE_COEFFICIENT_TAG)));
+        }
+
+        private class ConstructVector3D extends AbstractConstruct {
+            @SuppressWarnings("rawtypes")
+            @Override
+            public Object construct(final Node node) {
+                final Map map = constructMapping((MappingNode) node);
+
+                final double x = (Double) map.get("x");
+                final double y = (Double) map.get("y");
+                final double z = (Double) map.get("z");
+
+                return new Vector3D(x, y, z);
+            }
+        }
+    }
+
+    static class JTraceRepresenter extends Representer {
+        public JTraceRepresenter() {
+            representers.put(Vector3D.class, new RepresentVector3D());
+
+            addClassTag(Point3D.class, new Tag(POINT3D_TAG));
+            addClassTag(ColorRGB.class, new Tag(COLORRGB_TAG));
+            addClassTag(ReflectanceCoefficient.class, new Tag(REFLECTANCE_COEFFICIENT_TAG));
+        }
+
+        private class RepresentVector3D implements Represent {
+            @SuppressWarnings({ "unchecked", "rawtypes" })
+            @Override
+            public Node representData(final Object data) {
+                final Vector3D vec = (Vector3D) data;
+
+                final Map<String, Double> map = new HashMap<String, Double>();
+                map.put("x", vec.getX());
+                map.put("y", vec.getY());
+                map.put("z", vec.getZ());
+
+                return representMapping(new Tag(VECTOR3D_TAG), (Map) map, Boolean.TRUE);
+            }
+        }
+    }
 
 }
