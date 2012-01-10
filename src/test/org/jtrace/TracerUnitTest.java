@@ -1,13 +1,12 @@
 package org.jtrace;
 
-import junit.framework.Assert;
-
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TracerUnitTest {
