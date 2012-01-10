@@ -6,6 +6,7 @@
 	<classpathentry kind="src" output="build/classes/swing" path="src/swing"/>
 	<classpathentry kind="src" output="build/classes/examples" path="src/examples"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/snakeyaml-1.9.jar"/>
 	<classpathentry kind="lib" path="lib/testng-6.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

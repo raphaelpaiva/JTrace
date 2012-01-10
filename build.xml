@@ -7,8 +7,12 @@
 
 	<taskdef resource="testngtasks" classpath="${testng_jar}"/>
 
-	<path id="test-classpath">
+	<path id="classpath">
 		<fileset dir="${lib_dir}" includes="**/*.jar"/>
+	</path>
+	
+	<path id="test-classpath">
+		<path refid="classpath" />
 		<pathelement location="${action_classes_dir}" />
 		<pathelement location="${model_classes_dir}" />
 	</path>
@@ -22,19 +26,19 @@
 	</target>
 
 	<target name="compile-model" depends="prepare-compile" description="Compiles the model classes.">
-		<javac srcdir="${src_model_dir}" destdir="${model_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" includeantruntime="false" />
+		<javac srcdir="${src_model_dir}" destdir="${model_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" includeantruntime="false" classpathref="classpath" />
 	</target>
 
 	<target name="compile-action" depends="prepare-compile, compile-model" description="Compiles the action classes.">
-		<javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" />
+		<javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" classpathref="classpath" />
 	</target>
 	
 	<target name="compile-swing" depends="prepare-compile, compile-action" description="Compiles the Swing Extension classes.">
-	    <javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" />
+	    <javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" classpathref="classpath" />
   </target>
 	
 	<target name="compile-examples" depends="prepare-compile, compile" description="Compiles the Swing Extension classes.">
-      <javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" />
+      <javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" classpathref="classpath" />
   </target>
 
 	<target name="compile-test" depends="compile-action" description="Compiles the test classes.">
