@@ -43,7 +43,7 @@ public class ImageListener implements TracerListener {
 
 	@Override
 	public void afterTrace(ColorRGB color, int x, int y) {
-		image.setRGB(x, y, color.toInt());
+		image.setRGB(x, image.getHeight() - 1 - y, color.toInt());
 	}
 
 	@Override
