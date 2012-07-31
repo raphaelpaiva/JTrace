@@ -19,7 +19,7 @@ public class LookingDownExample {
         final ViewPlane viewPlane = new ViewPlane(1920, 1080);
 
         final Point3D lookAt = Point3D.ORIGIN;
-        final Point3D eye = new Point3D(0, 0, 100);
+        final Point3D eye = new Point3D(0, 100, 0);
         final Vector3D up = new Vector3D(0, 1, 0);
 
         final Point3D lightPosition = new Point3D(0, 0, 0);
@@ -35,12 +35,13 @@ public class LookingDownExample {
         final Light light = new Light(lightPosition);
 
         final Camera pinHoleCamera = new PinHoleCamera(eye, lookAt, up);
+        pinHoleCamera.setZoomFactor(10);
 
         final Scene scene = new Scene().add(blue, red, originSphere, lightSphere).add(light).setCamera(pinHoleCamera);
 
         final Tracer tracer = new Tracer();
 
-        tracer.addListeners(new ImageListener("result_Perspective.png", "png"), new TimeListener());
+        tracer.addListeners(new ImageListener("lookDown.png", "png"), new TimeListener());
 
         tracer.render(scene, viewPlane);
     }

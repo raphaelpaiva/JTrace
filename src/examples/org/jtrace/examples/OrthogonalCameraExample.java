@@ -27,7 +27,7 @@ public class OrthogonalCameraExample {
         final Light light = new Light(-100, -50, -10);
 
         final Point3D centerRed = new Point3D(-50, 0, -10);
-        final Point3D centerBlue = new Point3D(50, 0, -100);
+        final Point3D centerBlue = new Point3D(50, 0, -1000);
 
         final Sphere red = new Sphere(centerRed, 50, Materials.matte(ColorRGB.RED));
         final Sphere blue = new Sphere(centerBlue, 50, Materials.matte(ColorRGB.BLUE));
