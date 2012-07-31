@@ -140,4 +140,10 @@ public class Point3D {
 		return "(" + x + ", " + y + ", " + z + ")";
 	}
 
+	public Point3D add(Vector3D vector) {
+		Point3D p = new Point3D( vector.getX(), vector.getY(), vector.getZ() );
+		
+		return add(p);
+	}
+
 }
