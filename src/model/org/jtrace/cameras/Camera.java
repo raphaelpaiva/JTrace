@@ -48,4 +48,8 @@ public abstract class Camera {
         return eye;
     }
 
+    public void update() {
+        computeUVW();
+    }
+
 }
