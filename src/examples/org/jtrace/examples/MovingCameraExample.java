@@ -19,7 +19,7 @@ public class MovingCameraExample {
 
     private static Triangle TRIANGLE = new Triangle(LEFT_VERTEX, RIGHT_VERTEX, TOP_VERTEX);
 
-    private static ViewPlane VIEW_PLANE = new ViewPlane(1024, 768);
+    private static ViewPlane VIEW_PLANE = new ViewPlane(1280, 720);
 
     private static Scene SCENE = prepareScene();
 
@@ -49,7 +49,7 @@ public class MovingCameraExample {
     }
 
     private static void render(final int frame) {
-        TRACER.addListeners(new ImageListener("movingframe-" + frame + ".png", "png"), new TimeListener());
+        TRACER.addListeners(new ImageListener("movingframe-" + String.format("%03d", frame) + ".png", "png"), new TimeListener());
 
         TRACER.render(SCENE, VIEW_PLANE);
 
