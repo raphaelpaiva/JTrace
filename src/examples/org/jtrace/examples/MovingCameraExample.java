@@ -38,10 +38,10 @@ public class MovingCameraExample {
         final Point3D lookAt = new Point3D(0, 10, 0);
         final Vector3D up = new Vector3D(0, 1, 0);
 
-        final Light light = new Light(0, 0, 10);
+        final Light light = new Light(0, 10, 10);
 
         final Camera pinHoleCamera = new PinHoleCamera(eye, lookAt, up);
-        pinHoleCamera.setZoomFactor(10);
+        pinHoleCamera.setZoomFactor(20);
 
         final Scene scene = new Scene().add(TRIANGLE).add(light).setCamera(pinHoleCamera);
 
@@ -73,13 +73,10 @@ public class MovingCameraExample {
         eye.setZ(z);
 
         camera.update();
-
-        System.out.println("Angle: " + angle + " eye: " + eye);
     }
 
     public static void main(final String[] args) {
         for (int frame = 0; frame < DURATION * FPS + 1; frame++) {
-            System.out.println("Render frame " + frame);
             updateCameraPosition(frame);
             render(frame);
         }
