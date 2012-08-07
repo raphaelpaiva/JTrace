@@ -3,10 +3,12 @@ package org.jtrace;
 import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Sphere;
+import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
+import org.jtrace.shader.AmbientShader;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,7 +18,6 @@ public class PerspectiveTracerUnitTest {
 	private static final Point3D ORIGIN = new Point3D(0, 0, 0);
 	private static final Vector3D UNIT_Y = new Vector3D(0, 1, 0);
 	
-	private static final Tracer TRACER = new Tracer();
 	private static final ReflectanceCoefficient KAMBIENT = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 	private static final ReflectanceCoefficient KDIFFUSE = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 	private static final int SPHERE_RADIUS = 1;
@@ -32,12 +33,17 @@ public class PerspectiveTracerUnitTest {
 		final int hres = 1;
 		final int vres = 1;
 		
-		Scene scene = new Scene().add(sphere);
+		Light light = new Light(new Point3D(0, 0, 0));
+		
+		Scene scene = new Scene().add(sphere).add(light);
 
 		Vector3D jayDirection = PIN_HOLE_CAMERA.createJay(0, 0, vres, hres).getDirection();
 		Jay jay = new Jay(EYE_POINT, jayDirection);
 		
-		Assert.assertEquals(TRACER.cast(scene, jay), ColorRGB.RED);
+		Tracer tracer = new Tracer();
+		tracer.addShaders(new AmbientShader());
+		
+		Assert.assertEquals(tracer.cast(scene, jay), ColorRGB.RED);
 	}
 	
 	@Test
@@ -54,7 +60,7 @@ public class PerspectiveTracerUnitTest {
 		Vector3D jayDirection = PIN_HOLE_CAMERA.createJay(0, 0, vres, hres).getDirection();
 		Jay jay = new Jay(EYE_POINT, jayDirection);
 		
-		Assert.assertEquals(TRACER.cast(scene, jay), ColorRGB.BLACK);
+		Assert.assertEquals(new Tracer().cast(scene, jay), ColorRGB.BLACK);
 	}
 	
 	@Test
@@ -71,6 +77,9 @@ public class PerspectiveTracerUnitTest {
 		Vector3D jayDirection = PIN_HOLE_CAMERA.createJay(0, 0, vres, hres).getDirection();
 		Jay jay = new Jay(EYE_POINT, jayDirection);
 		
-		Assert.assertEquals(TRACER.cast(scene, jay), ColorRGB.GREEN);
+		Tracer tracer = new Tracer();
+		tracer.addShaders(new AmbientShader());
+		
+		Assert.assertEquals(tracer.cast(scene, jay), ColorRGB.GREEN);
 	}
 }
