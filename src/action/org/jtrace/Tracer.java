@@ -122,4 +122,8 @@ public class Tracer {
 	public void addShaders(Shader... paramShaders) {
 		shaders.addAll(asList(paramShaders));
 	}
+
+	public void clearListeners() {
+		listeners.clear();
+	}
 }
