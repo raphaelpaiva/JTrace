@@ -11,6 +11,8 @@ import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
+import org.jtrace.shader.AmbientShader;
+import org.jtrace.shader.DiffuseShader;
 
 public class MonolithExample {
 	
@@ -56,6 +58,8 @@ public class MonolithExample {
         final Tracer tracer = new Tracer();
 
         tracer.addListeners(new ImageListener("monolith.png", "png"), new TimeListener());
+        
+        tracer.addShaders(new AmbientShader(), new DiffuseShader());
 
         tracer.render(scene, viewPlane);
 	}

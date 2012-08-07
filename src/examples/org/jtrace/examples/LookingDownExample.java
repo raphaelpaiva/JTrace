@@ -13,6 +13,8 @@ import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
+import org.jtrace.shader.AmbientShader;
+import org.jtrace.shader.DiffuseShader;
 
 public class LookingDownExample {
     public static void main(final String[] args) {
@@ -43,6 +45,8 @@ public class LookingDownExample {
 
         tracer.addListeners(new ImageListener("lookDown.png", "png"), new TimeListener());
 
+        tracer.addShaders(new AmbientShader(), new DiffuseShader());
+        
         tracer.render(scene, viewPlane);
     }
 }

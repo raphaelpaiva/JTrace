@@ -13,6 +13,8 @@ import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
+import org.jtrace.shader.AmbientShader;
+import org.jtrace.shader.DiffuseShader;
 
 public class OrthogonalCameraExample {
     public static void main(final String[] args) {
@@ -37,6 +39,8 @@ public class OrthogonalCameraExample {
         final Tracer ot = new Tracer();
 
         ot.addListeners(new ImageListener("result.png", "png"), new TimeListener());
+        
+        ot.addShaders(new AmbientShader(), new DiffuseShader());
 
         ot.render(scene, viewPlane);
     }

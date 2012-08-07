@@ -14,6 +14,8 @@ import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
+import org.jtrace.shader.AmbientShader;
+import org.jtrace.shader.DiffuseShader;
 
 public class FourSpheresTwoPlanesPerspectiveExample {
     public static void main(final String[] args) {
@@ -45,6 +47,7 @@ public class FourSpheresTwoPlanesPerspectiveExample {
         final Tracer tracer = new Tracer();
 
         tracer.addListeners(new ImageListener("4Spheres2Planes.png", "png"), new TimeListener());
+        tracer.addShaders(new AmbientShader(), new DiffuseShader());
 
         tracer.render(scene, viewPlane);
     }

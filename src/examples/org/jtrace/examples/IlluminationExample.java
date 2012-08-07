@@ -14,6 +14,8 @@ import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
+import org.jtrace.shader.AmbientShader;
+import org.jtrace.shader.DiffuseShader;
 
 public class IlluminationExample {
   public static void main(String[] args) {
@@ -21,6 +23,8 @@ public class IlluminationExample {
     
     Tracer tracer = new Tracer();
     tracer.addListeners(new ImageListener("illumination.png", "png"), new TimeListener());
+    
+    tracer.addShaders(new AmbientShader(), new DiffuseShader());
     
     tracer.render(scene, new ViewPlane(1024, 768));
   }

@@ -11,6 +11,8 @@ import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
+import org.jtrace.shader.AmbientShader;
+import org.jtrace.shader.DiffuseShader;
 
 public class MovingCameraExample {
     private static Point3D LEFT_VERTEX = new Point3D(-10, 0, 0);
@@ -23,7 +25,7 @@ public class MovingCameraExample {
 
     private static Scene SCENE = prepareScene();
 
-    private static Tracer TRACER = new Tracer();
+    private static Tracer TRACER = prepareTracer();
 
     private static int RADIUS = 200;
     private static int DURATION = 5; //seconds
@@ -48,7 +50,15 @@ public class MovingCameraExample {
         return scene;
     }
 
-    private static void render(final int frame) {
+    private static Tracer prepareTracer() {
+		Tracer tracer = new Tracer();
+		
+		tracer.addShaders(new AmbientShader(), new DiffuseShader());
+		
+		return tracer;
+	}
+
+	private static void render(final int frame) {
         TRACER.addListeners(new ImageListener("movingframe-" + String.format("%03d", frame) + ".png", "png"), new TimeListener());
 
         TRACER.render(SCENE, VIEW_PLANE);
