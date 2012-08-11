@@ -38,7 +38,7 @@ public class TracerUnitTest {
 	private static DiffuseShader DIFFUSE_SHADER = new DiffuseShader();
 	
 	@Test
-	public void testAmbientLight_On() {
+	public void testAmbientLight() {
 		Scene scene = new Scene().add(SPHERE).add(LIGHT_0DEGREES);
 		
 		double red = ColorRGB.BLUE.getRed() * K_AMBIENT.getRed();
@@ -52,8 +52,8 @@ public class TracerUnitTest {
 	}
 
 	@Test
-	public void testAmbientLight_Off() {
-		Scene scene = new Scene().add(SPHERE).turnOffAmbientLight();
+	public void testNoAmbientLight() {
+		Scene scene = new Scene().add(SPHERE);
 		
 		Tracer tracer = new Tracer();
 		
@@ -61,7 +61,7 @@ public class TracerUnitTest {
 	}
 
 	@Test
-	public void testDiffuse_Light_Jay_0Degrees_With_AmbientLight_On() {
+	public void testDiffuse_Light_Jay_0Degrees_With_AmbientLight() {
 		Scene scene = new Scene().add(SPHERE).add(LIGHT_0DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
@@ -83,7 +83,7 @@ public class TracerUnitTest {
 	}
 
 	@Test
-	public void testDiffuse_Light_Jay_45Degrees_With_AmbientLight_On() {
+	public void testDiffuse_Light_Jay_45Degrees_With_AmbientLight() {
 		Scene scene = new Scene().add(SPHERE).add(LIGHT_45DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
@@ -105,7 +105,7 @@ public class TracerUnitTest {
 	}
 	
 	@Test
-	public void testDiffuse_Light_Jay_90Degrees_With_AmbientLight_On() {
+	public void testDiffuse_Light_Jay_90Degrees_With_AmbientLight() {
 		Scene scene = new Scene().add(SPHERE).add(LIGHT_90DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
@@ -149,8 +149,8 @@ public class TracerUnitTest {
 	}
 	
 	@Test
-	public void testDiffuse_Light_Jay_0Degrees_With_AmbientLight_Off() {
-		Scene scene = new Scene().add(SPHERE).add(LIGHT_0DEGREES).turnOffAmbientLight();
+	public void testDiffuse_Light_Jay_0Degrees_With_No_AmbientLight() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_0DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(LIGHT_0DEGREES, hit, JAY);
@@ -167,8 +167,8 @@ public class TracerUnitTest {
 	}
 	
 	@Test
-	public void testDiffuse_Light_Jay_45Degrees_With_AmbientLight_Off() {
-		Scene scene = new Scene().add(SPHERE).add(LIGHT_45DEGREES).turnOffAmbientLight();
+	public void testDiffuse_Light_Jay_45Degrees_With_No_AmbientLight() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_45DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(LIGHT_45DEGREES, hit, JAY);
@@ -185,8 +185,8 @@ public class TracerUnitTest {
 	}
 	
 	@Test
-	public void testDiffuse_Light_Jay_90Degrees_With_AmbientLight_Off() {
-		Scene scene = new Scene().add(SPHERE).add(LIGHT_90DEGREES).turnOffAmbientLight();
+	public void testDiffuse_Light_Jay_90Degrees_With_No_AmbientLight() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_90DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(LIGHT_90DEGREES, hit, JAY);
@@ -203,8 +203,8 @@ public class TracerUnitTest {
 	}
 	
 	@Test
-	public void testDiffuse_Light_Jay_Greater_90Degrees_With_AmbientLight_Off() {
-		Scene scene = new Scene().add(SPHERE).add(LIGHT_GREATER_90DEGREES).turnOffAmbientLight();
+	public void testDiffuse_Light_Jay_Greater_90Degrees_With_No_AmbientLight() {
+		Scene scene = new Scene().add(SPHERE).add(LIGHT_GREATER_90DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(LIGHT_GREATER_90DEGREES, hit, JAY);

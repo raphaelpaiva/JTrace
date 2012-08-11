@@ -47,7 +47,7 @@ public class PerspectiveTracerUnitTest {
 	}
 	
 	@Test
-	public void testRender_RedSphereInFrontOfViewPlane_AmbientLightOff() {
+	public void testRender_RedSphereInFrontOfViewPlane_NoAmbientLight() {
 		final Point3D center = new Point3D(0, 0, -5);
 		final Material material = new Material(ColorRGB.RED, KAMBIENT, KDIFFUSE);
 		
@@ -55,7 +55,7 @@ public class PerspectiveTracerUnitTest {
 		final int hres = 1;
 		final int vres = 1;
 
-		Scene scene = new Scene().add(sphere).turnOffAmbientLight();
+		Scene scene = new Scene().add(sphere);
 
 		Vector3D jayDirection = PIN_HOLE_CAMERA.createJay(0, 0, vres, hres).getDirection();
 		Jay jay = new Jay(EYE_POINT, jayDirection);

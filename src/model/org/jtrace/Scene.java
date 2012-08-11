@@ -12,23 +12,12 @@ import org.jtrace.primitives.ColorRGB;
 
 public class Scene {
     private final Set<GeometricObject> objects = new LinkedHashSet<GeometricObject>();
-    private boolean hasAmbientLight = true;
     private final Set<Light> lights = new LinkedHashSet<Light>();
     private ColorRGB backgroundColor = ColorRGB.BLACK;
     private Camera camera;
 
     public Scene withBackground(final ColorRGB color) {
         backgroundColor = color;
-        return this;
-    }
-
-    public Scene turnOffAmbientLight() {
-        hasAmbientLight = false;
-        return this;
-    }
-
-    public Scene turnOnAmbientLight() {
-        hasAmbientLight = true;
         return this;
     }
 
@@ -62,10 +51,6 @@ public class Scene {
 
     public ColorRGB getBackgroundColor() {
         return backgroundColor;
-    }
-
-    public boolean isAmbientLightOn() {
-        return hasAmbientLight;
     }
 
     public Camera getCamera() {
