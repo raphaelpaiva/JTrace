@@ -1,5 +1,6 @@
 package org.jtrace;
 
+import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
 public class Hit {
@@ -22,6 +23,14 @@ public class Hit {
 		this.hit = false;
 	}
 
+	public Point3D getPoint(Jay jay) {
+		Point3D point = jay.getOrigin();
+		
+		Vector3D direction = jay.getDirection().multiply(getT());
+		
+		return point.add(direction);
+	}
+	
 	public double getT() {
 		return t;
 	}

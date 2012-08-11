@@ -26,22 +26,11 @@ public class DiffuseShader implements Shader {
 	}
 	
 	public double calculateDiffuseContribution(Light light, Hit hit, Jay jay) {
-		Point3D hitPoint = calculateHitPoint(jay, hit);
+		Point3D hitPoint = hit.getPoint(jay);
 		
 		Vector3D lightDirection = new Vector3D(hitPoint, light.getPosition()).normal();
 		double dotLight = lightDirection.dot(hit.getNormal().normal());
 		return Math.max(dotLight, 0);
 	}
 	
-	protected Point3D calculateHitPoint(Jay jay, Hit hit) {
-		double x = jay.getOrigin().getX();
-		double y = jay.getOrigin().getY();
-		double z = jay.getOrigin().getZ();
-		
-		x += jay.getDirection().getX() * hit.getT();
-		y += jay.getDirection().getY() * hit.getT();
-		z += jay.getDirection().getZ() * hit.getT();
-		
-		return new Point3D(x, y, z);
-	}
 }
