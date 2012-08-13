@@ -16,24 +16,39 @@ public class SpecularShader implements Shader {
 			return ColorRGB.BLACK;
 		}
 		
-		Point3D hitPoint = jay.getOrigin().add( jay.getDirection().multiply(hit.getT()) ); 
+		Point3D hitPoint = hit.getPoint(jay); 
 		
 		Vector3D lightVec = new Vector3D(hitPoint, light.getPosition()).normal();
 		
-		Vector3D an = hit.getNormal().multiply( lightVec.dot(hit.getNormal()) );
-		Vector3D at = an.subtract(lightVec);
+		Vector3D reflected = calculateSpecularLightReflection(lightVec, hit.getNormal());
 		
-		Vector3D R = an.add(at);
+		Vector3D viewVector = new Vector3D(hitPoint, jay.getOrigin()).normal();
 		
-		Vector3D v = new Vector3D(hitPoint, jay.getOrigin()).normal();
+		double RdotV = reflected.dot(viewVector);
 		
-		double specularContribution = Math.pow(R.dot(v), 4);
+		if (RdotV > 0) {
+			double specularContribution = Math.pow(reflected.dot(viewVector), 2);
+			
+			double r = object.getMaterial().getkSpecular().getRed() * specularContribution;
+			double g = object.getMaterial().getkSpecular().getRed() * specularContribution;
+			double b = object.getMaterial().getkSpecular().getBlue() * specularContribution;
+			
+			return new ColorRGB(r, g, b);
+		} else {
+			return ColorRGB.BLACK;
+		}
+	}
+	
+	protected Vector3D calculateSpecularLightReflection(final Vector3D lightVector, final Vector3D surfaceNormal)
+	{
+		double lightDotNormal = lightVector.dot(surfaceNormal);
+		Vector3D an = surfaceNormal.multiply(lightDotNormal);
 		
-		double r = object.getMaterial().getkSpecular().getRed() * specularContribution;
-		double g = object.getMaterial().getkSpecular().getRed() * specularContribution;
-		double b = object.getMaterial().getkSpecular().getBlue() * specularContribution;
+		Vector3D anTimes2 = an.multiply(2);
 		
-		return new ColorRGB(r, g, b);
+		Vector3D reflected = anTimes2.subtract(lightVector);
+		
+		return reflected;
 	}
 
 }
