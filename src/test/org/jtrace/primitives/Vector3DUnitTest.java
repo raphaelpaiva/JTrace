@@ -79,105 +79,145 @@ public class Vector3DUnitTest {
 	public void testMultiply_By2() {
 		Vector3D v = new Vector3D(1, 1, 1);
 		Vector3D expected = new Vector3D(2, 2, 2);
-		
+
 		Assert.assertEquals(v.multiply(2), expected);
 	}
-	
+
 	@Test
 	public void testCross_byNilVector() {
 		Vector3D base = new Vector3D(1, 1, 1);
 		Vector3D nil = new Vector3D(0, 0, 0);
-		
+
 		Assert.assertEquals(base.cross(nil), nil);
 	}
-	
+
 	@Test
 	public void testCross_sameVector() {
 		Vector3D vector = new Vector3D(2, 2, 2);
 		Vector3D expected = new Vector3D(0, 0, 0);
-		
+
 		Assert.assertEquals(vector.cross(vector), expected);
 	}
-	
+
 	@Test
 	public void testCross_differentVectors() {
 		Vector3D vector = new Vector3D(1, 2, 3);
 		Vector3D otherVector = new Vector3D(4, 5, 6);
 		Vector3D expected = new Vector3D(-3, 6, -3);
-		
+
 		Assert.assertEquals(vector.cross(otherVector), expected);
 	}
-	
+
 	@Test
 	public void testAdd_CollinearVectors() {
 		final Vector3D v1 = new Vector3D(1, 1, 1);
 		final Vector3D v2 = new Vector3D(2, 2, 2);
 
 		final Vector3D expected = new Vector3D(3, 3, 3);
-		
+
 		Assert.assertEquals(v1.add(v2), expected);
 	}
-	
+
 	@Test
 	public void testAdd_PerpendicularVectors() {
 		final Vector3D v1 = new Vector3D(1, 0, 0);
 		final Vector3D v2 = new Vector3D(0, 1, 0);
 
 		final Vector3D expected = new Vector3D(1, 1, 0);
-		
+
 		Assert.assertEquals(v1.add(v2), expected);
 	}
-	
+
 	@Test
 	public void testSubtract_CollinearVectors() {
 		final Vector3D v1 = new Vector3D(2, 2, 2);
 		final Vector3D v2 = new Vector3D(3, 3, 3);
 
 		final Vector3D expected = new Vector3D(1, 1, 1);
-		
+
 		Assert.assertEquals(v2.subtract(v1), expected);
 	}
-	
+
 	@Test
 	public void testSubtract_PerpendicularVectors() {
 		final Vector3D v1 = new Vector3D(1, 0, 0);
 		final Vector3D v2 = new Vector3D(0, 1, 0);
 
 		final Vector3D expected = new Vector3D(1, -1, 0);
-		
+
 		Assert.assertEquals(v1.subtract(v2), expected);
 	}
-	
+
 	@Test
 	public void testDivide_By2() {
 		Vector3D v = new Vector3D(4, 4, 4);
 		Vector3D expected = new Vector3D(2, 2, 2);
-		
+
 		Assert.assertEquals(v.divide(2), expected);
 	}
-	
+
 	@Test
 	public void testIsParalell_antiParallelVectors() {
-	  Vector3D vector = new Vector3D(0, 1, 0);
-	  Vector3D otherVector = new Vector3D(0, -42, 0);
-	  
-	  Assert.assertTrue(vector.isParallelTo(otherVector), "Expected vectors to be parallel!");
+		Vector3D vector = new Vector3D(0, 1, 0);
+		Vector3D otherVector = new Vector3D(0, -42, 0);
+
+		Assert.assertTrue(vector.isParallelTo(otherVector),
+				"Expected vectors to be parallel!");
+	}
+
+	@Test
+	public void testIsParalell_parallelVectors() {
+		Vector3D vector = new Vector3D(0, 1, 0);
+		Vector3D otherVector = new Vector3D(0, 42, 0);
+
+		Assert.assertTrue(vector.isParallelTo(otherVector),
+				"Expected vectors to be parallel!");
+	}
+
+	@Test
+	public void testIsParalell_notParallelVectors() {
+		Vector3D vector = new Vector3D(0, 1, 0);
+		Vector3D otherVector = new Vector3D(1, 1, 0);
+
+		Assert.assertFalse(vector.isParallelTo(otherVector),
+				"Expected vectors not to be parallel!");
 	}
 	
 	@Test
-  public void testIsParalell_parallelVectors() {
-    Vector3D vector = new Vector3D(0, 1, 0);
-    Vector3D otherVector = new Vector3D(0, 42, 0);
-    
-    Assert.assertTrue(vector.isParallelTo(otherVector), "Expected vectors to be parallel!");
-  }
+	public void testAngleBetween_0Degrees() {
+		double theta = Vector3D.UNIT_X.angleBetween(Vector3D.UNIT_X);
+		
+		double expectedTheta = 0;
+		
+		Assert.assertEquals(theta, expectedTheta);
+	}
 	
 	@Test
-  public void testIsParalell_notParallelVectors() {
-    Vector3D vector = new Vector3D(0, 1, 0);
-    Vector3D otherVector = new Vector3D(1, 1, 0);
-    
-    Assert.assertFalse(vector.isParallelTo(otherVector), "Expected vectors not to be parallel!");
-  }
+	public void testAngleBetween_90Degrees() {
+		double theta = Vector3D.UNIT_X.angleBetween(Vector3D.UNIT_Y);
+		
+		double expectedTheta = Math.PI / 2;
+		
+		Assert.assertEquals(theta, expectedTheta);
+	}
+	
+	@Test
+	public void testAngleBetween_45Degrees() {
+		double theta = Vector3D.UNIT_X.angleBetween( new Vector3D(1, 0, 1) );
+		
+		double expectedTheta = Math.PI / 4;
+		
+		Assert.assertEquals(theta, expectedTheta, 0.000000000000001);
+	}
+
+
+	@Test
+	public void testAngleBetween() {
+		double theta = new Vector3D(1, 5, 3).angleBetween( new Vector3D(4, 1, 2) );
+		
+		double expectedTheta = Math.acos( Math.sqrt(15) / 7 );
+		
+		Assert.assertEquals(theta, expectedTheta);
+	}
 	
 }
