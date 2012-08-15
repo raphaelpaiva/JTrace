@@ -1,5 +1,6 @@
 package org.jtrace.examples;
 
+import org.jtrace.Materials;
 import org.jtrace.Scene;
 import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
@@ -9,6 +10,7 @@ import org.jtrace.geometry.Triangle;
 import org.jtrace.lights.Light;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
+import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 import org.jtrace.shader.AmbientShader;
@@ -19,7 +21,7 @@ public class MovingCameraExample {
     private static Point3D RIGHT_VERTEX = new Point3D(10, 0, 0);
     private static Point3D TOP_VERTEX = new Point3D(0, 20, 0);
 
-    private static Triangle TRIANGLE = new Triangle(LEFT_VERTEX, RIGHT_VERTEX, TOP_VERTEX);
+    private static Triangle TRIANGLE = new Triangle(LEFT_VERTEX, RIGHT_VERTEX, TOP_VERTEX, Materials.matte(ColorRGB.WHITE));
 
     private static ViewPlane VIEW_PLANE = new ViewPlane(1280, 720);
 

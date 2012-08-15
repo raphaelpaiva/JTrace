@@ -1,5 +1,6 @@
 package org.jtrace.examples;
 
+import org.jtrace.Materials;
 import org.jtrace.Scene;
 import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
@@ -9,10 +10,12 @@ import org.jtrace.geometry.Triangle;
 import org.jtrace.lights.Light;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
+import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 import org.jtrace.shader.AmbientShader;
 import org.jtrace.shader.DiffuseShader;
+import org.jtrace.shader.SpecularShader;
 
 public class MonolithExample {
 	
@@ -20,7 +23,7 @@ public class MonolithExample {
 	private static Point3D RIGHT_VERTEX = new Point3D(10, 0, 0);
 	private static Point3D TOP_VERTEX = new Point3D(0, 20, 0);
 	
-	private static Triangle TRIANGLE = new Triangle(LEFT_VERTEX, RIGHT_VERTEX, TOP_VERTEX);
+	private static Triangle TRIANGLE = new Triangle(LEFT_VERTEX, RIGHT_VERTEX, TOP_VERTEX, Materials.metallic(ColorRGB.WHITE));
 	
 	public static void main(String[] args) {
 		
@@ -39,19 +42,19 @@ public class MonolithExample {
         Point3D t2v2 = new Point3D(10, 40, 0);
         Point3D t2v3 = new Point3D(-10, 40, 0);
         
-        Triangle t2 = new Triangle(t2v1, t2v2, t2v3);
+        Triangle t2 = new Triangle(t2v1, t2v2, t2v3, Materials.metallic(ColorRGB.WHITE));
         
         Point3D t3v1 = new Point3D(10, 40, 0);
         Point3D t3v2 = TOP_VERTEX;
         Point3D t3v3 = new Point3D(10, 0, 0);
         
-        Triangle t3 = new Triangle(t3v1, t3v2, t3v3);
+        Triangle t3 = new Triangle(t3v1, t3v2, t3v3, Materials.metallic(ColorRGB.WHITE));
         
         Point3D t4v1 = new Point3D(-10, 0, 0);
         Point3D t4v2 = TOP_VERTEX;
         Point3D t4v3 = new Point3D(-10, 40, 0);
         
-        Triangle t4 = new Triangle(t4v1, t4v2, t4v3);
+        Triangle t4 = new Triangle(t4v1, t4v2, t4v3, Materials.metallic(ColorRGB.WHITE));
         
         final Scene scene = new Scene().add(TRIANGLE, t2, t3, t4).add(light).setCamera(pinHoleCamera);
 
@@ -59,7 +62,7 @@ public class MonolithExample {
 
         tracer.addListeners(new ImageListener("monolith.png", "png"), new TimeListener());
         
-        tracer.addShaders(new AmbientShader(), new DiffuseShader());
+        tracer.addShaders(new AmbientShader(), new DiffuseShader(), new SpecularShader());
 
         tracer.render(scene, viewPlane);
 	}
