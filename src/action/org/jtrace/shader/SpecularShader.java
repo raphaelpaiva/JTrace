@@ -10,6 +10,12 @@ import org.jtrace.primitives.Vector3D;
 
 public class SpecularShader implements Shader {
 
+	private double specularFactor;
+	
+	public SpecularShader(double specularFactor) {
+		this.specularFactor = specularFactor;
+	}
+	
 	@Override
 	public ColorRGB shade(Light light, Hit hit, Jay jay, GeometricObject object) {
 		if (object.getMaterial().getkSpecular() == null) {
@@ -27,7 +33,7 @@ public class SpecularShader implements Shader {
 		double RdotV = reflected.dot(viewVector);
 		
 		if (RdotV > 0) {
-			double specularContribution = Math.pow(reflected.dot(viewVector), 2);
+			double specularContribution = Math.pow(reflected.dot(viewVector), specularFactor);
 			
 			double r = object.getMaterial().getkSpecular().getRed() * specularContribution;
 			double g = object.getMaterial().getkSpecular().getRed() * specularContribution;

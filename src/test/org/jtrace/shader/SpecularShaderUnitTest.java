@@ -15,7 +15,7 @@ public class SpecularShaderUnitTest {
 		Vector3D v1 = randomVector().normal();
 		Vector3D normal = randomVector().normal();
 		
-		Vector3D reflected = new SpecularShader().calculateSpecularLightReflection(v1, normal);
+		Vector3D reflected = new SpecularShader(4).calculateSpecularLightReflection(v1, normal);
 		
 		Assert.assertEquals(v1.angleBetween(normal), reflected.angleBetween(normal), 0.000000000000001);
 	}
