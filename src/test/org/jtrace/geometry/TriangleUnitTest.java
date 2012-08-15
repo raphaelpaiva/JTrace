@@ -2,7 +2,9 @@ package org.jtrace.geometry;
 
 import org.jtrace.Hit;
 import org.jtrace.Jay;
+import org.jtrace.Materials;
 import org.jtrace.NotHit;
+import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 import org.testng.Assert;
@@ -14,7 +16,7 @@ public class TriangleUnitTest {
 	private static Point3D RIGHT_VERTEX = new Point3D(1, 0, 0);
 	private static Point3D TOP_VERTEX = new Point3D(0, 2, 0);
 	
-	private static Triangle TRIANGLE = new Triangle(LEFT_VERTEX, RIGHT_VERTEX, TOP_VERTEX);
+	private static Triangle TRIANGLE = new Triangle(LEFT_VERTEX, RIGHT_VERTEX, TOP_VERTEX, Materials.matte(ColorRGB.WHITE));
 	
 	@Test(expectedExceptions={IllegalStateException.class})
 	public void testHit_NoHit_HitsPlane()
