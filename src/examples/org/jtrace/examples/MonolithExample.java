@@ -13,9 +13,7 @@ import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
-import org.jtrace.shader.AmbientShader;
-import org.jtrace.shader.DiffuseShader;
-import org.jtrace.shader.SpecularShader;
+import org.jtrace.shader.Shaders;
 
 public class MonolithExample {
 	
@@ -62,7 +60,7 @@ public class MonolithExample {
 
         tracer.addListeners(new ImageListener("monolith.png", "png"), new TimeListener());
         
-        tracer.addShaders(new AmbientShader(), new DiffuseShader(), new SpecularShader());
+        tracer.addShaders(Shaders.ambientShader(), Shaders.diffuseShader(), Shaders.specularShader(4));
 
         tracer.render(scene, viewPlane);
 	}

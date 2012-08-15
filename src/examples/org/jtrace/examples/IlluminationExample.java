@@ -14,8 +14,7 @@ import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
-import org.jtrace.shader.AmbientShader;
-import org.jtrace.shader.DiffuseShader;
+import org.jtrace.shader.Shaders;
 
 public class IlluminationExample {
   public static void main(String[] args) {
@@ -24,16 +23,16 @@ public class IlluminationExample {
     Tracer tracer = new Tracer();
     tracer.addListeners(new ImageListener("illumination.png", "png"), new TimeListener());
     
-    tracer.addShaders(new AmbientShader(), new DiffuseShader());
+    tracer.addShaders(Shaders.ambientShader(), Shaders.diffuseShader(), Shaders.specularShader(4));
     
     tracer.render(scene, new ViewPlane(1024, 768));
   }
   
   private static Scene createScene() {
-    Sphere red = new Sphere(new Point3D(0, 0, -10), 10, Materials.matte(ColorRGB.RED));
-    Plane green = new Plane(new Point3D(0, -10, 0), new Vector3D(0, 1, 0), Materials.matte(ColorRGB.BLUE));
+    Sphere red = new Sphere(new Point3D(0, 0, -10), 10, Materials.metallic(ColorRGB.RED));
+    Plane green = new Plane(new Point3D(0, -10, 0), new Vector3D(0, 1, 0), Materials.metallic(ColorRGB.BLUE));
     
-    Light light = new Light(-30, 30, -30);
+    Light light = new Light(-30, 30, 30);
     
     Camera camera = new PinHoleCamera(new Point3D(0, 0, 30), new Point3D(0, 0, 0), Vector3D.UNIT_Y);
     
@@ -43,5 +42,5 @@ public class IlluminationExample {
     
     return scene;
   }
-
+  
 }
