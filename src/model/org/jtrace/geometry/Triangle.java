@@ -19,22 +19,6 @@ public class Triangle extends GeometricObject {
 
 	private Vector3D a12, a23, a31;
 
-	public Triangle(Point3D paramV1, Point3D paramV2, Point3D paramV3) {
-		super(Materials.matte(ColorRGB.WHITE));
-
-		v1 = paramV1;
-		v2 = paramV2;
-		v3 = paramV3;
-
-		a12 = new Vector3D(v1, v2);
-		a31 = new Vector3D(v3, v1);
-		a23 = new Vector3D(v2, v3);
-
-		Vector3D normal = a31.cross(a12).normal();
-
-		plane = new Plane(v1, normal, getMaterial());
-	}
-	
 	public Triangle(Point3D paramV1, Point3D paramV2, Point3D paramV3, Material material) {
 		super(material);
 
