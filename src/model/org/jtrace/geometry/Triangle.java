@@ -2,6 +2,7 @@ package org.jtrace.geometry;
 
 import org.jtrace.Hit;
 import org.jtrace.Jay;
+import org.jtrace.Material;
 import org.jtrace.Materials;
 import org.jtrace.NotHit;
 import org.jtrace.primitives.ColorRGB;
@@ -33,6 +34,23 @@ public class Triangle extends GeometricObject {
 
 		plane = new Plane(v1, normal, getMaterial());
 	}
+	
+	public Triangle(Point3D paramV1, Point3D paramV2, Point3D paramV3, Material material) {
+		super(material);
+
+		v1 = paramV1;
+		v2 = paramV2;
+		v3 = paramV3;
+
+		a12 = new Vector3D(v1, v2);
+		a31 = new Vector3D(v3, v1);
+		a23 = new Vector3D(v2, v3);
+
+		Vector3D normal = a31.cross(a12).normal();
+
+		plane = new Plane(v1, normal, getMaterial());
+	}
+
 
 	@Override
 	public Hit hit(Jay jay) {
