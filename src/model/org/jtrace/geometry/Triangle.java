@@ -17,6 +17,19 @@ public class Triangle extends GeometricObject {
 
 	private Vector3D a12, a23, a31;
 
+	/**
+	 * Creates a Triangle with the vertices in points <code>paramV1</code>,
+	 * <code>paramV2</code> and <code>paramV3</code>. <br>
+	 * 
+	 * The Triangle normal is calculated by the cross product between the
+	 * vectors a31 and a12,<br>
+	 * formed by v1-v3 and v2 - v1, respectively.
+	 * 
+	 * @param paramV1 the vertice v1.
+	 * @param paramV2 the vertice v2.
+	 * @param paramV3 the vertice v3.
+	 * @param material the Triangle's Material.
+	 */
 	public Triangle(Point3D paramV1, Point3D paramV2, Point3D paramV3, Material material) {
 		super(material);
 
@@ -31,6 +44,30 @@ public class Triangle extends GeometricObject {
 		Vector3D normal = a31.cross(a12).normal();
 
 		plane = new Plane(v1, normal, getMaterial());
+	}
+	
+	/**
+	 * Creates a Triangle with the vertices in points <code>paramV1</code>,
+	 * <code>paramV2</code> and <code>paramV3</code> and the normal <code>normal</code>.
+	 * 
+	 * @param paramV1 the vertice v1.
+	 * @param paramV2 the vertice v2.
+	 * @param paramV3 the vertice v3.
+	 * @param normal the Triangle's normal vector.
+	 * @param material the Triangle's Material.
+	 */
+	public Triangle(Point3D paramV1, Point3D paramV2, Point3D paramV3, Vector3D normal, Material material) {
+		super(material);
+
+		v1 = paramV1;
+		v2 = paramV2;
+		v3 = paramV3;
+
+		a12 = new Vector3D(v1, v2);
+		a31 = new Vector3D(v3, v1);
+		a23 = new Vector3D(v2, v3);
+
+		plane = new Plane(v1, normal.normal(), getMaterial());
 	}
 
 
