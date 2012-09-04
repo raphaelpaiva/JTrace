@@ -30,11 +30,30 @@ public class Tracer {
 	 *         {@link Scene}'s background color if there was no hit.
 	 */
 	public ColorRGB trace(Scene scene, Jay jay) {
-		double tMin = Double.MAX_VALUE;
-		GeometricObject hitObject = null;
-		Hit hitMin = null;
 		ColorRGB finalColor = scene.getBackgroundColor();
 
+		Hit hit = cast(scene, jay);
+		
+		// if there was a collision, calculate illumination
+		if (hit.isHit()) {
+			finalColor = ColorRGB.BLACK;
+			
+			for (Light light : scene.getLigths()) {
+				for (Shader shader : shaders) {
+					ColorRGB shaderColor = shader.shade(light, hit, jay, hit.getObject());
+					finalColor = finalColor.add(shaderColor);
+				}
+			}
+		}
+		
+		return finalColor;
+	}
+	
+	public Hit cast(Scene scene, Jay jay) {
+		double tMin = Double.MAX_VALUE;
+		GeometricObject hitObject = null;
+		Hit hitMin = new Hit();
+		
 		for (GeometricObject object : scene.getObjects()) {
 			Hit hit = object.hit(jay);
 
@@ -44,20 +63,10 @@ public class Tracer {
 				hitMin = hit;
 			}
 		}
-
-		// if there was a collision, calculate illumination
-		if (hitObject != null) {
-			finalColor = ColorRGB.BLACK;
-			
-			for (Light light : scene.getLigths()) {
-				for (Shader shader : shaders) {
-					ColorRGB shaderColor = shader.shade(light, hitMin, jay, hitObject);
-					finalColor = finalColor.add(shaderColor);
-				}
-			}
-		}
 		
-		return finalColor;
+		
+		hitMin.setObject(hitObject);
+		return hitMin;
 	}
 	
 	/**
