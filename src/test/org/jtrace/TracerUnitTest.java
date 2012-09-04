@@ -48,7 +48,7 @@ public class TracerUnitTest {
 		
 		Tracer tracer = prepareTracerWithAmbientShader();
 		
-		Assert.assertEquals(tracer.cast(scene, JAY), expectedColor);
+		Assert.assertEquals(tracer.trace(scene, JAY), expectedColor);
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class TracerUnitTest {
 		
 		Tracer tracer = new Tracer();
 		
-		Assert.assertEquals(tracer.cast(scene, JAY), ColorRGB.BLACK);
+		Assert.assertEquals(tracer.trace(scene, JAY), ColorRGB.BLACK);
 	}
 
 	@Test
@@ -79,7 +79,7 @@ public class TracerUnitTest {
 		
 		Tracer tracer = prepareTracerWithAmbientAndDiffuseShaders();
 		
-		Assert.assertEquals(tracer.cast(scene, JAY), expectedColor);
+		Assert.assertEquals(tracer.trace(scene, JAY), expectedColor);
 	}
 
 	@Test
@@ -101,7 +101,7 @@ public class TracerUnitTest {
 		
 		Tracer tracer = prepareTracerWithAmbientAndDiffuseShaders();
 		
-		Assert.assertEquals(expectedColor, tracer.cast(scene, JAY));
+		Assert.assertEquals(expectedColor, tracer.trace(scene, JAY));
 	}
 	
 	@Test
@@ -123,7 +123,7 @@ public class TracerUnitTest {
 		
 		Tracer tracer = prepareTracerWithAmbientAndDiffuseShaders();
 		
-		Assert.assertEquals(expectedColor, tracer.cast(scene, JAY));
+		Assert.assertEquals(expectedColor, tracer.trace(scene, JAY));
 	}
 	
 	@Test
@@ -145,7 +145,7 @@ public class TracerUnitTest {
 		
 		Tracer tracer = prepareTracerWithAmbientAndDiffuseShaders();
 		
-		Assert.assertEquals(expectedColor, tracer.cast(scene, JAY));
+		Assert.assertEquals(expectedColor, tracer.trace(scene, JAY));
 	}
 	
 	@Test
@@ -163,7 +163,7 @@ public class TracerUnitTest {
 		
 		Tracer tracer = prepareTracerWithDiffuseShader();
 		
-		Assert.assertEquals(expectedColor, tracer.cast(scene, JAY));
+		Assert.assertEquals(expectedColor, tracer.trace(scene, JAY));
 	}
 	
 	@Test
@@ -181,7 +181,7 @@ public class TracerUnitTest {
 		
 		Tracer tracer = prepareTracerWithDiffuseShader();
 		
-		Assert.assertEquals(expectedColor, tracer.cast(scene, JAY));
+		Assert.assertEquals(expectedColor, tracer.trace(scene, JAY));
 	}
 	
 	@Test
@@ -199,7 +199,7 @@ public class TracerUnitTest {
 		
 		Tracer tracer = prepareTracerWithDiffuseShader();
 		
-		Assert.assertEquals(expectedColor, tracer.cast(scene, JAY));
+		Assert.assertEquals(expectedColor, tracer.trace(scene, JAY));
 	}
 	
 	@Test
@@ -217,7 +217,7 @@ public class TracerUnitTest {
 		
 		Tracer tracer = prepareTracerWithDiffuseShader();
 		
-		Assert.assertEquals(expectedColor, tracer.cast(scene, JAY));
+		Assert.assertEquals(expectedColor, tracer.trace(scene, JAY));
 	}
 	
 	private Tracer prepareTracerWithAmbientAndDiffuseShaders() {

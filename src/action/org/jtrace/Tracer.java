@@ -20,7 +20,7 @@ public class Tracer {
 	private List<Shader> shaders = new LinkedList<Shader>();
 
 	/**
-	 * Casts the given {@link Jay}.
+	 * Traces the given {@link Jay}.
 	 * 
 	 * @param scene
 	 *            the {@link Scene} containing the objects to rendered.
@@ -29,7 +29,7 @@ public class Tracer {
 	 * @return the color of the object hit by the {@link Jay} or the
 	 *         {@link Scene}'s background color if there was no hit.
 	 */
-	public ColorRGB cast(Scene scene, Jay jay) {
+	public ColorRGB trace(Scene scene, Jay jay) {
 		double tMin = Double.MAX_VALUE;
 		GeometricObject hitObject = null;
 		Hit hitMin = null;
@@ -59,7 +59,7 @@ public class Tracer {
 		
 		return finalColor;
 	}
-
+	
 	/**
 	 * Renders the scene.
 	 * The {@link Jay} casting strategy is defined by the {@link Camera} used in the scene.
@@ -77,7 +77,7 @@ public class Tracer {
         for (int c = 0; c < hres; c++) {
             final Jay jay = camera.createJay(r, c, vres, hres);
 
-            final ColorRGB color = cast(scene, jay);
+            final ColorRGB color = trace(scene, jay);
 
             fireAfterTrace(color, c, r);
         }

@@ -43,7 +43,7 @@ public class PerspectiveTracerUnitTest {
 		Tracer tracer = new Tracer();
 		tracer.addShaders(new AmbientShader());
 		
-		Assert.assertEquals(tracer.cast(scene, jay), ColorRGB.RED);
+		Assert.assertEquals(tracer.trace(scene, jay), ColorRGB.RED);
 	}
 	
 	@Test
@@ -60,7 +60,7 @@ public class PerspectiveTracerUnitTest {
 		Vector3D jayDirection = PIN_HOLE_CAMERA.createJay(0, 0, vres, hres).getDirection();
 		Jay jay = new Jay(EYE_POINT, jayDirection);
 		
-		Assert.assertEquals(new Tracer().cast(scene, jay), ColorRGB.BLACK);
+		Assert.assertEquals(new Tracer().trace(scene, jay), ColorRGB.BLACK);
 	}
 	
 	@Test
@@ -80,6 +80,6 @@ public class PerspectiveTracerUnitTest {
 		Tracer tracer = new Tracer();
 		tracer.addShaders(new AmbientShader());
 		
-		Assert.assertEquals(tracer.cast(scene, jay), ColorRGB.GREEN);
+		Assert.assertEquals(tracer.trace(scene, jay), ColorRGB.GREEN);
 	}
 }
