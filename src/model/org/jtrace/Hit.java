@@ -1,5 +1,6 @@
 package org.jtrace;
 
+import org.jtrace.geometry.GeometricObject;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
@@ -10,6 +11,8 @@ public class Hit {
 	private boolean hit;
 	
 	private Vector3D normal;
+	
+	private GeometricObject object;
 	
 	public Hit(double t, Vector3D normal) {
 		this.t = t;
@@ -41,6 +44,14 @@ public class Hit {
 
 	public boolean isHit() {
 		return hit;
+	}
+
+	public GeometricObject getObject() {
+		return object;
+	}
+
+	public void setObject(GeometricObject object) {
+		this.object = object;
 	}
 	
 }	
