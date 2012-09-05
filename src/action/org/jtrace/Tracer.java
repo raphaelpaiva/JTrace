@@ -36,14 +36,8 @@ public class Tracer {
 		
 		// if there was a collision, calculate illumination
 		if (hit.isHit()) {
-			finalColor = ColorRGB.BLACK;
-			
-			for (Light light : scene.getLigths()) {
-				for (Shader shader : shaders) {
-					ColorRGB shaderColor = shader.shade(light, hit, jay, hit.getObject());
-					finalColor = finalColor.add(shaderColor);
-				}
-			}
+			ColorRGB hitColor = shade(scene, jay, hit);
+			finalColor = finalColor.add(hitColor);
 		}
 		
 		return finalColor;
@@ -67,6 +61,19 @@ public class Tracer {
 		
 		hitMin.setObject(hitObject);
 		return hitMin;
+	}
+	
+	public ColorRGB shade(Scene scene, Jay jay, Hit hit) {
+		ColorRGB color = scene.getBackgroundColor();
+		
+		for (Light light : scene.getLigths()) {
+			for (Shader shader : shaders) {
+				ColorRGB shaderColor = shader.shade(light, hit, jay, hit.getObject());
+				color = color.add(shaderColor);
+			}
+		}
+		
+		return color;
 	}
 	
 	/**
