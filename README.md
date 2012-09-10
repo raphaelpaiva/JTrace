@@ -24,7 +24,7 @@ Features
     - Orthogonal Camera;
 
 ### Light
-  * Point white light.
+  * Colored Point light.
 
 ### Shadows
   * Hard shadows.
@@ -75,7 +75,6 @@ Future work (TODO)
     - Support to ply file loading.
 
 ### Light
-  * Colored point light;
   * Spot Light;
 
 ### Material
