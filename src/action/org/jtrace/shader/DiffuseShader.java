@@ -18,9 +18,9 @@ public class DiffuseShader implements Shader {
 		
 		double dotLight = calculateDiffuseContribution(light, hit, jay);
 		
-		double red = kDiffuse.getRed() * objectColor.getRed() * dotLight;
-		double green = kDiffuse.getGreen() * objectColor.getGreen() * dotLight;
-		double blue = kDiffuse.getBlue() * objectColor.getBlue() * dotLight;
+		double red = light.getColor().getRed() * kDiffuse.getRed() * objectColor.getRed() * dotLight;
+		double green = light.getColor().getGreen() * kDiffuse.getGreen() * objectColor.getGreen() * dotLight;
+		double blue = light.getColor().getBlue() * kDiffuse.getBlue() * objectColor.getBlue() * dotLight;
 		
 		return new ColorRGB(red, green, blue);
 	}

@@ -35,9 +35,9 @@ public class SpecularShader implements Shader {
 		if (RdotV > 0) {
 			double specularContribution = Math.pow(reflected.dot(viewVector), specularFactor);
 			
-			double r = object.getMaterial().getkSpecular().getRed() * specularContribution;
-			double g = object.getMaterial().getkSpecular().getRed() * specularContribution;
-			double b = object.getMaterial().getkSpecular().getBlue() * specularContribution;
+			double r = light.getColor().getRed() * object.getMaterial().getkSpecular().getRed() * specularContribution;
+			double g = light.getColor().getGreen() * object.getMaterial().getkSpecular().getRed() * specularContribution;
+			double b = light.getColor().getBlue() * object.getMaterial().getkSpecular().getBlue() * specularContribution;
 			
 			return new ColorRGB(r, g, b);
 		} else {
