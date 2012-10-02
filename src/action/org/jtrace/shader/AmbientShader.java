@@ -14,9 +14,9 @@ public class AmbientShader implements Shader {
 		ColorRGB objectColor = material.getColor();
 		ReflectanceCoefficient kAmbient = material.getkAmbient();
 		
-		double red = kAmbient.getRed() * objectColor.getRed();
-		double green = kAmbient.getGreen() * objectColor.getGreen();
-		double blue = kAmbient.getBlue() * objectColor.getBlue();
+		double red = light.getColor().getRed() * kAmbient.getRed() * objectColor.getRed();
+		double green = light.getColor().getGreen() * kAmbient.getGreen() * objectColor.getGreen();
+		double blue = light.getColor().getBlue() * kAmbient.getBlue() * objectColor.getBlue();
 		
 		return new ColorRGB(red, green, blue);
 	}
