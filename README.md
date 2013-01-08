@@ -73,6 +73,7 @@ Future work (TODO)
   * Composite objects;
   * Triangle meshes:
     - Support to ply file loading.
+      - Use [jPLY][3] maybe?
 
 ### Light
   * Spot Light;
@@ -106,3 +107,4 @@ References
 
 [1]: http://www.raytracegroundup.com/
 [2]: http://www.yaml.org/
+[3]: https://github.com/smurn/jPLY
