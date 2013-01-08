@@ -3,6 +3,7 @@ package org.jtrace.shader;
 import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.geometry.Sphere;
+import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
@@ -32,6 +33,6 @@ public class AmbientShaderUnitTest {
 		double blue = ColorRGB.BLUE.getBlue() * K_AMBIENT.getBlue();
 		ColorRGB expectedColor = new ColorRGB(red, green, blue);
 		
-		Assert.assertEquals(expectedColor, new AmbientShader().shade(null, null, JAY, SPHERE));
+		Assert.assertEquals(expectedColor, new AmbientShader().shade(new Light(ORIGIN), null, JAY, SPHERE));
 	}
 }
