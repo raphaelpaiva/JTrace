@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
+import org.jtrace.shader.Shaders;
 import org.jtrace.swing.TracerPanel;
 
 public class MainWindow extends JFrame {
@@ -31,7 +32,11 @@ public class MainWindow extends JFrame {
   }
 
   private JPanel createTracerPanel() {
-    return new TracerPanel(new Tracer(), App.createScene(), new ViewPlane(500, 500), 500, 500);
+	Tracer tracer = new Tracer();
+	
+	tracer.addShaders(Shaders.ambientShader(), Shaders.diffuseShader());
+	  
+    return new TracerPanel(tracer, App.createScene(), new ViewPlane(500, 500), 500, 500);
   }
   
 }
