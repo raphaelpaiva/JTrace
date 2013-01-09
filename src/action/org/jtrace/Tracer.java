@@ -9,8 +9,6 @@ import org.jtrace.cameras.Camera;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
-import org.jtrace.primitives.Point3D;
-import org.jtrace.primitives.Vector3D;
 import org.jtrace.shader.Shader;
 
 /**
@@ -19,6 +17,8 @@ import org.jtrace.shader.Shader;
 public class Tracer {
 
     private List<TracerListener> listeners = new LinkedList<TracerListener>();
+    private List<TracerInterceptor> interceptors = new LinkedList<TracerInterceptor>();
+    
     private List<Shader> shaders = new LinkedList<Shader>();
 
     /**
@@ -69,31 +69,44 @@ public class Tracer {
         ColorRGB color = scene.getBackgroundColor();
 
         for (Light light : scene.getLigths()) {
-            Point3D hitPoint = hit.getPoint(jay);
-            Vector3D lightDirection = new Vector3D(hitPoint, light.getPosition());
-
-            double hitPointToLightDistance = lightDirection.module();
-
-            Jay lightJay = new Jay(hitPoint, lightDirection.normal());
-
-            Hit hitLight = cast(scene, lightJay);
-
-            if (hitLight.isHit()) {
-                if (hitLight.getT() <= hitPointToLightDistance) {
-                    return ColorRGB.BLACK;
-                }
-            }
-
+        	beforeShade(light, color);
             for (Shader shader : shaders) {
-                ColorRGB shaderColor = shader.shade(light, hit, jay, hit.getObject());
-                color = color.add(shaderColor);
+            	if (shouldShade(shader, light, hit, jay, hit.getObject())) {
+            		ColorRGB shaderColor = shader.shade(light, hit, jay, hit.getObject());
+                
+            		color = color.add(shaderColor);
+            	}
             }
+            afterShade(light, color);
         }
 
         return color;
     }
 
-    /**
+    private boolean shouldShade(Shader shader, Light light, Hit hit, Jay jay, GeometricObject object) {
+		boolean shouldShade = true;
+    	
+		for (TracerInterceptor interceptor : interceptors) {
+			shouldShade = shouldShade && interceptor.shouldShade(shader, light, hit, jay, object);
+		}
+		
+    	return shouldShade;
+	}
+
+	private void afterShade(Light light, ColorRGB color) {
+    	for (TracerInterceptor interceptor : interceptors) {
+			interceptor.afterShade(light, color);
+		}
+		
+	}
+
+	private void beforeShade(Light light, ColorRGB color) {
+		for (TracerInterceptor interceptor : interceptors) {
+			interceptor.beforeShade(light, color);
+		}
+	}
+
+	/**
      * Renders the scene.
      * The {@link Jay} casting strategy is defined by the {@link Camera} used in the scene.
      * @param scene the {@link Scene} to be rendered.
@@ -105,7 +118,8 @@ public class Tracer {
         final Camera camera = scene.getCamera();
 
         fireStart(viewPlane);
-
+        initInterceptors(scene);
+        
         for (int r = 0; r < vres; r++) {
             for (int c = 0; c < hres; c++) {
                 final Jay jay = camera.createJay(r, c, vres, hres);
@@ -119,7 +133,13 @@ public class Tracer {
         fireFinish();
     }
 
-    protected void fireFinish() {
+    protected void initInterceptors(Scene scene) {
+		for (TracerInterceptor interceptor : interceptors) {
+			interceptor.init(this, scene);
+		}
+	}
+
+	protected void fireFinish() {
         for (TracerListener listener : listeners) {
             listener.finish();
         }
@@ -154,6 +174,10 @@ public class Tracer {
      */
     public void addShaders(Shader... paramShaders) {
         shaders.addAll(asList(paramShaders));
+    }
+    
+    public void addInterceptors(TracerInterceptor... paramInterceptors) {
+    	interceptors.addAll(asList(paramInterceptors));
     }
 
     public void clearListeners() {

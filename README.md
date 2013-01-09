@@ -52,6 +52,15 @@ Features
     - Image listener;
     - Swing listener.
 
+### Optimization
+  * Multi-threading;
+    - Via MultiThreadTracer;
+
+### IO
+  * Triangle meshes:
+    - Support to ply file loading.
+      - Using [jPLY][3].
+
 Work in Progress
 ----------------
 
@@ -71,8 +80,6 @@ Future work (TODO)
 
 ### Object
   * Composite objects;
-  * Triangle meshes:
-    - Support to ply file loading.
 
 ### Light
   * Spot Light;
@@ -85,7 +92,6 @@ Future work (TODO)
   * Recursion (Reflection);
 
 ### Optimization
-  * Multi-threading;
   * Intersection acceleration:
     - Bounding boxes;
     - KD-Tree;
@@ -106,3 +112,4 @@ References
 
 [1]: http://www.raytracegroundup.com/
 [2]: http://www.yaml.org/
+[3]: https://github.com/smurn/jPLY

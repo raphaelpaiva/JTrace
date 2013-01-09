@@ -38,7 +38,7 @@ public class SwingListener implements TracerListener {
 
   @Override
   public void afterTrace(ColorRGB color, int x, int y) {
-    getImage().setRGB(x, y, color.toInt());
+	getImage().setRGB(x, getImage().getHeight() - 1 - y, color.toInt());
     
     paintedPixels++;
     panel.pixelsPainted(paintedPixels);
