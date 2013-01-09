@@ -133,7 +133,7 @@ public class Tracer {
         fireFinish();
     }
 
-    private void initInterceptors(Scene scene) {
+    protected void initInterceptors(Scene scene) {
 		for (TracerInterceptor interceptor : interceptors) {
 			interceptor.init(this, scene);
 		}
