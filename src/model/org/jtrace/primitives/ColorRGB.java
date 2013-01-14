@@ -38,7 +38,17 @@ public class ColorRGB {
 	      setBlue(paramB);
     }
 
-    public int toInt() {
+    public ColorRGB(int intColor) {
+		int r = intColor & 255;
+		int g = (intColor >> 8) & 255;
+		int b = (intColor >> 16) & 255;
+		
+		setRed(r / 255.0d);
+		setGreen(g / 255.0d);
+		setBlue(b / 255.0d);
+	}
+
+	public int toInt() {
         long rgb = Math.round(red * 255);
         rgb = (rgb << 8) + Math.round(green * 255);
         rgb = (rgb << 8) + Math.round(blue * 255);

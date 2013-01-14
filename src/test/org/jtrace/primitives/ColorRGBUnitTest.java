@@ -76,4 +76,71 @@ public class ColorRGBUnitTest {
 		
 		Assert.assertEquals(c, expected);
 	}
+	
+	@Test
+	public void testIntConstructor_White() {
+		int intColor = 0xFFFFFF;
+		
+		ColorRGB color = new ColorRGB(intColor);
+		
+		Assert.assertEquals(color, ColorRGB.WHITE);
+	}
+	
+	@Test
+	public void testIntConstructor_Black() {
+		int intColor = 0x0;
+		
+		ColorRGB color = new ColorRGB(intColor);
+		
+		Assert.assertEquals(color, ColorRGB.BLACK);
+	}
+	
+	@Test
+	public void testIntConstructor_Red() {
+		int intColor = 0x0000FF;
+		
+		ColorRGB color = new ColorRGB(intColor);
+		
+		Assert.assertEquals(color, ColorRGB.RED);
+	}
+	
+	@Test
+	public void testIntConstructor_Green() {
+		int intColor = 0x00FF00;
+		
+		ColorRGB color = new ColorRGB(intColor);
+		
+		Assert.assertEquals(color, ColorRGB.GREEN);
+	}
+	
+	@Test
+	public void testIntConstructor_Blue() {
+		int intColor = 0xFF0000;
+		
+		ColorRGB color = new ColorRGB(intColor);
+		
+		Assert.assertEquals(color, ColorRGB.BLUE);
+	}
+	
+	@Test
+	public void testIntConstructor_Pink() {
+		int intColor = 0xFF00FF;
+		
+		ColorRGB color = new ColorRGB(intColor);
+		
+		Assert.assertEquals(color, new ColorRGB(1.0, 0, 1.0));
+	}
+	
+	@Test
+	public void testIntConstructor_halfPink() {
+		int intColor = 0x800080;
+		
+		ColorRGB color = new ColorRGB(intColor);
+		
+		Assert.assertEquals(color.getRed(), 0.50, 0.01);
+		Assert.assertEquals(color.getGreen(), 0.0, 0.01);
+		Assert.assertEquals(color.getBlue(), 0.50, 0.01);
+	}
+	
+	
 }
