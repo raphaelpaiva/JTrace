@@ -96,12 +96,12 @@ public class ColorRGBUnitTest {
 	}
 	
 	@Test
-	public void testIntConstructor_Red() {
+	public void testIntConstructor_Blue() {
 		int intColor = 0x0000FF;
 		
 		ColorRGB color = new ColorRGB(intColor);
 		
-		Assert.assertEquals(color, ColorRGB.RED);
+		Assert.assertEquals(color, ColorRGB.BLUE);
 	}
 	
 	@Test
@@ -114,12 +114,12 @@ public class ColorRGBUnitTest {
 	}
 	
 	@Test
-	public void testIntConstructor_Blue() {
+	public void testIntConstructor_Red() {
 		int intColor = 0xFF0000;
 		
 		ColorRGB color = new ColorRGB(intColor);
 		
-		Assert.assertEquals(color, ColorRGB.BLUE);
+		Assert.assertEquals(color, ColorRGB.RED);
 	}
 	
 	@Test
@@ -142,5 +142,16 @@ public class ColorRGBUnitTest {
 		Assert.assertEquals(color.getBlue(), 0.50, 0.01);
 	}
 	
-	
+	@Test
+	public void testIntConstructor_seaBlue() {
+		int intColor = 0x052347;
+		
+		ColorRGB color = new ColorRGB(intColor);
+		
+		System.out.println(color);
+		
+		Assert.assertEquals(color.getRed(), 0.0196, 0.01);
+		Assert.assertEquals(color.getGreen(), 0.137, 0.01);
+		Assert.assertEquals(color.getBlue(), 0.278, 0.01);
+	}
 }

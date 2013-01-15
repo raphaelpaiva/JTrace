@@ -39,9 +39,9 @@ public class ColorRGB {
     }
 
     public ColorRGB(int intColor) {
-		int r = intColor & 255;
+		int b = intColor & 255;
 		int g = (intColor >> 8) & 255;
-		int b = (intColor >> 16) & 255;
+		int r = (intColor >> 16) & 255;
 		
 		setRed(r / 255.0d);
 		setGreen(g / 255.0d);
