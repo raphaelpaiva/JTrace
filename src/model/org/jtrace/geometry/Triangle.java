@@ -6,7 +6,12 @@ import org.jtrace.Material;
 import org.jtrace.NotHit;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
-
+/**
+ * Basic class representing a Triangle in three-dimensional space.
+ * 
+ * @author raphaelpaiva
+ *
+ */
 public class Triangle extends GeometricObject {
 
 	private Point3D v1;

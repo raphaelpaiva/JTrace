@@ -1,9 +1,18 @@
 package org.jtrace.cameras;
 
 import org.jtrace.Jay;
+import org.jtrace.ViewPlane;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
+/**
+ * Creates rays in from the eye point straight to the center of the {@link ViewPlane} pixels.<br>
+ * 
+ * This is the simplest camera with perspective notion.
+ * 
+ * @author raphaelpaiva
+ *
+ */
 public class PinHoleCamera extends Camera {
 
 	public PinHoleCamera(final Point3D eye, final Point3D lookAt, final Vector3D up) {
