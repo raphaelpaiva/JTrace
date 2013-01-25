@@ -8,10 +8,23 @@ import org.jtrace.NotHit;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
+/**
+ * Basic class representing a infinite plane in three-dimensional space.
+ * 
+ * @author raphaelpaiva
+ *
+ */
 public class Plane extends GeometricObject {
 	private Point3D point;
 	private Vector3D normal;
 	
+	/**
+	 * Creates a {@link Plane} from a {@link Point3D} contained on it and its normal {@link Vector3D}.
+	 * 
+	 * @param point a {@link Point3D} that belongs to the {@link Plane}.
+	 * @param normal the {@link Plane}'s normal {@link Vector3D}.
+	 * @param material the {@link Plane}'s {@link Material}.
+	 */
 	public Plane(Point3D point, Vector3D normal, Material material) {
 		super(material);
 		this.point = point;

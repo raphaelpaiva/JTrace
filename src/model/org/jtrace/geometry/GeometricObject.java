@@ -3,15 +3,42 @@ package org.jtrace.geometry;
 import org.jtrace.Hit;
 import org.jtrace.Jay;
 import org.jtrace.Material;
+import org.jtrace.NotHit;
+import org.jtrace.Scene;
 
+/**
+ * Abstract class to be inserted in a {@link Scene}. <br>
+ * 
+ * All child classes must implement the {@link #hit(Jay)} method.
+ * 
+ * @author raphaelpaiva
+ *
+ */
 public abstract class GeometricObject {
 	
+	/**
+	 * The {@link GeometricObject}'s {@link Material}.
+	 */
 	private Material material;
 	
+	/**
+	 * Basic constructor. Must be called by the child classe's constructor.
+	 * 
+	 * @param material the {@link GeometricObject}'s {@link Material}.
+	 */
 	public GeometricObject(Material material) {
 		this.material = material;
 	}
 
+	/**
+	 * This method must be implemented in order to the {@link GeometricObject} to be rendered.<br>
+	 * 
+	 * It must check the collision between the {@link GeometricObject} and a {@link Jay}.
+	 * 
+	 * @param jay the {@link Jay} being casted.
+	 * @return a {@link Hit} object containing information about the collision. Or {@link NotHit} if there was no collision.
+	 * @see {@link Hit}.
+	 */
 	public abstract Hit hit(Jay jay);
 	
 	public Material getMaterial() {

@@ -10,6 +10,18 @@ import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
 
+/**
+ * Represents the scene to be rendered.
+ * 
+ * A scene is a collection of {@link GeometricObject}, {@link Light} and a single {@link Camera}.<br>
+ * 
+ * The scene is passed to the {@link Tracer#render(Scene, ViewPlane)} method in order to be rendered by that {@link Tracer}<br>
+ * 
+ * All {@link GeometricObject} and {@link Light} added are stored in a {@link LinkedHashSet}.
+ * 
+ * @author raphaelpaiva
+ *
+ */
 public class Scene {
     private final Set<GeometricObject> objects = new LinkedHashSet<GeometricObject>();
     private final Set<Light> lights = new LinkedHashSet<Light>();

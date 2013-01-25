@@ -3,6 +3,12 @@ package org.jtrace.lights;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 
+/**
+ * Basic class representing a point light in three-dimensional space.
+ *  
+ * @author raphaelpaiva
+ *
+ */
 public class Light {
 
 	private Point3D position;

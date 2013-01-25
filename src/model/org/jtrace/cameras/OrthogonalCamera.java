@@ -1,9 +1,17 @@
 package org.jtrace.cameras;
 
 import org.jtrace.Jay;
+import org.jtrace.ViewPlane;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
+/**
+ * A camera that creates all rays orthogonally to the {@link ViewPlane}'s coordinates,
+ * therefore there is no perspective notion in the images rendered with this {@link Camera}.
+ * 
+ * @author raphaelpaiva
+ *
+ */
 public class OrthogonalCamera extends Camera {
 
   public OrthogonalCamera(final Point3D eye, final Point3D lookAt, final Vector3D up) {
