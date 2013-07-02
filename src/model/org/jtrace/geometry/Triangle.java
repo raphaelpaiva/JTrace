@@ -1,9 +1,12 @@
 package org.jtrace.geometry;
 
+import java.util.List;
+
 import org.jtrace.Hit;
 import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.NotHit;
+import org.jtrace.Section;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 /**
@@ -102,5 +105,11 @@ public class Triangle extends GeometricObject {
 		}
 		
 		return new NotHit();
+	}
+
+	@Override
+	public List<Section> sections(Jay jay) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
