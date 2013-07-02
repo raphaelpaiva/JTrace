@@ -60,6 +60,10 @@ public class Hit {
 		return normal;
 	}
 
+	public void invertNormal() {
+		normal = normal.multiply(-1);
+	}
+	
 	/**
 	 * @return Whether it was a hit or a not.
 	 */
