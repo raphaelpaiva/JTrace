@@ -1,10 +1,14 @@
 package org.jtrace.geometry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jtrace.Constants;
 import org.jtrace.Hit;
 import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.NotHit;
+import org.jtrace.Section;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
@@ -36,13 +40,33 @@ public class Plane extends GeometricObject {
 		double b = new Vector3D(jay.getOrigin(), point).dot(normal);
 		double a = jay.getDirection().dot(normal);
 		
-		double t = b / a;
-		
-		if (a != 0 && t > Constants.epsilon) {
-			return new Hit(t, this.getNormal().normal());
+		if (a != 0) {
+			double t = b / a;
+
+			if (t > Constants.epsilon) {
+				return new Hit(t, this.getNormal().normal());
+			}
 		}
 		
 		return new NotHit();
+	}
+	
+	@Override
+	public List<Section> sections(Jay jay) {
+		ArrayList<Section> sections = new ArrayList<Section>();
+		
+		double b = new Vector3D(jay.getOrigin(), point).dot(normal);
+		double a = jay.getDirection().dot(normal);
+		
+		
+		if (a != 0) {
+			double t = b / a;
+			Hit hit = new Hit(t, this.getNormal().normal());
+			
+			sections.add(new Section(hit, hit));
+		}
+		
+		return sections;
 	}
 
 	public Point3D getPoint() {
