@@ -1,10 +1,13 @@
 package org.jtrace.geometry;
 
+import java.util.List;
+
 import org.jtrace.Hit;
 import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.NotHit;
 import org.jtrace.Scene;
+import org.jtrace.Section;
 
 /**
  * Abstract class to be inserted in a {@link Scene}. <br>
@@ -40,6 +43,17 @@ public abstract class GeometricObject {
 	 * @see {@link Hit}.
 	 */
 	public abstract Hit hit(Jay jay);
+	
+	/**
+	 * This method is used to check the {@link Section} that the passed {@link Jay} goes through.
+	 * 
+	 * 
+	 * @param jay
+	 * @return
+	 * 
+	 * @see Section
+	 */
+	public abstract List<Section> sections(Jay jay);
 	
 	public Material getMaterial() {
 		return material;
