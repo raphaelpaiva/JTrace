@@ -1,11 +1,15 @@
 package org.jtrace.geometry;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jtrace.Constants;
 import org.jtrace.Hit;
 import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.NotHit;
 import org.jtrace.primitives.ColorRGB;
+import org.jtrace.Section;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
@@ -48,14 +52,15 @@ public class Sphere extends GeometricObject {
         final double c = temp.dot() - radius * radius;
 
         final double delta = b * b - 4 * a * c;
-        final double deltaRoot = Math.sqrt(delta);
 
         double t;
 
         if (delta < 0.0) {
             return new NotHit();
         } else {
-            //smaller root
+        	final double deltaRoot = Math.sqrt(delta);
+
+        	//smaller root
             t = (-b - deltaRoot) / 2*a;
             if (t > Constants.epsilon) {
                 final Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
@@ -102,6 +107,45 @@ public class Sphere extends GeometricObject {
         return getMaterial().getColor(u, v);
     }
 
+    public List<Section> sections(Jay jay) {
+		List<Section> sections = new ArrayList<Section>();
+		
+		
+        final Vector3D temp = new Vector3D(jay.getOrigin().subtract(center));
+
+        final double a = jay.getDirection().dot();
+        final double b = temp.multiply(2).dot(jay.getDirection());
+        final double c = temp.dot() - radius * radius;
+
+        final double delta = b * b - 4 * a * c;
+
+        double t;
+
+        if (delta < 0.0) {
+            return sections;
+        } else {
+        	Hit smallerRootHit = new NotHit();
+        	Hit largerRootHit  = new NotHit();
+            
+        	final double deltaRoot = Math.sqrt(delta);
+
+        	//smaller root
+            t = (-b - deltaRoot) / 2*a;
+            Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
+            smallerRootHit = new Hit(t, normal.normal());
+
+            //larger root
+            t = (-b + deltaRoot) / 2*a;
+            normal = temp.add(jay.getDirection().multiply(t)).divide(t);
+            largerRootHit = new Hit(t, normal.normal());
+            
+            sections.add(new Section(smallerRootHit, largerRootHit));
+        }
+		
+		
+		return sections;
+	}
+    
     public Point3D getCenter() {
         return center;
     }
@@ -122,5 +166,4 @@ public class Sphere extends GeometricObject {
     public String toString() {
         return "c" + center.toString() + ", r = " + radius;
     }
-
 }

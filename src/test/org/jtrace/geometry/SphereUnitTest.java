@@ -1,9 +1,12 @@
 package org.jtrace.geometry;
 
+import java.util.List;
+
 import org.jtrace.Hit;
 import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.NotHit;
+import org.jtrace.Section;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
@@ -84,4 +87,69 @@ public class SphereUnitTest {
 		Assert.assertEquals(hit.getT(), FRONTAL_JAY_PARAMETER);
 		Assert.assertEquals(hit.getNormal().normal(), normal);
 	}
+	
+	@Test
+	public void testSections_FrontalJay_ShouldReturnOneSectionWithTwoPositiveHits()
+	{
+		Jay jay = new Jay(Point3D.ORIGIN, Vector3D.UNIT_Z.multiply(-1));
+		
+		List<Section> sections = SPHERE.sections(jay);
+		
+		Assert.assertEquals(sections.size(), 1);
+		
+		Assert.assertEquals(sections.get(0).getEntryHit().getT(), 4.0);
+		Assert.assertEquals(sections.get(0).getExitHit(). getT(), 6.0);
+	}
+	
+	@Test
+	public void testSections_SphereBehindJay_ShouldReturnOneSectionWithTwoNegativeHits()
+	{
+		Jay jay = new Jay(Point3D.ORIGIN, Vector3D.UNIT_Z);
+		
+		List<Section> sections = SPHERE.sections(jay);
+		
+		Assert.assertEquals(sections.size(), 1);
+		Assert.assertEquals(sections.get(0).getEntryHit().getT(), -6.0);
+		Assert.assertEquals(sections.get(0).getExitHit(). getT(), -4.0);
+	}
+	
+	@Test
+	public void testSections_JayInsideSphere_ShouldReturnOneSectionWithAPositiveAndANegativeHit()
+	{
+		Jay jay = new Jay(SPHERE_CENTER, Vector3D.UNIT_Z);
+		
+		List<Section> sections = SPHERE.sections(jay);
+		
+		Assert.assertEquals(sections.size(), 1);
+		
+		Assert.assertEquals(sections.get(0).getEntryHit().getT(), -1.0);
+		Assert.assertEquals(sections.get(0).getExitHit(). getT(), 1.0);
+	}
+	
+	@Test
+	public void testSections_NoHit_ShouldReturnAEmptyList()
+	{
+		Jay jay = new Jay(Point3D.ORIGIN, Vector3D.UNIT_X);
+		
+		List<Section> sections = SPHERE.sections(jay);
+		
+		Assert.assertEquals(sections.size(), 0);
+	}
+	
+	@Test
+	public void testSections_OneHit()
+	{
+		Point3D  jayOrigin    = new Point3D(0, 1, 0);
+		Vector3D jayDirection = new Vector3D(0, 0, -1);
+		
+		Jay jay = new Jay(jayOrigin, jayDirection);
+		
+		List<Section> sections = SPHERE.sections(jay);
+		
+		Assert.assertEquals(sections.size(), 1);
+		
+		Assert.assertEquals(sections.get(0).getEntryHit().getT(), 5.0);
+		Assert.assertEquals(sections.get(0).getExitHit(). getT(), 5.0);
+	}
+		
 }
