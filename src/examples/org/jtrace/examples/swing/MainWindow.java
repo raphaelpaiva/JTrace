@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.jtrace.Scene;
 import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
 import org.jtrace.shader.Shaders;
@@ -14,10 +15,14 @@ public class MainWindow extends JFrame {
 
   private static final long serialVersionUID = 8122517505454630633L;
 
-  public MainWindow() {
+  private Scene scene;
+  
+  public MainWindow(Scene scene) {
     setSize(700, 650);
     setTitle("JTrace");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    
+    this.scene = scene;
 
     init();
   }
@@ -25,7 +30,6 @@ public class MainWindow extends JFrame {
   private void init() {
     JPanel mainPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-    mainPanel.add(createTracerPanel());
     mainPanel.add(createTracerPanel());
     
     add(mainPanel);
@@ -36,7 +40,7 @@ public class MainWindow extends JFrame {
 	
 	tracer.addShaders(Shaders.ambientShader(), Shaders.diffuseShader());
 	  
-    return new TracerPanel(tracer, App.createScene(), new ViewPlane(500, 500), 500, 500);
+    return new TracerPanel(tracer, scene, new ViewPlane(500, 500), 500, 500);
   }
   
 }

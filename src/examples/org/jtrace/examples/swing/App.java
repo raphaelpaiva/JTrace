@@ -14,7 +14,7 @@ import org.jtrace.primitives.Vector3D;
 
 public class App {
 
-    private static MainWindow window = new MainWindow();
+    private static MainWindow window = new MainWindow(createScene());
 
     public static void main(final String[] args) {
         window.setVisible(true);
