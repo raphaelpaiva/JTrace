@@ -8,6 +8,7 @@ import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.Materials;
 import org.jtrace.NotHit;
+import org.jtrace.Section;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
@@ -66,6 +67,12 @@ public class TriangleMesh extends GeometricObject {
     }
 
     @Override
+	public List<Section> sections(Jay jay) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
+    @Override
     public ColorRGB getColor(Point3D hitPoint) {
     	 Vector3D pole = Vector3D.UNIT_Y;
          Vector3D equator = Vector3D.UNIT_X;
@@ -122,4 +129,5 @@ public class TriangleMesh extends GeometricObject {
     public Vector3D getBoundsFromCenter() {
         return new Vector3D(xmax -xmin, ymax - ymin, zmax - zmin).divide(2);
     }
+
 }
