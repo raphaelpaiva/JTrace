@@ -33,9 +33,9 @@ public class Triangle extends GeometricObject {
 	 * vectors a31 and a12,<br>
 	 * formed by v1-v3 and v2 - v1, respectively.
 	 * 
-	 * @param paramV1 the vertice v1.
-	 * @param paramV2 the vertice v2.
-	 * @param paramV3 the vertice v3.
+	 * @param paramV1 the vertex v1.
+	 * @param paramV2 the vertex v2.
+	 * @param paramV3 the vertex v3.
 	 * @param material the Triangle's Material.
 	 */
 	public Triangle(Point3D paramV1, Point3D paramV2, Point3D paramV3, Material material) {
