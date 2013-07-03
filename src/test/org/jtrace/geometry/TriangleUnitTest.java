@@ -65,4 +65,38 @@ public class TriangleUnitTest {
 		Assert.assertFalse(hit instanceof NotHit, "Expected Hit not to be an instanceof NoHit");
 		Assert.assertEquals(hit.getT(), 15.0);
 	}
+	
+	@Test
+	public void testHit_BorderJays_ShouldHit() {
+		Hit hit = TRIANGLE.hit(new Jay(new Point3D(0, 0, -5), Vector3D.UNIT_Z));
+		
+		Assert.assertTrue(hit.isHit(), "Expected to hit the border!");
+		Assert.assertEquals(hit.getT(), 5.0);
+		
+		hit = TRIANGLE.hit(new Jay(new Point3D(0.5, 1, -5), Vector3D.UNIT_Z));
+		
+		Assert.assertTrue(hit.isHit(), "Expected to hit the border!");
+		Assert.assertEquals(hit.getT(), 5.0);
+		
+		
+		hit = TRIANGLE.hit(new Jay(new Point3D(-0.5, 1, -5), Vector3D.UNIT_Z));
+		
+		Assert.assertTrue(hit.isHit(), "Expected to hit the border!");
+		Assert.assertEquals(hit.getT(), 5.0);
+		
+		hit = TRIANGLE.hit(new Jay(new Point3D(0, 2, -5), Vector3D.UNIT_Z));
+		
+		Assert.assertTrue(hit.isHit(), "Expected to hit the border!");
+		Assert.assertEquals(hit.getT(), 5.0);
+		
+		hit = TRIANGLE.hit(new Jay(new Point3D(1, 0, -5), Vector3D.UNIT_Z));
+		
+		Assert.assertTrue(hit.isHit(), "Expected to hit the border!");
+		Assert.assertEquals(hit.getT(), 5.0);
+		
+		hit = TRIANGLE.hit(new Jay(new Point3D(-1, 0, -5), Vector3D.UNIT_Z));
+		
+		Assert.assertTrue(hit.isHit(), "Expected to hit the border!");
+		Assert.assertEquals(hit.getT(), 5.0);
+	}
 }
