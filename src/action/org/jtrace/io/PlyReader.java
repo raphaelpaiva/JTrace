@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.jtrace.Material;
 import org.jtrace.geometry.Triangle;
+import org.jtrace.geometry.TriangleMesh;
 import org.jtrace.primitives.Point3D;
 import org.smurn.jply.Element;
 import org.smurn.jply.ElementReader;
@@ -18,7 +19,7 @@ import org.smurn.jply.util.TextureMode;
 
 public class PlyReader {
 
-    public static List<Triangle> read(InputStream is, Material material) throws IOException {
+    public static TriangleMesh read(InputStream is, Material material) throws IOException {
 
         org.smurn.jply.PlyReader plyReader = new PlyReaderFile(is);
 
@@ -29,7 +30,7 @@ public class PlyReader {
         ElementReader elementReader = plyReader.nextElementReader();
 
         List<Point3D>  vertices  = null;
-        List<Triangle> triangles = null;
+        TriangleMesh triangles = null;
 
         while (elementReader != null) {
             if (elementReader.getElementType().getName().equals("vertex")) {
@@ -46,10 +47,10 @@ public class PlyReader {
         return triangles;
     }
 
-    private static List<Triangle> readTriangles(ElementReader elementReader, List<Point3D> vertices, Material material) throws IOException {
+    private static TriangleMesh readTriangles(ElementReader elementReader, List<Point3D> vertices, Material material) throws IOException {
         Element faceElement = elementReader.readElement();
 
-        List<Triangle> triangles = new ArrayList<Triangle>(elementReader.getCount());
+        TriangleMesh mesh = new TriangleMesh(material);
 
         while (faceElement != null) {
             int[] indexes = faceElement.getIntList("vertex_index");
@@ -59,13 +60,13 @@ public class PlyReader {
                 int b = indexes[1];
                 int c = indexes[2];
 
-                triangles.add(new Triangle(vertices.get(a), vertices.get(b), vertices.get(c), material));
+                mesh.add(new Triangle(vertices.get(a), vertices.get(b), vertices.get(c), material));
             }
 
             faceElement = elementReader.readElement();
         }
 
-        return triangles;
+        return mesh;
     }
 
     private static List<Point3D> readVertices(ElementReader elementReader) throws IOException {

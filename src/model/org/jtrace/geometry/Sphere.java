@@ -5,6 +5,7 @@ import org.jtrace.Hit;
 import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.NotHit;
+import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
@@ -17,19 +18,19 @@ import org.jtrace.primitives.Vector3D;
  */
 public class Sphere extends GeometricObject {
     private Point3D center;
-    private float radius;
+    private double radius;
 
     /**
      * Creates a {@link Sphere} from its center and radius.
      * 
      * @param center a {@link Point3D} representing the coordinates of the center of the {@link Sphere}
-     * @param radius the radius of the {@link Sphere}
+     * @param d the radius of the {@link Sphere}
      * @param color the color of the {@link Sphere}
      */
-    public Sphere(final Point3D center, final float radius, final Material material) {
+    public Sphere(final Point3D center, final double d, final Material material) {
         super(material);
         this.center = center;
-        this.radius = radius;
+        this.radius = d;
     }
 
     /**
@@ -71,6 +72,35 @@ public class Sphere extends GeometricObject {
             return new NotHit();
         }
     }
+    
+    @Override
+    public ColorRGB getColor(Point3D point) {
+        Vector3D pole = Vector3D.UNIT_Y;
+        Vector3D equator = Vector3D.UNIT_X;
+ 
+        Vector3D normal = new Vector3D(center, point).normal();
+ 
+        double normalDotPole = normal.dot(pole);
+        double phi = Math.acos(normalDotPole);
+ 
+        double v = phi / Math.PI;
+ 
+        Vector3D poleCrossEquator = pole.cross(equator);
+ 
+        double equatorDotNormal = equator.dot(normal);
+ 
+        double theta = Math.acos(equatorDotNormal / Math.sin(phi)) / (2 * Math.PI);
+ 
+        double u = 0;
+ 
+        if (poleCrossEquator.dot(normal) > 0) {
+            u = theta;
+        } else {
+            u = 1 - theta;
+        }
+            
+        return getMaterial().getColor(u, v);
+    }
 
     public Point3D getCenter() {
         return center;
@@ -80,7 +110,7 @@ public class Sphere extends GeometricObject {
         this.center = center;
     }
 
-    public float getRadius() {
+    public double getRadius() {
         return radius;
     }
 

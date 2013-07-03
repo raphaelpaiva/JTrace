@@ -13,7 +13,7 @@ public class AmbientShader implements Shader {
     @Override
     public ColorRGB shade(Light light, Hit hit, Jay jay, GeometricObject object) {
         Material material = object.getMaterial();
-        ColorRGB objectColor = material.getColor();
+        ColorRGB objectColor = object.getColor(hit.getPoint(jay));
         ReflectanceCoefficient kAmbient = material.getkAmbient();
 
         double red = light.getColor().getRed() * kAmbient.getRed() * objectColor.getRed();

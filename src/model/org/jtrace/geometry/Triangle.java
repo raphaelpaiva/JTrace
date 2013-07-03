@@ -103,4 +103,70 @@ public class Triangle extends GeometricObject {
 		
 		return new NotHit();
 	}
+	
+	public double getXMax() {
+        double x1 = v1.getX();
+        double x2 = v2.getX();
+        double x3 = v3.getX();
+ 
+        double xmax = Math.max(x1, x2);
+        xmax = Math.max(xmax, x3);
+ 
+        return xmax;
+    }
+ 
+    public double getXMin() {
+        double y1 = v1.getY();
+        double y2 = v2.getY();
+        double y3 = v3.getY();
+ 
+        double xmin = Math.min(y1, y2);
+        xmin = Math.min(xmin, y3);
+ 
+        return xmin;
+    }
+ 
+    public double getYMin() {
+        double y1 = v1.getY();
+        double y2 = v2.getY();
+        double y3 = v3.getY();
+ 
+        double ymin = Math.min(y1, y2);
+        ymin = Math.min(ymin, y3);
+ 
+        return ymin;
+    }
+ 
+    public double getYMax() {
+        double y1 = v1.getY();
+        double y2 = v2.getY();
+        double y3 = v3.getY();
+ 
+        double ymax = Math.max(y1, y2);
+        ymax = Math.max(ymax, y3);
+ 
+        return ymax;
+    }
+ 
+    public double getZMax() {
+        double z1 = v1.getZ();
+        double z2 = v2.getZ();
+        double z3 = v3.getZ();
+ 
+        double zmax = Math.max(z1, z2);
+        zmax = Math.max(zmax, z3);
+ 
+        return zmax;
+    }
+ 
+    public double getZMin() {
+        double z1 = v1.getZ();
+        double z2 = v2.getZ();
+        double z3 = v3.getZ();
+ 
+        double zmin = Math.min(z1, z2);
+        zmin = Math.min(zmin, z3);
+ 
+        return zmin;
+    }
 }

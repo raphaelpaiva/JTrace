@@ -5,6 +5,9 @@ import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.NotHit;
 import org.jtrace.Scene;
+import org.jtrace.primitives.ColorRGB;
+import org.jtrace.primitives.Point3D;
+
 
 /**
  * Abstract class to be inserted in a {@link Scene}. <br>
@@ -43,6 +46,10 @@ public abstract class GeometricObject {
 	
 	public Material getMaterial() {
 		return material;
+	}
+	
+	public ColorRGB getColor(Point3D hitPoint) { 
+		return material.getColor();
 	}
 
 }
