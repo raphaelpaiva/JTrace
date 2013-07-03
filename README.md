@@ -40,7 +40,8 @@ Features
     - Specular Shader
 
 ### Materials
-  * Colored materials with Diffuse, Ambient and specular coefficients.
+  * Colored materials with Diffuse, Ambient and specular coefficients;
+  * Texturized materials.
 
 ### Tracer Listener Model
   * All external interaction is done by listeners, such as:
@@ -85,7 +86,6 @@ Future work (TODO)
   * Spot Light;
 
 ### Material
-  * Texturized material;
   * Reflexive and Refractive materials;
 
 ### Tracer
