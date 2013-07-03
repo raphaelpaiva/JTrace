@@ -3,7 +3,6 @@ package org.jtrace.examples.io;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import org.jtrace.Materials;
 import org.jtrace.Scene;
@@ -11,7 +10,7 @@ import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
 import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;
-import org.jtrace.geometry.Triangle;
+import org.jtrace.geometry.TriangleMesh;
 import org.jtrace.io.PlyReader;
 import org.jtrace.lights.Light;
 import org.jtrace.listeners.ImageListener;
@@ -25,15 +24,12 @@ public class SimplePLYExample {
 	public static void main(String[] args) throws IOException {
 				
 		InputStream is = SimplePLYExample.class.getResourceAsStream("simple.ply");
-		List<Triangle> triangles;
+		TriangleMesh simple;
  
-		triangles = PlyReader.read(is, Materials.metallic(ColorRGB.WHITE));
+		simple = PlyReader.read(is, Materials.metallic(ColorRGB.WHITE));
 		Scene scene = new Scene();
 		
-		for (Triangle t : triangles) {
-			scene.add(t);
-		}
-		
+		scene.add(simple);
 		scene.add(new Light(0, 0, 5));
 		
 		Camera camera = new PinHoleCamera(new Point3D(0, 0, 10), Point3D.ORIGIN, Vector3D.UNIT_Y);
