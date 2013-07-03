@@ -1,5 +1,6 @@
 package org.jtrace.shader;
 
+import org.jtrace.Hit;
 import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.geometry.Sphere;
@@ -33,6 +34,6 @@ public class AmbientShaderUnitTest {
 		double blue = ColorRGB.BLUE.getBlue() * K_AMBIENT.getBlue();
 		ColorRGB expectedColor = new ColorRGB(red, green, blue);
 		
-		Assert.assertEquals(expectedColor, new AmbientShader().shade(new Light(ORIGIN), null, JAY, SPHERE));
+		Assert.assertEquals(expectedColor, new AmbientShader().shade(new Light(ORIGIN), new Hit(10, Vector3D.UNIT_Z), JAY, SPHERE));
 	}
 }
