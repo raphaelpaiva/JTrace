@@ -72,8 +72,11 @@
       <fileset dir="${swing_classes_dir}" includes="**/*.class" />
     </jar>
 	</target>
-	<target name="test" depends="dist">
-        <testng outputDir="${test_classes_dir}"
+	
+	<target name="test" depends="clean,dist">
+		<mkdir dir="${reports_dir}" />
+		
+        <testng outputDir="${reports_dir}"
                 haltOnFailure="true" verbose="2">
             <classpath refid="run-classpath" />
         	<classpath path="${test_classes_dir}" />
