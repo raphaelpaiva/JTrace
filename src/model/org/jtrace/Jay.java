@@ -25,6 +25,16 @@ public class Jay {
 		this.origin = origin;
 		this.direction = direction;
 	}
+	
+	/**
+	 * Calculates the point in the line that the {@link Jay} describes.
+	 * 
+	 * @param t the line parameter.
+	 * @return The equivalent to {@link Jay#getOrigin()} + t * {@link Jay#getDirection()}
+	 */
+	public Point3D getPointAt(double t) {
+		return origin.add(direction.multiply(t));
+	}
 
 	public Point3D getOrigin() {
 		return origin;

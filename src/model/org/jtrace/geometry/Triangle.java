@@ -87,7 +87,7 @@ public class Triangle extends GeometricObject {
 			return planeHit;
 		}
 		
-		Point3D p = jay.getOrigin().add( jay.getDirection().multiply( planeHit.getT() ) );
+		Point3D p = jay.getPointAt( planeHit.getT() );
 		
 		Vector3D v1p = new Vector3D(v1, p);
 		Vector3D v2p = new Vector3D(v2, p);
