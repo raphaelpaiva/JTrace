@@ -16,6 +16,12 @@
 		<pathelement location="${action_classes_dir}" />
 		<pathelement location="${model_classes_dir}" />
 	</path>
+	
+	<path id="run-classpath">
+        <path refid="classpath" />
+        <pathelement location="${lib_dir}" />
+        <pathelement path="${dist_dir}/jtrace.jar" />
+    </path>
 
 	<target name="prepare-compile" description="Creates the build infrastructure.">
 		<mkdir dir="${model_classes_dir}" />
@@ -65,5 +71,14 @@
 		<jar destfile="${jtrace_swing_jar}">
       <fileset dir="${swing_classes_dir}" includes="**/*.class" />
     </jar>
+	</target>
+	<target name="test" depends="dist">
+        <testng outputDir="${test_classes_dir}"
+                haltOnFailure="true" verbose="2">
+            <classpath refid="run-classpath" />
+        	<classpath path="${test_classes_dir}" />
+        	
+        	<classfileset dir="${test_classes_dir}" includes="**/*.class" />
+        </testng>
 	</target>
 </project>
