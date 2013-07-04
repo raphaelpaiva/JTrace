@@ -37,11 +37,11 @@ public class Point3D {
    * 
    * A + B = C(x + u, y + v, z + w)
    * 
-   * @param otherVector the point to sum.
+   * @param otherPoint the point to sum.
    * @return a new {@link Point3D} equivalent to <code>(this + otherVector)</code>
    */
-  public Point3D add(final Point3D otherVector) {
-    return new Point3D(x + otherVector.getX(), y + otherVector.getY(), z + otherVector.getZ());
+  public Point3D add(final Point3D otherPoint) {
+    return new Point3D(x + otherPoint.getX(), y + otherPoint.getY(), z + otherPoint.getZ());
   }
 	
 	/**
@@ -52,11 +52,11 @@ public class Point3D {
 	 * 
 	 * A - B = C(x - u, y - v, z - w)
 	 * 
-	 * @param otherVector the point to subtract.
+	 * @param otherPoint the point to subtract.
 	 * @return a new {@link Point3D} equivalent to <code>(this - otherVector)</code>
 	 */
-	public Point3D subtract(final Point3D otherVector) {
-		return add(otherVector.multiply(-1));
+	public Point3D subtract(final Point3D otherPoint) {
+		return add(otherPoint.multiply(-1));
 	}
 	
 	/**
