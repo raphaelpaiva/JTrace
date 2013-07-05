@@ -6,21 +6,25 @@ package org.jtrace.primitives;
  * @author raphaelpaiva
  * @author brunocosta
  * @author flaviocdc
- *
+ * 
  */
 public class Point3D {
 	public static final Point3D ORIGIN = new Point3D(0, 0, 0);
 
 	private double x, y, z;
 
-	private Point3D() {}
-	
+	private Point3D() {
+	}
+
 	/**
 	 * Create a point from its coordinates
 	 * 
-	 * @param x axis value
-	 * @param y axis value
-	 * @param z axis value
+	 * @param x
+	 *            axis value
+	 * @param y
+	 *            axis value
+	 * @param z
+	 *            axis value
 	 */
 	public Point3D(final double x, final double y, final double z) {
 		this();
@@ -30,48 +34,71 @@ public class Point3D {
 	}
 
 	/**
-   * Add operation
-   * 
-   * Performs the basic point sum.<br>
-   * Suppose the points A(x, y, z) and B(u, v, w).<br>
-   * 
-   * A + B = C(x + u, y + v, z + w)
-   * 
-   * @param otherPoint the point to sum.
-   * @return a new {@link Point3D} equivalent to <code>(this + otherVector)</code>
-   */
-  public Point3D add(final Point3D otherPoint) {
-    return new Point3D(x + otherPoint.getX(), y + otherPoint.getY(), z + otherPoint.getZ());
-  }
-	
+	 * Add vector operation
+	 * 
+	 * Performs the basic vector sum.<br>
+	 * Suppose the point A(x, y, z) and the vector a(u, v, w).<br>
+	 * 
+	 * A + a = C(x + u, y + v, z + w)
+	 * 
+	 * @param vector
+	 *            the vector to sum.
+	 * @return a new {@link Point3D} equivalent to <code>(this + vector)</code>
+	 */
+	public Point3D add(final Vector3D vector) {
+		return new Point3D(x + vector.getX(), y + vector.getY(), z
+				+ vector.getZ());
+	}
+
 	/**
-	 * Subtract operation
+	 * Subtract vector operation
+	 * 
+	 * Performs the basic vector subtraction.<br>
+	 * Suppose the point A and the vector a. <br>
+	 * 
+	 * A - a = A + a*(-1)
+	 * 
+	 * @param vector
+	 *            the vector to subtract.
+	 * @return a new {@link Point3D} equivalent to
+	 *         <code>(this.add(vector.multiply(-1)))</code>
+	 */
+	public Point3D subtract(final Vector3D vector) {
+		return add(vector.multiply(-1));
+	}
+
+	/**
+	 * Subtract point operation
 	 * 
 	 * Performs the basic point subtraction.<br>
 	 * Suppose the points A(x, y, z) and B(u, v, w).<br>
 	 * 
-	 * A - B = C(x - u, y - v, z - w)
+	 * A - B = c(x - u, y - v, z - w)
 	 * 
-	 * @param otherPoint the point to subtract.
-	 * @return a new {@link Point3D} equivalent to <code>(this - otherVector)</code>
+	 * @param otherPoint
+	 *            the point to subtract.
+	 * @return a new {@link Vector3D} equivalent to
+	 *         <code>(this - otherPoint)</code>
 	 */
-	public Point3D subtract(final Point3D otherPoint) {
-		return add(otherPoint.multiply(-1));
+	public Vector3D subtract(final Point3D otherPoint) {
+		return new Vector3D(x - otherPoint.getX(), y - otherPoint.getY(), z
+				- otherPoint.getZ());
 	}
-	
+
 	/**
-   * Multiply by scalar operation
-   * 
-   * Suppose the points A(x, y, z) and a scalar 'f'.<br>
-   * 
-   * A * f = C(x * f, y * f, z * f)
-   * 
-   * @param factor scalar to multiply
-   * @return a new {@link Point3D} equivalent to <code>(this * factor)</code>
-   */
-  public Point3D multiply(final double factor) {
-    return new Point3D(x * factor, y  * factor, z * factor);
-  }
+	 * Multiply by scalar operation
+	 * 
+	 * Suppose the points A(x, y, z) and a scalar 'f'.<br>
+	 * 
+	 * A * f = C(x * f, y * f, z * f)
+	 * 
+	 * @param factor
+	 *            scalar to multiply
+	 * @return a new {@link Point3D} equivalent to <code>(this * factor)</code>
+	 */
+	public Point3D multiply(final double factor) {
+		return new Point3D(x * factor, y * factor, z * factor);
+	}
 
 	public double getX() {
 		return x;
@@ -139,11 +166,4 @@ public class Point3D {
 	public String toString() {
 		return "(" + x + ", " + y + ", " + z + ")";
 	}
-
-	public Point3D add(Vector3D vector) {
-		Point3D p = new Point3D( vector.getX(), vector.getY(), vector.getZ() );
-		
-		return add(p);
-	}
-
 }

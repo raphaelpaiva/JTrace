@@ -175,6 +175,39 @@ public class Vector3D {
 		return Math.acos(cosTheta);
 	}
 
+	public Vector3D cross(Vector3D otherVector) {
+		double newX, newY, newZ;
+
+		newX = getY() * otherVector.getZ() - getZ() * otherVector.getY();
+		newY = getZ() * otherVector.getX() - getX() * otherVector.getZ();
+		newZ = getX() * otherVector.getY() - getY() * otherVector.getX();
+
+		return new Vector3D(newX, newY, newZ);
+	}
+
+	public Vector3D add(Vector3D otherVector) {
+		return new Vector3D(this.getX() + otherVector.getX(), this.getY()
+				+ otherVector.getY(), this.getZ() + otherVector.getZ());
+	}
+	
+	public Point3D add(Point3D point) {
+		return new Point3D(this.getX() + point.getX(), this.getY()
+				+ point.getY(), this.getZ() + point.getZ());
+	}
+
+	public Vector3D subtract(Vector3D otherVector) {
+		return new Vector3D(this.getX() - otherVector.getX(), this.getY()
+				- otherVector.getY(), this.getZ() - otherVector.getZ());
+	}
+
+	public Vector3D divide(double d) {
+		return new Vector3D(this.getX() / d, this.getY() / d, this.getZ() / d);
+	}
+
+	public boolean isParallelTo(Vector3D otherVector) {
+		return cross(otherVector).equals(NULL);
+	}
+	
 	public Point3D getCoordinate() {
 		return coordinate;
 	}
@@ -212,34 +245,6 @@ public class Vector3D {
 	@Override
 	public String toString() {
 		return coordinate.toString();
-	}
-
-	public Vector3D cross(Vector3D otherVector) {
-		double newX, newY, newZ;
-
-		newX = getY() * otherVector.getZ() - getZ() * otherVector.getY();
-		newY = getZ() * otherVector.getX() - getX() * otherVector.getZ();
-		newZ = getX() * otherVector.getY() - getY() * otherVector.getX();
-
-		return new Vector3D(newX, newY, newZ);
-	}
-
-	public Vector3D add(Vector3D otherVector) {
-		return new Vector3D(this.getX() + otherVector.getX(), this.getY()
-				+ otherVector.getY(), this.getZ() + otherVector.getZ());
-	}
-
-	public Vector3D subtract(Vector3D otherVector) {
-		return new Vector3D(this.getX() - otherVector.getX(), this.getY()
-				- otherVector.getY(), this.getZ() - otherVector.getZ());
-	}
-
-	public Vector3D divide(double d) {
-		return new Vector3D(this.getX() / d, this.getY() / d, this.getZ() / d);
-	}
-
-	public boolean isParallelTo(Vector3D otherVector) {
-		return cross(otherVector).equals(NULL);
 	}
 
 	public double getX() {

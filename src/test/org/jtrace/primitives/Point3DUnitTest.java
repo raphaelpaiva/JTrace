@@ -11,7 +11,7 @@ public class Point3DUnitTest {
 		Point3D a = new Point3D(0, 0, 0);
 		Point3D b = new Point3D(2, 2, 2);
 		
-		Assert.assertEquals(b.subtract(a), new Point3D(2, 2, 2));
+		Assert.assertEquals(b.subtract(a), new Vector3D(2, 2, 2));
 	}
 	
 	@Test
@@ -20,6 +20,6 @@ public class Point3DUnitTest {
 		Point3D a = new Point3D(1, 2, 3);
 		Point3D b = new Point3D(4, 5, 6);
 		
-		Assert.assertEquals(b.subtract(a), new Point3D(3, 3, 3));
+		Assert.assertEquals(b.subtract(a), new Vector3D(3, 3, 3));
 	}
 }
