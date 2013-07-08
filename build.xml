@@ -88,6 +88,10 @@
 		    <fileset dir="${javadoc_classes_dir}" />
 		</jar>
 		
+		<jar destfile="${jtrace_source_jar}">
+            <fileset dir="${src_dir}" includes="**/*"/>
+        </jar>
+		
 		<copy todir="${dist_dir}/dependencies">
             <fileset dir="${lib_dir}" includes="**/*.jar" />
         </copy>
