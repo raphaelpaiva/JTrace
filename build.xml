@@ -69,11 +69,11 @@
 		</jar>
 		
 		<jar destfile="${jtrace_swing_jar}">
-      <fileset dir="${swing_classes_dir}" includes="**/*.class" />
+        <fileset dir="${swing_classes_dir}" includes="**/*.class" />
     </jar>
 	</target>
 	
-	<target name="test" depends="clean,dist">
+	<target name="test" depends="dist">
 		<mkdir dir="${reports_dir}" />
 		
         <testng outputDir="${reports_dir}"
@@ -83,5 +83,12 @@
         	
         	<classfileset dir="${test_classes_dir}" includes="**/*.class" />
         </testng>
+	</target>
+	
+	<target name="generate-release" depends="dist">
+     
+	    <zip destfile="${dist_dir}/jtrace.zip"
+	          basedir="${dist_dir}"
+	         includes="**/*.jar" />
 	</target>
 </project>
