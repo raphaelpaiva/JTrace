@@ -3,6 +3,23 @@ JTrace - A RayTrace Engine for Java
 
 This project aims to create a extensible RayTrace Engine for the Java Programming Language.
 
+Getting Started
+---------------
+1. Download the latest jtrace.zip file in releases section;
+2. Add the jtrace.jar and all the jars contained in the dependencies folder inside jtrace.zip to the classpath of your applcation;
+3. You can find the source code in jtrace-source.jar file and the javadocs in jtrace-javadoc.jar;
+4. Take a look at the examples in the examples folder inside jtrace-source.jar
+5. In order to use the swing components, you'll need to add the jtrace-swing.jar to your application's classpath as well.
+6. Happy Rendering! =)
+
+Contributing
+------------
+JTrace is open source software! Feel free to contribute!
+
+Fork it, code it and submit a pull request!
+
+Found a bug? Have a feature request? Suggestions on improving the code/build? Open a issue and we'll be happy to take a look at it! =)
+
 Features
 --------
 
@@ -15,7 +32,7 @@ Features
 ### Geometry Primitives
   * Sphere;
   * Plane;
-  * Triangle.
+  * Triangle
 
 ### Camera
   * Extensible Camera model: easy to create new camera types;
