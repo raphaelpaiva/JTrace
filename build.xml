@@ -60,8 +60,9 @@
 		<delete dir="${classes_dir}" includeemptydirs="true" includes="*/**/*" />
 	</target>
 	
-	<target name="dist" depends="compile" description="Creates the JTrace jars">
+	<target name="dist" depends="compile,compile-swing" description="Creates the JTrace jars">
 		<mkdir dir="${dist_dir}"/>
+        <mkdir dir="${dist_dir}/dependencies"/>
 		
 		<jar destfile="${jtrace_jar}">
 			<fileset dir="${model_classes_dir}" includes="**/*.class" />
@@ -69,8 +70,12 @@
 		</jar>
 		
 		<jar destfile="${jtrace_swing_jar}">
-        <fileset dir="${swing_classes_dir}" includes="**/*.class" />
-    </jar>
+            <fileset dir="${swing_classes_dir}" includes="**/*.class" />
+        </jar>
+        
+		<copy todir="${dist_dir}/dependencies">
+            <fileset dir="${lib_dir}" includes="**/*.jar" />
+        </copy>
 	</target>
 	
 	<target name="test" depends="dist">
