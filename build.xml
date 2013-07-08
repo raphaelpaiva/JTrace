@@ -7,6 +7,11 @@
 
 	<taskdef resource="testngtasks" classpath="${testng_jar}"/>
 
+	<path id="sources">
+	    <pathelement location="${src_action_dir}" />
+	    <pathelement location="${src_model_dir}" />
+	</path>
+	
 	<path id="classpath">
 		<fileset dir="${lib_dir}" includes="**/*.jar"/>
 	</path>
@@ -29,6 +34,7 @@
 		<mkdir dir="${test_classes_dir}" />
 		<mkdir dir="${swing_classes_dir}"/>
 		<mkdir dir="${examples_classes_dir}" />
+		<mkdir dir="${javadoc_classes_dir}" />
 	</target>
 
 	<target name="compile-model" depends="prepare-compile" description="Compiles the model classes.">
@@ -52,8 +58,13 @@
 			<classpath refid="test-classpath" />
 		</javac>
 	</target>
+	
+	<target name="compile" depends="compile-model,compile-action,compile-swing,compile-test,compile-javadoc" description="Compiles the project." />
 
-	<target name="compile" depends="compile-model,compile-action,compile-swing,compile-test" description="Compiles the project." />
+    <target name="compile-javadoc">
+          <javadoc sourcepathref="sources" destdir="${javadoc_classes_dir}" classpathref="classpath" classpath="${classes_dir}"/>
+    </target>
+
 
 	<target name="clean" description="Deletes the build directory.">
 		<delete dir="${dist_dir}" />
@@ -73,6 +84,10 @@
             <fileset dir="${swing_classes_dir}" includes="**/*.class" />
         </jar>
         
+		<jar destfile="${jtrace_javadoc_jar}">
+		    <fileset dir="${javadoc_classes_dir}" />
+		</jar>
+		
 		<copy todir="${dist_dir}/dependencies">
             <fileset dir="${lib_dir}" includes="**/*.jar" />
         </copy>
