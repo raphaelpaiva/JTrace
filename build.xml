@@ -73,7 +73,7 @@
 	
 	<target name="dist" depends="compile,compile-swing" description="Creates the JTrace jars">
 		<mkdir dir="${dist_dir}"/>
-        <mkdir dir="${dist_dir}/dependencies"/>
+        <mkdir dir="${dist_dependencies_dir}"/>
 		
 		<jar destfile="${jtrace_jar}">
 			<fileset dir="${model_classes_dir}" includes="**/*.class" />
@@ -105,10 +105,13 @@
         </testng>
 	</target>
 	
-	<target name="generate-release" depends="dist">
+	<target name="generate-release" depends="test">
      
 	    <zip destfile="${dist_dir}/jtrace.zip"
 	          basedir="${dist_dir}"
 	         includes="**/*.jar" />
+	    
+	    <delete dir="${dist_dir}" includes="*.jar" />
+	    <delete dir="${dist_dependencies_dir}" />
 	</target>
 </project>
