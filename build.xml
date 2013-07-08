@@ -92,8 +92,12 @@
             <fileset dir="${src_dir}" includes="**/*"/>
         </jar>
 		
-		<copy todir="${dist_dir}/dependencies">
+		<copy todir="${dist_dependencies_dir}">
             <fileset dir="${lib_dir}" includes="**/*.jar" />
+        </copy>
+        
+		<copy tofile="${dist_dir}/README.txt" >
+            <fileset dir="." includes="README.md" />
         </copy>
 	</target>
 	
@@ -113,7 +117,7 @@
      
 	    <zip destfile="${dist_dir}/jtrace.zip"
 	          basedir="${dist_dir}"
-	         includes="**/*.jar" />
+	         includes="**/*.jar, README.txt" />
 	    
 	    <delete dir="${dist_dir}" includes="*.jar" />
 	    <delete dir="${dist_dependencies_dir}" />
