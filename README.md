@@ -5,7 +5,7 @@ This project aims to create a extensible RayTrace Engine for the Java Programmin
 
 Getting Started
 ---------------
-1. Download the latest jtrace.zip file in releases section;
+1. Download the latest jtrace.zip file in [releases section][4];
 2. Add the jtrace.jar and all the jars contained in the dependencies folder inside jtrace.zip to the classpath of your applcation;
 3. You can find the source code in jtrace-source.jar file and the javadocs in jtrace-javadoc.jar;
 4. Take a look at the examples in the examples folder inside jtrace-source.jar
@@ -130,3 +130,4 @@ References
 [1]: http://www.raytracegroundup.com/
 [2]: http://www.yaml.org/
 [3]: https://github.com/smurn/jPLY
+[4]: https://github.com/raphaelpaiva/JTrace/releases
