@@ -32,7 +32,8 @@ Features
 ### Geometry Primitives
   * Sphere;
   * Plane;
-  * Triangle
+  * Triangle;
+  * Quadrilateral.
 
 ### Camera
   * Extensible Camera model: easy to create new camera types;
@@ -91,7 +92,6 @@ Future work (TODO)
 ------------------
 
 ### Geometry Primitives
-  * Rectangle;
   * Disk;
   * Generic open Cylinder;
   * Generic Torus.
