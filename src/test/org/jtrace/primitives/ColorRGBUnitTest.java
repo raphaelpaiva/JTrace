@@ -148,8 +148,6 @@ public class ColorRGBUnitTest {
 		
 		ColorRGB color = new ColorRGB(intColor);
 		
-		System.out.println(color);
-		
 		Assert.assertEquals(color.getRed(), 0.0196, 0.01);
 		Assert.assertEquals(color.getGreen(), 0.137, 0.01);
 		Assert.assertEquals(color.getBlue(), 0.278, 0.01);
