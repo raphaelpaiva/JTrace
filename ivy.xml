@@ -10,7 +10,7 @@
         </dependency>
         
         <dependency org="org.yaml" name="snakeyaml" rev="1.9" conf="default->master">
-            <artifact name="snakeyaml" type="jar" ext="jar" />
+            <artifact name="snakeyaml" type="bundle" ext="jar" />
         </dependency>
         
         <dependency org="org.testng" name="testng" rev="6.3.1">
