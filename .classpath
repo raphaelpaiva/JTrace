@@ -6,9 +6,9 @@
 	<classpathentry kind="src" output="build/classes/swing" path="src/swing"/>
 	<classpathentry kind="src" output="build/classes/examples" path="src/examples"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/snakeyaml-1.9.jar"/>
-	<classpathentry kind="lib" path="lib/testng-6.3.1.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/jply-0.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/snakeyaml-jar-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/testng-jar-6.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-jar-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jply-jar-0.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
