@@ -9,7 +9,7 @@
             <artifact name="jply" type="jar" />
         </dependency>
         
-        <dependency org="org.yaml" name="snakeyaml" rev="1.9">
+        <dependency org="org.yaml" name="snakeyaml" rev="1.9" conf="default->master">
             <artifact name="snakeyaml" type="jar" />
         </dependency>
         
