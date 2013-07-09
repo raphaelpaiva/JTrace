@@ -14,7 +14,8 @@
         </dependency>
         
         <dependency org="org.testng" name="testng" rev="6.3.1">
-            <artifact name="testng" type="jar" />
+	    <artifact name="testng" type="jar" />
+	    <exclude module="snakeyaml"/>
         </dependency>
     </dependencies>
 </ivy-module>
