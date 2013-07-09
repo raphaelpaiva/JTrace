@@ -1,0 +1,20 @@
+<ivy-module version="2.0">
+    <info organisation="org.jtrace" module="jtrace"/>
+    <dependencies>
+        <dependency org="org.apache.commons" name="commons-lang3" rev="3.1">
+            <artifact name="commons-lang3" type="jar" />
+        </dependency>
+        
+        <dependency org="org.smurn" name="jply" rev="0.2.0">
+            <artifact name="jply" type="jar" />
+        </dependency>
+        
+        <dependency org="org.yaml" name="snakeyaml" rev="1.9">
+            <artifact name="snakeyaml" type="jar" />
+        </dependency>
+        
+        <dependency org="org.testng" name="testng" rev="6.3.1">
+            <artifact name="testng" type="jar" />
+        </dependency>
+    </dependencies>
+</ivy-module>

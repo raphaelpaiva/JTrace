@@ -4,3 +4,4 @@ test-output/*
 *.png
 build/
 dist/
+lib/*

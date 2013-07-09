@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="JTrace" default="dist">
+<project name="JTrace" default="generate-release" xmlns:ivy="antlib:org.apache.ivy.ant">
 	<property file="build.properties" />
 
 	<description>
 	</description>
 
-	<taskdef resource="testngtasks" classpath="${testng_jar}"/>
+	<property name="ivy.install.version" value="2.1.0-rc2" />
+    <condition property="ivy.home" value="${env.IVY_HOME}">
+      <isset property="env.IVY_HOME" />
+    </condition>
+    <property name="ivy.home" value="${user.home}/.ant" />
+    <property name="ivy.jar.dir" value="${ivy.home}/lib" />
+    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar" />
 
 	<path id="sources">
 	    <pathelement location="${src_action_dir}" />
@@ -28,6 +34,46 @@
         <pathelement path="${dist_dir}/jtrace.jar" />
     </path>
 
+	<target name="download-ivy" unless="offline">
+
+        <mkdir dir="${ivy.jar.dir}"/>
+        <!-- download Ivy from web site so that it can be used even without any special installation -->
+        <get src="http://repo2.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" 
+             dest="${ivy.jar.file}" usetimestamp="true"/>
+    </target>
+
+    <target name="init-ivy" depends="download-ivy">
+      <!-- try to load ivy here from ivy home, in case the user has not already dropped
+              it into ant's lib dir (note that the latter copy will always take precedence).
+              We will not fail as long as local lib dir exists (it may be empty) and
+              ivy is in at least one of ant's lib dir or the local lib dir. -->
+        <path id="ivy.lib.path">
+            <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+                 uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>
+	
+    <target name="download-libs" description="Downloads the libraries required for compilation" depends="init-ivy">
+        <ivy:retrieve />
+        
+        <taskdef resource="testngtasks" classpath="${testng_jar}"/>
+    </target>
+
+    <target name="clean" description="Deletes the build artifacts.">
+        <delete dir="${dist_dir}" />
+        <delete dir="${classes_dir}" includeemptydirs="true" includes="*/**/*" />
+    </target>
+    
+    <target name="clean-libs" description="Deletes all library files">
+        <delete includeemptydirs="true">
+            <fileset dir="${lib_dir}" includes="**/*.jar" />
+        </delete>
+    </target>
+    
+    <target name="clean-all" depends="clean,clean-libs" description="Clean all build artifacts." />
+        
 	<target name="prepare-compile" description="Creates the build infrastructure.">
 		<mkdir dir="${model_classes_dir}" />
 		<mkdir dir="${action_classes_dir}" />
@@ -65,13 +111,7 @@
           <javadoc sourcepathref="sources" destdir="${javadoc_classes_dir}" classpathref="classpath" classpath="${classes_dir}"/>
     </target>
 
-
-	<target name="clean" description="Deletes the build directory.">
-		<delete dir="${dist_dir}" />
-		<delete dir="${classes_dir}" includeemptydirs="true" includes="*/**/*" />
-	</target>
-	
-	<target name="dist" depends="compile,compile-swing" description="Creates the JTrace jars">
+	<target name="dist" depends="download-libs,compile,compile-swing" description="Creates the JTrace jars">
 		<mkdir dir="${dist_dir}"/>
         <mkdir dir="${dist_dependencies_dir}"/>
 		
@@ -93,7 +133,7 @@
         </jar>
 		
 		<copy todir="${dist_dependencies_dir}">
-            <fileset dir="${lib_dir}" includes="**/*.jar" />
+            <fileset dir="${lib_dir}" includes="**/*.jar" excludes="ant-*.jar, aopalliance-*.jar, bsh-*.jar, guice-*.jar, jcommander-*.jar, junit-*.jar" />
         </copy>
         
 		<copy tofile="${dist_dir}/README.txt" >
@@ -113,7 +153,7 @@
         </testng>
 	</target>
 	
-	<target name="generate-release" depends="test">
+	<target name="generate-release" depends="clean-all,test">
      
 	    <zip destfile="${dist_dir}/jtrace.zip"
 	          basedir="${dist_dir}"
