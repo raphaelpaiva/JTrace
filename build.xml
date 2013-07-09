@@ -62,7 +62,7 @@
     </target>
 	
     <target name="download-libs" description="Downloads the libraries required for compilation" depends="init-ivy">
-        <ivy:retrieve />
+        <ivy:retrieve pattern="lib/[conf]/[artifact]-[type]-[revision].[ext]"  />
         
         <taskdef resource="testngtasks" classpath="${testng_jar}"/>
     </target>
