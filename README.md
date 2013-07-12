@@ -18,7 +18,7 @@ JTrace is open source software! Feel free to contribute!
 
 Fork it, code it and submit a pull request!
 
-Found a bug? Have a feature request? Suggestions on improving the code/build? Open a issue and we'll be happy to take a look at it! =)
+Found a bug? Have a feature request? Suggestions on improving the code/build? [Open a issue][5] and we'll be happy to take a look at it! =)
 
 Features
 --------
@@ -131,3 +131,4 @@ References
 [2]: http://www.yaml.org/
 [3]: https://github.com/smurn/jPLY
 [4]: https://github.com/raphaelpaiva/JTrace/releases
+[5]: https://github.com/raphaelpaiva/JTrace/issues
