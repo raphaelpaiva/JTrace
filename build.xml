@@ -34,13 +34,13 @@
         <pathelement path="${dist_dir}/jtrace.jar" />
     </path>
 
-	 <target name="bootstrap" description="Prepares the build folder structure.">
+    <target name="bootstrap" description="Prepares the build folder structure.">
         <mkdir dir="${lib_dir}" />
         <mkdir dir="${dist_dir}"/>
         <mkdir dir="${dist_dependencies_dir}"/>
     </target>
 	
-	<target name="download-ivy" depends="bootstrap" unless="offline">
+    <target name="download-ivy" depends="bootstrap" unless="offline" description="Downloads Apache Ivy distribution.">
 
         <mkdir dir="${ivy.jar.dir}"/>
         <!-- download Ivy from web site so that it can be used even without any special installation -->
@@ -48,7 +48,7 @@
              dest="${ivy.jar.file}" usetimestamp="true"/>
     </target>
 
-    <target name="init-ivy" depends="download-ivy">
+    <target name="init-ivy" depends="download-ivy" description="Initializes Apache ivy for dependency management.">
       <!-- try to load ivy here from ivy home, in case the user has not already dropped
               it into ant's lib dir (note that the latter copy will always take precedence).
               We will not fail as long as local lib dir exists (it may be empty) and
@@ -61,7 +61,7 @@
                  uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
     </target>
 	
-    <target name="download-libs" description="Downloads the libraries required for compilation" depends="init-ivy">
+    <target name="download-libs" description="Downloads the libraries required for compilation." depends="init-ivy">
         <ivy:retrieve pattern="lib/[artifact]-[type]-[revision].[ext]"  />
         
         <taskdef resource="testngtasks" classpath="${testng_jar}"/>
@@ -101,7 +101,7 @@
 	    <javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" classpathref="classpath" />
   </target>
 	
-	<target name="compile-examples" depends="prepare-compile, compile" description="Compiles the Swing Extension classes.">
+	<target name="compile-examples" depends="prepare-compile, compile" description="Compiles the example classes.">
       <javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" classpathref="classpath" />
   </target>
 
@@ -113,11 +113,11 @@
 	
 	<target name="compile" depends="compile-model,compile-action,compile-swing,compile-test,compile-javadoc" description="Compiles the project." />
 
-    <target name="compile-javadoc">
+    <target name="compile-javadoc" description="Generates the javadocs.">
           <javadoc sourcepathref="sources" destdir="${javadoc_classes_dir}" classpathref="classpath" classpath="${classes_dir}"/>
     </target>
 
-	<target name="dist" depends="download-libs,compile,compile-swing" description="Creates the JTrace jars">
+	<target name="dist" depends="download-libs,compile,compile-swing" description="Creates the JTrace jars.">
 		<jar destfile="${jtrace_jar}">
 			<fileset dir="${model_classes_dir}" includes="**/*.class" />
 			<fileset dir="${action_classes_dir}" includes="**/*.class" />
@@ -144,7 +144,7 @@
         </copy>
 	</target>
 	
-	<target name="test" depends="dist">
+	<target name="test" depends="dist" description="Run the tests.">
 		<mkdir dir="${reports_dir}" />
 		
         <testng outputDir="${reports_dir}"
@@ -156,7 +156,7 @@
         </testng>
 	</target>
 	
-	<target name="generate-release" depends="test">
+	<target name="generate-release" depends="test" description="Generates the release zip.">
      
 	    <zip destfile="${dist_dir}/jtrace.zip"
 	          basedir="${dist_dir}"
