@@ -37,7 +37,7 @@ public class BeethovenTextureExample {
 	public static Scene createScene() throws IOException {
 		InputStream is = BeethovenPLYExample.class.getResourceAsStream("beethoven.ply");
 		BufferedImage earthTexture = ImageIO.read(EarthExample.class.getResourceAsStream("marble.jpg"));
-		Material material = new Material(ColorRGB.WHITE, new ReflectanceCoefficient(0.07, 0.07, 0.07), new ReflectanceCoefficient(0.7, 0.7, 0.7), earthTexture);
+		Material material = new Material(new ReflectanceCoefficient(0.07, 0.07, 0.07), new ReflectanceCoefficient(0.7, 0.7, 0.7), earthTexture);
 		TriangleMesh beethoven;
  
 		beethoven = PlyReader.read(is, material);

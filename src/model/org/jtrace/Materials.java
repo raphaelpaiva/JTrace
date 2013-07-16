@@ -18,7 +18,7 @@ public class Materials {
         final ReflectanceCoefficient kAmbient = new ReflectanceCoefficient(0.07, 0.07, 0.07);
         final ReflectanceCoefficient kDiffuse = new ReflectanceCoefficient(0.3, 0.3, 0.3);
  
-        return new Material(ColorRGB.WHITE, kAmbient, kDiffuse, texture);
+        return new Material(kAmbient, kDiffuse, texture);
     }
 	
 	public static Material metallic(final ColorRGB color) {
@@ -34,7 +34,7 @@ public class Materials {
         final ReflectanceCoefficient kDiffuse = new ReflectanceCoefficient(0.3, 0.3, 0.3);
         final ReflectanceCoefficient kSpecular = new ReflectanceCoefficient(0.2, 0.2, 0.2);
  
-        return new Material(ColorRGB.WHITE, kAmbient, kDiffuse, kSpecular, texture);
+        return new Material(kAmbient, kDiffuse, kSpecular, texture);
     }
 
 }

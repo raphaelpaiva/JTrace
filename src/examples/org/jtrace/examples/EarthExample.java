@@ -15,7 +15,6 @@ import org.jtrace.geometry.Sphere;
 import org.jtrace.interceptor.ShadowInterceptor;
 import org.jtrace.lights.Light;
 import org.jtrace.listeners.ImageListener;
-import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
@@ -27,8 +26,8 @@ public class EarthExample {
 		
 		BufferedImage earthTexture = ImageIO.read(EarthExample.class.getResourceAsStream("earthExample.jpg"));
 		BufferedImage moonTexture = ImageIO.read(EarthExample.class.getResourceAsStream("moon.jpg"));
-		Material earthMaterial = new Material(ColorRGB.WHITE, new ReflectanceCoefficient(0.07, 0.07, 0.07), new ReflectanceCoefficient(0.7, 0.7, 0.7), earthTexture);
-		Material moonMaterial = new Material(ColorRGB.WHITE, new ReflectanceCoefficient(0.07, 0.07, 0.07), new ReflectanceCoefficient(0.7, 0.7, 0.7), moonTexture);
+		Material earthMaterial = new Material(new ReflectanceCoefficient(0.07, 0.07, 0.07), new ReflectanceCoefficient(0.7, 0.7, 0.7), earthTexture);
+		Material moonMaterial = new Material(new ReflectanceCoefficient(0.07, 0.07, 0.07), new ReflectanceCoefficient(0.7, 0.7, 0.7), moonTexture);
 		
 		Sphere earth = new Sphere(Point3D.ORIGIN, 10, earthMaterial);
 		Sphere moon = new Sphere(new Point3D(-20, 7, 13), 10 * 0.273, moonMaterial);
