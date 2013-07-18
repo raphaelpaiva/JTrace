@@ -19,7 +19,6 @@ import org.jtrace.io.PlyReader;
 import org.jtrace.lights.Light;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
-import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
