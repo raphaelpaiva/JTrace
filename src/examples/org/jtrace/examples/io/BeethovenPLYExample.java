@@ -14,7 +14,7 @@ import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.TriangleMesh;
 import org.jtrace.interceptor.ShadowInterceptor;
 import org.jtrace.io.PlyReader;
-import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
@@ -31,7 +31,7 @@ public class BeethovenPLYExample {
 		Scene scene = new Scene();
 		
 		scene.add(beethoven);
-		scene.add(new Light(0, 0, 5));
+		scene.add(new PointLight(0, 0, 5));
 		
 		Camera camera = new PinHoleCamera(new Point3D(0, 0, 10), Point3D.ORIGIN, Vector3D.UNIT_Y);
 		

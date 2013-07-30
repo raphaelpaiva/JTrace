@@ -6,7 +6,6 @@ import org.jtrace.Material;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
-import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
 
@@ -16,20 +15,25 @@ public class DiffuseShader implements Shader {
 		ColorRGB objectColor = object.getColor(hit.getPoint(jay));
 		ReflectanceCoefficient kDiffuse = material.getkDiffuse();
 		
-		double dotLight = calculateDiffuseContribution(light, hit, jay);
+		Vector3D pointToLight = new Vector3D(hit.getPoint(jay), light.getPosition());
+		
+		double dotLight = calculateDiffuseContribution(pointToLight, hit.getNormal().normal());
+		
+		double distanceToLight = pointToLight.module();
+		
+		double lightIntensity = light.getIntensity(distanceToLight);
 		
 		double red = light.getColor().getRed() * kDiffuse.getRed() * objectColor.getRed() * dotLight;
 		double green = light.getColor().getGreen() * kDiffuse.getGreen() * objectColor.getGreen() * dotLight;
 		double blue = light.getColor().getBlue() * kDiffuse.getBlue() * objectColor.getBlue() * dotLight;
 		
-		return new ColorRGB(red, green, blue);
+		return new ColorRGB(red, green, blue).multiply(lightIntensity);
 	}
 	
-	public double calculateDiffuseContribution(Light light, Hit hit, Jay jay) {
-		Point3D hitPoint = hit.getPoint(jay);
-		
-		Vector3D lightDirection = new Vector3D(hitPoint, light.getPosition()).normal();
-		double dotLight = lightDirection.dot(hit.getNormal().normal());
+	public double calculateDiffuseContribution(Vector3D pointToLightVector, Vector3D surfaceNormal) {
+		Vector3D lightDirection = pointToLightVector.normal();
+		double dotLight = lightDirection.dot(surfaceNormal);
+
 		return Math.max(dotLight, 0);
 	}
 	

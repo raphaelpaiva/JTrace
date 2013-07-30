@@ -8,6 +8,7 @@ import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Triangle;
 import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
@@ -32,7 +33,7 @@ public class TriangleExample {
         final Point3D lookAt = new Point3D(0, 0, 100);
         final Vector3D up = new Vector3D(0, 1, 0);
 
-        final Light light = new Light(0, 0, 10);
+        final Light light = new PointLight(0, 0, 10);
 
         final Camera pinHoleCamera = new PinHoleCamera(eye, lookAt, up);
         pinHoleCamera.setZoomFactor(10);

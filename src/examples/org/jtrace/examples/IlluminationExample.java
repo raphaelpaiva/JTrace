@@ -9,6 +9,7 @@ import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Plane;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
@@ -32,7 +33,7 @@ public class IlluminationExample {
     Sphere red = new Sphere(new Point3D(0, 0, -10), 10, Materials.metallic(ColorRGB.RED));
     Plane green = new Plane(new Point3D(0, -10, 0), new Vector3D(0, 1, 0), Materials.metallic(ColorRGB.BLUE));
     
-    Light light = new Light(-30, 30, 30);
+    Light light = new PointLight(-30, 30, 30);
     
     Camera camera = new PinHoleCamera(new Point3D(0, 0, 30), new Point3D(0, 0, 0), Vector3D.UNIT_Y);
     

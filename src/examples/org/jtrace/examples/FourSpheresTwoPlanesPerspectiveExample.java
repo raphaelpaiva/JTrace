@@ -9,6 +9,7 @@ import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Plane;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
@@ -36,7 +37,7 @@ public class FourSpheresTwoPlanesPerspectiveExample {
 
         final Plane lowerPlane = new Plane(planePoint, planeNormal, Materials.metallic(ColorRGB.YELLOW));
         final Plane upperPlane = new Plane(new Point3D(0, 30, 0), planeNormal.multiply(-1), Materials.metallic(ColorRGB.GREEN));
-        final Light light = new Light(lightPosition);
+        final Light light = new PointLight(lightPosition);
 
         final Camera pinHoleCamera = new PinHoleCamera(eye, lookAt, up);
         pinHoleCamera.setZoomFactor(10);

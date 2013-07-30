@@ -8,6 +8,7 @@ import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.interceptor.ShadowInterceptor;
 import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
@@ -18,7 +19,7 @@ public class ShadowExample {
 	public static void main(String[] args) {
 		Sphere sphere = new Sphere(Point3D.ORIGIN, 50, Materials.matte(ColorRGB.GREEN));
 		
-		Light light = new Light(new Point3D(0, 100, -50));
+		Light light = new PointLight(new Point3D(0, 100, -50));
 		
 		Scene scene = new Scene();
 		

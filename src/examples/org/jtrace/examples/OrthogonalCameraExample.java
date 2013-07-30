@@ -8,6 +8,7 @@ import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.OrthogonalCamera;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
@@ -26,7 +27,7 @@ public class OrthogonalCameraExample {
 
         final Camera camera = new OrthogonalCamera(eye, lookAt, up);
 
-        final Light light = new Light(-100, -50, -10);
+        final Light light = new PointLight(-100, -50, -10);
 
         final Point3D centerRed = new Point3D(-50, 0, -10);
         final Point3D centerBlue = new Point3D(50, 0, -1000);

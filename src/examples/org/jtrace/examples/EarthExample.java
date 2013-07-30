@@ -13,7 +13,7 @@ import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.interceptor.ShadowInterceptor;
-import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
@@ -35,7 +35,7 @@ public class EarthExample {
 		scene.add(earth);
 		scene.add(moon);
 		
-		scene.add(new Light(new Point3D(-50, 50, -50)));
+		scene.add(new PointLight(new Point3D(-50, 50, -50)));
 		
 		Camera camera = new PinHoleCamera(new Point3D(0, 0, -20), Point3D.ORIGIN, Vector3D.UNIT_Y);
 		camera.setZoomFactor(12);

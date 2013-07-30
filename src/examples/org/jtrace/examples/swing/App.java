@@ -7,6 +7,7 @@ import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Plane;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
@@ -44,7 +45,7 @@ public class App {
         final Plane plane1 = new Plane(planePoint, planeNormal, planeMaterial);
         final Plane plane2 = new Plane(planePoint.multiply(-1), planeNormal.multiply(-1), planeMaterial);
 
-        final Light light = new Light(0, -20, 10);
+        final Light light = new PointLight(0, -20, 10);
 
         final Camera pinHoleCamera = new PinHoleCamera(eye, lookAt, up);
         pinHoleCamera.setZoomFactor(10);
