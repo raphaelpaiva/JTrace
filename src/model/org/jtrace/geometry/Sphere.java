@@ -28,13 +28,13 @@ public class Sphere extends GeometricObject {
      * Creates a {@link Sphere} from its center and radius.
      * 
      * @param center a {@link Point3D} representing the coordinates of the center of the {@link Sphere}
-     * @param d the radius of the {@link Sphere}
+     * @param radius the radius of the {@link Sphere}
      * @param color the color of the {@link Sphere}
      */
-    public Sphere(final Point3D center, final double d, final Material material) {
+    public Sphere(final Point3D center, final double radius, final Material material) {
         super(material);
         this.center = center;
-        this.radius = d;
+        this.radius = radius;
     }
 
     /**
