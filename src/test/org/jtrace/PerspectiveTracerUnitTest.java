@@ -4,6 +4,7 @@ import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
@@ -33,7 +34,7 @@ public class PerspectiveTracerUnitTest {
 		final int hres = 1;
 		final int vres = 1;
 		
-		Light light = new Light(new Point3D(0, 0, 0));
+		Light light = new PointLight(new Point3D(0, 0, 0));
 		
 		Scene scene = new Scene().add(sphere).add(light);
 

@@ -20,6 +20,8 @@ Fork it, code it and submit a pull request!
 
 Found a bug? Have a feature request? Suggestions on improving the code/build? [Open a issue][2] and we'll be happy to take a look at it! =)
 
+Visit the [Development][4] section in the wiki to get started in the development process.
+
 Features
 --------
 Visit the [JTrace wiki][3] for information about the project's current features.
@@ -27,4 +29,4 @@ Visit the [JTrace wiki][3] for information about the project's current features.
 [1]: https://github.com/raphaelpaiva/JTrace/releases
 [2]: https://github.com/raphaelpaiva/JTrace/issues
 [3]: https://github.com/raphaelpaiva/JTrace/wiki
-
+[4]: https://github.com/raphaelpaiva/JTrace/wiki/Development

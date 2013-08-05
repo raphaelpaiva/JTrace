@@ -24,22 +24,27 @@ public class SpecularShader implements Shader {
 		
 		Point3D hitPoint = hit.getPoint(jay); 
 		
-		Vector3D lightVec = new Vector3D(hitPoint, light.getPosition()).normal();
+		Vector3D pointToLight = new Vector3D(hitPoint, light.getPosition());
 		
-		Vector3D reflected = calculateSpecularLightReflection(lightVec, hit.getNormal());
+		Vector3D lightDirection = pointToLight.normal();
+		
+		Vector3D reflected = calculateSpecularLightReflection(lightDirection, hit.getNormal());
 		
 		Vector3D viewVector = new Vector3D(hitPoint, jay.getOrigin()).normal();
 		
 		double RdotV = reflected.dot(viewVector);
 		
 		if (RdotV > 0) {
+			double distanceToLight = pointToLight.module();
+			double lightIntensity = light.getIntensity(distanceToLight);
+			
 			double specularContribution = Math.pow(reflected.dot(viewVector), specularFactor);
 			
 			double r = light.getColor().getRed() * object.getMaterial().getkSpecular().getRed() * specularContribution;
 			double g = light.getColor().getGreen() * object.getMaterial().getkSpecular().getRed() * specularContribution;
 			double b = light.getColor().getBlue() * object.getMaterial().getkSpecular().getBlue() * specularContribution;
 			
-			return new ColorRGB(r, g, b);
+			return new ColorRGB(r, g, b).multiply(lightIntensity);
 		} else {
 			return ColorRGB.BLACK;
 		}

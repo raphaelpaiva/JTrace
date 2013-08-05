@@ -56,10 +56,26 @@ public class ColorRGB {
         return (int) rgb;
     }
 
+	/**
+	 * Adds each color component to each of the <code>color2</code> parameter.
+	 * 
+	 * @param color2
+	 *            the color to be added.
+	 * @return a new {@link ColorRGB} representing the vector sum of the current
+	 *         color and the <code>color2</code> parameter.
+	 */
     public ColorRGB add(final ColorRGB color2) {
         return new ColorRGB(getRed() + color2.getRed(), getGreen() + color2.getGreen(), getBlue() + color2.getBlue());
     }
 
+	/**
+	 * Multiplies all {@link ColorRGB} components by the <code>multiplier</code>
+	 * .
+	 * 
+	 * @param multiplier
+	 * @return a new {@link ColorRGB} with all components multiplied by
+	 *         multiplier.
+	 */
     public ColorRGB multiply(final double multiplier) {
         return new ColorRGB(getRed() * multiplier, getGreen() * multiplier, getBlue() * multiplier);
     }

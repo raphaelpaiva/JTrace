@@ -8,6 +8,7 @@ import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
@@ -34,7 +35,7 @@ public class LookingDownExample {
         final Sphere originSphere = new Sphere(Point3D.ORIGIN, 0.3f, Materials.matte(ColorRGB.PURPLE));
         final Sphere lightSphere = new Sphere(lightPosition, 0.3f, Materials.matte(ColorRGB.WHITE));
 
-        final Light light = new Light(lightPosition);
+        final Light light = new PointLight(lightPosition);
 
         final Camera pinHoleCamera = new PinHoleCamera(eye, lookAt, up);
         pinHoleCamera.setZoomFactor(10);

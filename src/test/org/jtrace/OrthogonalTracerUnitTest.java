@@ -3,6 +3,7 @@ package org.jtrace;
 import org.jtrace.geometry.Plane;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
@@ -21,7 +22,7 @@ public class OrthogonalTracerUnitTest {
 	private static final int SPHERE_RADIUS = 1;
 	private static final ReflectanceCoefficient KAMBIENT = new ReflectanceCoefficient(1.0, 1.0, 1.0);
 	private static final ReflectanceCoefficient KDIFFUSE = new ReflectanceCoefficient(1.0, 1.0, 1.0);
-	private static final Light LIGHT = new Light(new Point3D(0, 0, 50));
+	private static final Light LIGHT = new PointLight(new Point3D(0, 0, 50));
 	
 	@Test
 	public void testRender_RedSphereInFrontOfViewPlane() {

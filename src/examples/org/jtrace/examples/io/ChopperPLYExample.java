@@ -12,7 +12,7 @@ import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.TriangleMesh;
 import org.jtrace.io.PlyReader;
-import org.jtrace.lights.Light;
+import org.jtrace.lights.PointLight;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.ColorRGB;
@@ -30,7 +30,7 @@ public class ChopperPLYExample {
 		Scene scene = new Scene();
 
 		scene.add(chopper);
-		scene.add(new Light(0, 10000, 10000));
+		scene.add(new PointLight(0, 10000, 10000));
 
 		Camera camera = new PinHoleCamera(new Point3D(-200, -400, -100),
 				new Point3D(-40, 60, -10), Vector3D.UNIT_Z);
