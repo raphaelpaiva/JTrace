@@ -98,7 +98,7 @@
 	</target>
 	
 	<target name="compile-swing" depends="prepare-compile, compile-action" description="Compiles the Swing Extension classes.">
-	    <javac srcdir="${src_action_dir}" destdir="${action_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" classpath="${model_classes_dir}" includeantruntime="false" classpathref="classpath" />
+	    <javac srcdir="${src_swing_dir}" destdir="${swing_classes_dir}" source="${target_vm}" target="${target_vm}" debug="on" includeantruntime="false" classpathref="test-classpath" />
   </target>
 	
 	<target name="compile-examples" depends="prepare-compile, compile" description="Compiles the example classes.">
