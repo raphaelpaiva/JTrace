@@ -10,6 +10,7 @@ import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.shader.Shader;
+import org.jtrace.shader.AmbientShader;
 
 /**
  * Abstract class containing the common operation and fields of a Tracer.
@@ -82,6 +83,10 @@ public class Tracer {
 
     private boolean shouldShade(Shader shader, Light light, Hit hit, Jay jay, GeometricObject object) {
 		boolean shouldShade = true;
+		
+		if(shader instanceof AmbientShader){
+			return true;
+		}
     	
 		for (TracerInterceptor interceptor : interceptors) {
 			shouldShade = shouldShade && interceptor.shouldShade(shader, light, hit, jay, object);

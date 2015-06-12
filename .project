@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>model</name>
+			<type>2</type>
+			<location>/home/joaocarvalho/workspace/JTrace/src/model</location>
+		</link>
+	</linkedResources>
 </projectDescription>

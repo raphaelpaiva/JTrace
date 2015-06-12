@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="build/classes/model" path="src/model"/>
-	<classpathentry kind="src" output="build/classes/action" path="src/action"/>
-	<classpathentry kind="src" output="build/classes/test" path="src/test"/>
-	<classpathentry kind="src" output="build/classes/swing" path="src/swing"/>
-	<classpathentry kind="src" output="build/classes/examples" path="src/examples"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/testng-jar-6.3.1.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang3-jar-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/jply-jar-0.2.0.jar"/>
-	<classpathentry kind="lib" path="lib/snakeyaml-bundle-1.9.jar"/>
+	<classpathentry kind="src" output="model" path="model"/>
+	<classpathentry kind="var" path="JRE_LIB" rootpath="JRE_SRCROOT" sourcepath="JRE_SRC"/>
+	<classpathentry kind="lib" path="/home/joaocarvalho/workspace/JTrace/lib/ant-jar-1.6.5.jar"/>
+	<classpathentry kind="lib" path="/home/joaocarvalho/workspace/JTrace/lib/aopalliance-jar-1.0.jar"/>
+	<classpathentry kind="lib" path="/home/joaocarvalho/workspace/JTrace/lib/bsh-jar-2.0b4.jar"/>
+	<classpathentry kind="lib" path="/home/joaocarvalho/workspace/JTrace/lib/commons-lang3-jar-3.1.jar"/>
+	<classpathentry kind="lib" path="/home/joaocarvalho/workspace/JTrace/lib/guice-jar-2.0.jar"/>
+	<classpathentry kind="lib" path="/home/joaocarvalho/workspace/JTrace/lib/jcommander-jar-1.12.jar"/>
+	<classpathentry kind="lib" path="/home/joaocarvalho/workspace/JTrace/lib/jply-jar-0.2.0.jar"/>
+	<classpathentry kind="lib" path="/home/joaocarvalho/workspace/JTrace/lib/junit-jar-3.8.1.jar"/>
+	<classpathentry kind="lib" path="/home/joaocarvalho/workspace/JTrace/lib/snakeyaml-bundle-1.9.jar"/>
+	<classpathentry kind="lib" path="/home/joaocarvalho/workspace/JTrace/lib/testng-jar-6.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
