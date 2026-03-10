@@ -6,6 +6,9 @@ import org.jtrace.ViewPlane;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * The abstract Camera. <br>
  * 
@@ -16,6 +19,11 @@ import org.jtrace.primitives.Vector3D;
  * @author raphaelpaiva
  *
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = PinHoleCamera.class, name = "PinHoleCamera"),
+    @JsonSubTypes.Type(value = OrthogonalCamera.class, name = "OrthogonalCamera")
+})
 public abstract class Camera {
 	/**
 	 * The {@link Camera}'s position in space.

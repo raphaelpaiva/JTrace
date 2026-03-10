@@ -1,0 +1,85 @@
+# Four Spheres Two Planes Scene
+# Demonstrates material library and polymorphic objects
+
+materials:
+  redMetallic:
+    color: !color {r: 1.0, g: 0.0, b: 0.0}
+    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+  
+  blueMetallic:
+    color: !color {r: 0.0, g: 0.0, b: 1.0}
+    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+  
+  purpleMetallic:
+    color: !color {r: 0.5, g: 0.0, b: 0.5}
+    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+  
+  whiteMetallic:
+    color: !color {r: 1.0, g: 1.0, b: 1.0}
+    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+  
+  yellowMetallic:
+    color: !color {r: 1.0, g: 1.0, b: 0.0}
+    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+  
+  greenMetallic:
+    color: !color {r: 0.0, g: 1.0, b: 0.0}
+    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+
+scene:
+  backgroundColor: !color {r: 0.0, g: 0.0, b: 0.0}
+  
+  camera:
+    type: PinHoleCamera
+    eye: !pt {x: 0.0, y: 0.0, z: 100.0}
+    lookAt: !pt {x: 0.0, y: 0.0, z: 0.0}
+    up: !vector {x: 0.0, y: 1.0, z: 0.0}
+    zoomFactor: 10.0
+  
+  objects:
+    - type: Sphere
+      center: !pt {x: 30.0, y: 0.0, z: 0.0}
+      radius: 10.0
+      material: $redMetallic
+    
+    - type: Sphere
+      center: !pt {x: -30.0, y: 0.0, z: 0.0}
+      radius: 10.0
+      material: $blueMetallic
+    
+    - type: Sphere
+      center: !pt {x: 0.0, y: 0.0, z: 0.0}
+      radius: 0.3
+      material: $purpleMetallic
+    
+    - type: Sphere
+      center: !pt {x: 0.0, y: 20.0, z: -10.0}
+      radius: 0.3
+      material: $whiteMetallic
+    
+    - type: Plane
+      point: !pt {x: 0.0, y: -10.1, z: 0.0}
+      normal: !vector {x: 0.0, y: 1.0, z: 0.0}
+      material: $yellowMetallic
+    
+    - type: Plane
+      point: !pt {x: 0.0, y: 30.0, z: 0.0}
+      normal: !vector {x: 0.0, y: -1.0, z: 0.0}
+      material: $greenMetallic
+  
+  lights:
+    - type: PointLight
+      position: !pt {x: 0.0, y: 20.0, z: -10.0}
+      color: !color {r: 1.0, g: 1.0, b: 1.0}
