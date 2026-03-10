@@ -24,7 +24,7 @@ import org.jtrace.shader.Shaders;
 
 public class BeethovenPLYExample {
 	public static void main(String[] args) throws IOException {
-		InputStream is = BeethovenPLYExample.class.getResourceAsStream("beethoven.ply");
+		InputStream is = BeethovenPLYExample.class.getResourceAsStream("/org/jtrace/examples/io/beethoven.ply");
 		TriangleMesh beethoven;
  
 		beethoven = PlyReader.read(is, Materials.metallic(ColorRGB.WHITE));

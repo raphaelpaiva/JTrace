@@ -23,7 +23,7 @@ import org.jtrace.shader.Shaders;
 public class SimplePLYExample {
 	public static void main(String[] args) throws IOException {
 				
-		InputStream is = SimplePLYExample.class.getResourceAsStream("simple.ply");
+		InputStream is = SimplePLYExample.class.getResourceAsStream("/org/jtrace/examples/io/simple.ply");
 		TriangleMesh simple;
  
 		simple = PlyReader.read(is, Materials.metallic(ColorRGB.WHITE));

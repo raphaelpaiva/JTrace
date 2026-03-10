@@ -50,8 +50,9 @@ public class DrawablePanel extends JPanel {
 
   public void setImage(BufferedImage image) {
     this.image = image;
-    
-    setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+    if (this.image != null) {
+      setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+    }
   }
   
 }

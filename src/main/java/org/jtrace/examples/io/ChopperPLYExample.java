@@ -23,7 +23,7 @@ import org.jtrace.shader.Shaders;
 public class ChopperPLYExample {
 	public static void main(String[] args) throws IOException {
 		
-		InputStream is = ChopperPLYExample.class.getResourceAsStream("chopper.ply");
+		InputStream is = ChopperPLYExample.class.getResourceAsStream("/org/jtrace/examples/io/chopper.ply");
 		TriangleMesh chopper;
 
 		chopper = PlyReader.read(is, Materials.metallic(ColorRGB.WHITE));

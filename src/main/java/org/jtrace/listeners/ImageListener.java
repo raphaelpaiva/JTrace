@@ -50,6 +50,7 @@ public class ImageListener implements TracerListener {
 	public void finish() {
 		try {
 			ImageIO.write(image, format, new File(fileName));
+      System.out.println("Wrote " + fileName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
