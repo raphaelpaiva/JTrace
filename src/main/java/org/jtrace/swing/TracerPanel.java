@@ -28,6 +28,7 @@ public class TracerPanel extends JPanel {
   private int height;
   private int width;
   private DrawablePanel drawablePanel;
+  private SwingListener swingListener;
   
   public TracerPanel(Tracer tracer, Scene scene, ViewPlane viewPlane) {
     this(tracer, scene, viewPlane, 300, 300);
@@ -59,23 +60,8 @@ public class TracerPanel extends JPanel {
   private void init() {
     drawablePanel = new DrawablePanel();
     
-    SwingListener listener = new SwingListener(this);
-    tracer.addListeners(listener);
-    
-    JButton renderBtn = new JButton("Render");
-    renderBtn.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        progressBar.setString(null);
-        
-        new Thread() {
-          @Override
-          public void run() {
-            tracer.render(scene, viewPlane);
-          }
-        }.start();
-      }
-    });
+    swingListener = new SwingListener(this);
+    tracer.addListeners(swingListener);
     
     JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
     
@@ -88,12 +74,42 @@ public class TracerPanel extends JPanel {
     
     add(statusPanel, BorderLayout.PAGE_END);
     add(scrollPane, BorderLayout.CENTER);
-    //add(drawablePanel, BorderLayout.CENTER);
-    add(renderBtn, BorderLayout.PAGE_START);
+  }
+
+  public void setTracer(Tracer tracer) {
+    this.tracer = tracer;
+    tracer.clearListeners();
+    tracer.addListeners(swingListener);
+  }
+
+  public void setScene(Scene scene) {
+    this.scene = scene;
+  }
+
+  public void setViewPlane(ViewPlane viewPlane) {
+    this.viewPlane = viewPlane;
+    this.progressBar.setMaximum(viewPlane.getHres() * viewPlane.getVres());
+    prepareAspectRatio();
+  }
+
+  public void render() {
+    progressBar.setValue(0);
+    progressBar.setString(null);
+    
+    new Thread() {
+      @Override
+      public void run() {
+        tracer.render(scene, viewPlane);
+      }
+    }.start();
   }
   
   public DrawablePanel getDrawablePanel() {
     return drawablePanel;
+  }
+  
+  public JProgressBar getProgressBar() {
+    return progressBar;
   }
   
   public void pixelsPainted(int pixels) {

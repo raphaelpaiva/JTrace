@@ -117,6 +117,20 @@ public abstract class Camera {
     }
 
     /**
+     * @return The {@link Camera}'s lookAt position in space.
+     */
+    public Point3D getLookAt() {
+        return lookAt;
+    }
+
+    /**
+     * @return The {@link Camera}'s up vector.
+     */
+    public Vector3D getUp() {
+        return up;
+    }
+
+    /**
      * Updates the {@link Camera}'s coordinate system.
      * 
      * This method <b>must</b> be called if there were any changes to the {@link Camera} orientation or eye position.
