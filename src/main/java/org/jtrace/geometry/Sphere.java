@@ -24,6 +24,10 @@ public class Sphere extends GeometricObject {
     private Point3D center;
     private double radius;
 
+    public Sphere() {
+        super(null);
+    }
+
     /**
      * Creates a {@link Sphere} from its center and radius.
      * 

@@ -11,6 +11,9 @@ import org.jtrace.Section;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Abstract class to be inserted in a {@link Scene}. <br>
  * 
@@ -19,6 +22,14 @@ import org.jtrace.primitives.Point3D;
  * @author raphaelpaiva
  *
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Sphere.class, name = "Sphere"),
+    @JsonSubTypes.Type(value = Plane.class, name = "Plane"),
+    @JsonSubTypes.Type(value = Triangle.class, name = "Triangle"),
+    @JsonSubTypes.Type(value = TriangleMesh.class, name = "TriangleMesh"),
+    @JsonSubTypes.Type(value = Quadrilateral.class, name = "Quadrilateral")
+})
 public abstract class GeometricObject {
 	
 	/**

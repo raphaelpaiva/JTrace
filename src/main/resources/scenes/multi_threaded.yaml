@@ -1,0 +1,76 @@
+# Multi-threaded Rendering Scene
+# Demonstrates MultiThreadTracer for faster rendering
+
+materials:
+  gold:
+    color: !color {r: 1.0, g: 0.85, b: 0.57}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+  
+  silver:
+    color: !color {r: 0.95, g: 0.95, b: 0.95}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.9, g: 0.9, b: 0.9}
+  
+  copper:
+    color: !color {r: 0.72, g: 0.45, b: 0.2}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+
+scene:
+  backgroundColor: !color {r: 0.05, g: 0.05, b: 0.1}
+  
+  camera:
+    type: PinHoleCamera
+    eye: !pt {x: 0.0, y: 30.0, z: 150.0}
+    lookAt: !pt {x: 0.0, y: 0.0, z: 0.0}
+    up: !vector {x: 0.0, y: 1.0, z: 0.0}
+    zoomFactor: 12.0
+  
+  objects:
+    - type: Sphere
+      center: !pt {x: 0.0, y: 0.0, z: 0.0}
+      radius: 30.0
+      material: $gold
+    
+    - type: Sphere
+      center: !pt {x: -50.0, y: 10.0, z: -20.0}
+      radius: 20.0
+      material: $silver
+    
+    - type: Sphere
+      center: !pt {x: 50.0, y: 10.0, z: -20.0}
+      radius: 20.0
+      material: $copper
+    
+    - type: Plane
+      point: !pt {x: 0.0, y: -35.0, z: 0.0}
+      normal: !vector {x: 0.0, y: 1.0, z: 0.0}
+      material: $silver
+  
+  lights:
+    - type: PointLight
+      position: !pt {x: 80.0, y: 80.0, z: 60.0}
+      color: !color {r: 1.0, g: 1.0, b: 1.0}
+    
+    - type: PointLight
+      position: !pt {x: -60.0, y: 60.0, z: 40.0}
+      color: !color {r: 0.8, g: 0.9, b: 1.0}
+
+tracer:
+  type: MultiThreadTracer
+  threads: 4
+  shaders:
+    - type: AmbientShader
+    - type: DiffuseShader
+    - type: SpecularShader
+      specularFactor: 64.0
+  interceptors:
+    - type: ShadowInterceptor
+
+viewPlane:
+  hres: 1920
+  vres: 1080

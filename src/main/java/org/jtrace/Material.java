@@ -6,6 +6,10 @@ import org.jtrace.geometry.GeometricObject;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.ReflectanceCoefficient;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.jtrace.io.yaml.BufferedImageDeserializer;
+
 /**
  * Class representing a Material with physical properties such as
  * {@link ReflectanceCoefficient} and texture information.
@@ -51,6 +55,17 @@ public class Material {
      * object with this {@link Material}.
      */
     private BufferedImage texture;
+    
+    /**
+     * Path to the texture file (used for YAML deserialization).
+     */
+    private String texturePath;
+
+    /**
+     * Default constructor for Jackson deserialization.
+     */
+    public Material() {
+    }
 
     /**
      * Creates a {@link Material} with static color, no texture and no specular reflection.
@@ -166,6 +181,54 @@ public class Material {
 
     public void setkSpecular(ReflectanceCoefficient kSpecular) {
         this.kSpecular = kSpecular;
+    }
+
+    /**
+     * Sets the {@link Material}'s base color.
+     * 
+     * @param color the color to set
+     */
+    public void setColor(ColorRGB color) {
+        this.color = color;
+    }
+
+    /**
+     * Sets the ambient reflectance coefficient.
+     * 
+     * @param kAmbient the ambient reflectance to set
+     */
+    public void setkAmbient(ReflectanceCoefficient kAmbient) {
+        this.kAmbient = kAmbient;
+    }
+
+    /**
+     * Sets the diffuse reflectance coefficient.
+     * 
+     * @param kDiffuse the diffuse reflectance to set
+     */
+    public void setkDiffuse(ReflectanceCoefficient kDiffuse) {
+        this.kDiffuse = kDiffuse;
+    }
+
+    /**
+     * Sets the texture for this material.
+     * 
+     * @param texture the texture to set
+     */
+    public void setTexture(BufferedImage texture) {
+        this.texture = texture;
+    }
+    
+    public BufferedImage getTexture() {
+        return texture;
+    }
+    
+    public String getTexturePath() {
+        return texturePath;
+    }
+    
+    public void setTexturePath(String texturePath) {
+        this.texturePath = texturePath;
     }
 
 }

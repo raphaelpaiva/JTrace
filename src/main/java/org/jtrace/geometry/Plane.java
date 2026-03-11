@@ -21,6 +21,10 @@ import org.jtrace.primitives.Vector3D;
 public class Plane extends GeometricObject {
 	private Point3D point;
 	private Vector3D normal;
+
+	public Plane() {
+        super(null);
+    }
 	
 	/**
 	 * Creates a {@link Plane} from a {@link Point3D} contained on it and its normal {@link Vector3D}.

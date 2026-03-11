@@ -16,6 +16,11 @@ public class ViewPlane {
 	 */
 	private int vres;
 	
+	public ViewPlane() {
+		this.hres = 640;
+		this.vres = 480;
+	}
+	
 	/**
 	 * Creates a {@link ViewPlane}.
 	 * 
