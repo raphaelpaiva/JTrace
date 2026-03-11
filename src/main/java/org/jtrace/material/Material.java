@@ -155,11 +155,17 @@ public class Material {
 
         double u = uvMapping.u() / textureScale;
         double v = uvMapping.v() / textureScale;
- 
-        int x = (int) Math.round((texture.getWidth() - 1) * u) % texture.getWidth();
-        int y = (int) Math.round((texture.getHeight() - 1) * v) % texture.getHeight();
 
-        int intColor = texture.getRGB(Math.abs(x), Math.abs(y));
+        double uWrapped = u - Math.floor(u);
+        double vWrapped = v - Math.floor(v);
+
+        int x = (int) (uWrapped * texture.getWidth());
+        int y = (int) (vWrapped * texture.getHeight());
+
+        x = Math.min(x, texture.getWidth() - 1);
+        y = Math.min(y, texture.getHeight() - 1);
+
+        int intColor = texture.getRGB(x, y);
         return new ColorRGB(intColor);
     }
 

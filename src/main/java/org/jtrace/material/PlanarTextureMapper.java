@@ -9,8 +9,8 @@ public class PlanarTextureMapper implements TextureMapper {
   public UVMapping map(Hit hit) {
     var nonParallelToNormal = nonParallelTo(hit.getNormal()).normal();
 
-    var e1 = hit.getNormal().cross(nonParallelToNormal);
-    var e2 = hit.getNormal().cross(e1);
+    var e1 = hit.getNormal().cross(nonParallelToNormal).normal();
+    var e2 = hit.getNormal().cross(e1).normal();
 
     var perpendicular = nonParallelToNormal.cross(hit.getNormal());
     var planePoint = new Point3D(perpendicular.getX(), perpendicular.getY(), perpendicular.getZ());
