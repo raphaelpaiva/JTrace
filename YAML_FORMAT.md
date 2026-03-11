@@ -331,6 +331,138 @@ Light with intensity that decays with distance squared.
 
 ---
 
+## Tracer Configuration
+
+The `tracer` section defines how rays are traced and shaded.
+
+```yaml
+tracer:
+  type: Tracer  # or MultiThreadTracer
+  threads: 4     # Only for MultiThreadTracer
+  shaders:
+    - type: AmbientShader
+    - type: DiffuseShader
+    - type: SpecularShader
+      specularFactor: 4.0
+  listeners:
+    - type: ImageListener
+      fileName: output.png
+      format: png
+    - type: TimeListener
+  interceptors:
+    - type: ShadowInterceptor
+```
+
+### Tracer Types
+
+| Type | Description |
+|------|-------------|
+| `Tracer` | Single-threaded ray tracer |
+| `MultiThreadTracer` | Multi-threaded ray tracer |
+
+**MultiThreadTracer Fields:**
+- `threads` (int): Number of threads (optional, defaults to available processors)
+
+---
+
+## Shaders
+
+Shaders define how surfaces are shaded. Multiple shaders can be combined.
+
+### Available Shaders
+
+#### AmbientShader
+
+Basic ambient lighting. No additional fields required.
+
+```yaml
+- type: AmbientShader
+```
+
+#### DiffuseShader
+
+Lambertian diffuse shading. No additional fields required.
+
+```yaml
+- type: DiffuseShader
+```
+
+#### SpecularShader
+
+Phong specular highlighting.
+
+```yaml
+- type: SpecularShader
+  specularFactor: 64.0  # Shininess factor (higher = sharper highlights)
+```
+
+**SpecularShader Fields:**
+- `specularFactor` (double): Shininess exponent (default: 1.0)
+
+---
+
+## Listeners
+
+Listeners respond to tracer events like rendering progress and completion.
+
+### Available Listeners
+
+#### ImageListener
+
+Saves the rendered image to a file.
+
+```yaml
+- type: ImageListener
+  fileName: output.png
+  format: png
+```
+
+**ImageListener Fields:**
+- `fileName` (string): Output file path
+- `format` (string): Image format (png, jpg, bmp, gif)
+
+#### TimeListener
+
+Prints rendering time to console.
+
+```yaml
+- type: TimeListener
+```
+
+---
+
+## Interceptors
+
+Interceptors modify the shading process.
+
+### Available Interceptors
+
+#### ShadowInterceptor
+
+Enables shadow casting by checking if light is occluded.
+
+```yaml
+- type: ShadowInterceptor
+```
+
+---
+
+## ViewPlane
+
+Defines the rendering resolution.
+
+```yaml
+viewPlane:
+  hres: 1920
+  vres: 1080
+```
+
+**ViewPlane Fields:**
+- `hres` (int): Horizontal resolution (width)
+- `vres` (int): Vertical resolution (height)
+
+---
+
 ## Complete Example
 
 ```yaml
@@ -384,6 +516,27 @@ scene:
       position: !pt {x: -30.0, y: 20.0, z: 20.0}
       color: !color {r: 0.8, g: 0.8, b: 1.0}
       initialIntensity: 80.0
+
+# Tracer configuration
+tracer:
+  type: Tracer
+  shaders:
+    - type: AmbientShader
+    - type: DiffuseShader
+    - type: SpecularShader
+      specularFactor: 64.0
+  listeners:
+    - type: ImageListener
+      fileName: output.png
+      format: png
+    - type: TimeListener
+  interceptors:
+    - type: ShadowInterceptor
+
+# ViewPlane resolution
+viewPlane:
+  hres: 1920
+  vres: 1080
 ```
 
 ---
@@ -391,7 +544,7 @@ scene:
 ## Loading Scenes in Java
 
 ```java
-import org.jtrace.Scene;
+import org.jtrace.*;
 import org.jtrace.io.yaml.SceneYamlIO;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -400,14 +553,21 @@ public class SceneLoader {
     public static void main(String[] args) throws Exception {
         SceneYamlIO yamlIO = new SceneYamlIO();
         
-        // Load scene from YAML
+        // Load all configuration (scene, tracer, viewPlane)
         Path sceneFile = Paths.get("myscene.yaml");
-        Scene scene = yamlIO.load(sceneFile);
+        SceneYamlIO.SceneConfiguration config = yamlIO.loadConfiguration(sceneFile);
         
-        // Use with tracer
-        Tracer tracer = new Tracer();
-        tracer.addShaders(Shaders.ambientShader(), Shaders.diffuseShader(), Shaders.specularShader(64));
-        tracer.render(scene, new ViewPlane(1920, 1080));
+        Scene scene = config.getScene();
+        Tracer tracer = config.getTracer();
+        ViewPlane viewPlane = config.getViewPlane();
+        
+        // Or load individually
+        // Scene scene = yamlIO.load(sceneFile);
+        // Tracer tracer = yamlIO.loadTracer(sceneFile);
+        // ViewPlane viewPlane = yamlIO.loadViewPlane(sceneFile);
+        
+        // Render
+        tracer.render(scene, viewPlane);
     }
 }
 ```
