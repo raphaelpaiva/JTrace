@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.jtrace.Hit;
 import org.jtrace.Jay;
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.NotHit;
 import org.jtrace.Scene;
 import org.jtrace.Section;
@@ -72,8 +72,8 @@ public abstract class GeometricObject {
 		return material;
 	}
 	
-	public ColorRGB getColor(Point3D hitPoint) { 
-		return material.getColor();
+	public ColorRGB getColor(Hit hit) {
+		return material.getColor(hit);
 	}
 
 }

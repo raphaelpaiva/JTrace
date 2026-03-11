@@ -3,7 +3,7 @@ package org.jtrace.io.yaml;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 
 import java.io.IOException;
 

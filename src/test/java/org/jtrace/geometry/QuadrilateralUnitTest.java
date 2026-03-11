@@ -2,8 +2,8 @@ package org.jtrace.geometry;
 
 import org.jtrace.Hit;
 import org.jtrace.Jay;
-import org.jtrace.Material;
-import org.jtrace.Materials;
+import org.jtrace.material.Material;
+import org.jtrace.material.Materials;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;

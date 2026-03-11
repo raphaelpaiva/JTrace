@@ -2,10 +2,18 @@
 # Demonstrates textured materials with a sphere floating above a checkerboard floor
 
 materials:
-  checkerboard:
+  planarCheckerboard:
     texturePath: "checkerboard.png"
     kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
     kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    textureMapper: planar
+    textureScale: 20
+
+  sphericalCheckerboard:
+    texturePath: "checkerboard.png"
+    kAmbient: !reflect { r: 0.1, g: 0.1, b: 0.1 }
+    kDiffuse: !reflect { r: 0.8, g: 0.8, b: 0.8 }
+    textureMapper: spherical
   
   redGlossy:
     color: !color {r: 1.0, g: 0.1, b: 0.1}
@@ -40,7 +48,7 @@ scene:
     - type: Sphere
       center: !pt {x: -25.0, y: 10.0, z: 15.0}
       radius: 8.0
-      material: $checkerboard #$blueGlossy
+      material: $sphericalCheckerboard #$blueGlossy
     
     # Third sphere
     - type: Sphere
@@ -52,13 +60,13 @@ scene:
     - type: Plane
       point: !pt {x: 0.0, y: -5.0, z: 0.0}
       normal: !vector {x: 0.0, y: 1.0, z: 0.0}
-      material: $checkerboard
+      material: $planarCheckerboard
     
     # Ceiling (optional, for depth)
     - type: Plane
-      point: !pt {x: 0.0, y: 50.0, z: 0.0}
+      point: !pt {x: 0.0, y: 80.0, z: 0.0}
       normal: !vector {x: 0.0, y: -1.0, z: 0.0}
-      material: $checkerboard
+      material: $planarCheckerboard
   
   lights:
     - type: PointLight

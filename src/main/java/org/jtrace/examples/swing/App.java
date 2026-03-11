@@ -1,6 +1,6 @@
 package org.jtrace.examples.swing;
 
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.Scene;
 import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;

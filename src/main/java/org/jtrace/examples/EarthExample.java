@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.Scene;
 import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
@@ -39,7 +39,7 @@ public class EarthExample {
 		
 		Camera camera = new PinHoleCamera(new Point3D(0, 0, -20), Point3D.ORIGIN, Vector3D.UNIT_Y);
 		camera.setZoomFactor(12);
-		
+
 		scene.setCamera(camera);
 		
 		Tracer tracer = new Tracer();

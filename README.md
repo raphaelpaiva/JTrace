@@ -7,7 +7,7 @@ JTrace is an extensible Ray Tracing engine for Java.
 - **Ray Tracing**: Render 3D scenes with realistic lighting
 - **Geometric Objects**: Sphere, Plane, Triangle, TriangleMesh, Quadrilateral
 - **Materials**: Configurable ambient, diffuse, and specular reflectance
-- **Texture Mapping**: Support for image-based textures
+- **Texture Mapping**: Support for image-based textures with planar and spherical projection
 - **YAML Configuration**: Define scenes using human-readable YAML files
 - **Multiple Shaders**: Ambient, Diffuse, Specular shading
 - **Shadows**: Shadow interceptor support

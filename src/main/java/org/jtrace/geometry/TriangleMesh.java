@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.jtrace.Hit;
 import org.jtrace.Jay;
-import org.jtrace.Material;
-import org.jtrace.Materials;
+import org.jtrace.material.Material;
+import org.jtrace.material.Materials;
 import org.jtrace.NotHit;
 import org.jtrace.Section;
 import org.jtrace.primitives.ColorRGB;
@@ -67,65 +67,34 @@ public class TriangleMesh extends GeometricObject {
     }
 
     @Override
-	public List<Section> sections(Jay jay) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
-    @Override
-    public ColorRGB getColor(Point3D hitPoint) {
-    	 Vector3D pole = Vector3D.UNIT_Y;
-         Vector3D equator = Vector3D.UNIT_X;
-  
-         Point3D center = getCenter();
-         
-         Vector3D normal = new Vector3D(center, hitPoint).normal();
-  
-         double normalDotPole = normal.dot(pole);
-         double phi = Math.acos(normalDotPole);
-  
-         double v = phi / Math.PI;
-  
-         Vector3D poleCrossEquator = pole.cross(equator);
-  
-         double equatorDotNormal = equator.dot(normal);
-  
-         double theta = Math.acos(equatorDotNormal / Math.sin(phi)) / (2 * Math.PI);
-  
-         double u = 0;
-  
-         if (poleCrossEquator.dot(normal) > 0) {
-             u = theta;
-         } else {
-             u = 1 - theta;
-         }
-             
-         return getMaterial().getColor(u, v);
+    public List<Section> sections(Jay jay) {
+      // TODO Auto-generated method stub
+      return null;
     }
     
     public void add(Triangle... triangles) {
         for (Triangle t : triangles) {
             xmax = Math.max(xmax, t.getXMax());
             xmin = Math.min(xmin, t.getXMin());
- 
+
             ymax = Math.max(ymax, t.getYMax());
             ymin = Math.min(ymin, t.getYMin());
- 
+
             zmax = Math.max(zmax, t.getZMax());
             zmin = Math.min(zmin, t.getZMin());
- 
+
             this.triangles.add(t);
         }
     }
- 
+
     public Point3D getCenter() {
         double x = (xmax + xmin)/2;
         double y = (ymax + ymin)/2;
         double z = (zmax + zmin)/2;
- 
+
         return new Point3D(x, y, z);
     }
- 
+
     public Vector3D getBoundsFromCenter() {
         return new Vector3D(xmax -xmin, ymax - ymin, zmax - zmin).divide(2);
     }

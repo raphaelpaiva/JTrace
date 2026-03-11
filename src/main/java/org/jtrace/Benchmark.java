@@ -10,6 +10,7 @@ import org.jtrace.geometry.Triangle;
 import org.jtrace.interceptor.ShadowInterceptor;
 import org.jtrace.lights.DecayingPointLight;
 import org.jtrace.lights.PointLight;
+import org.jtrace.material.Material;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
