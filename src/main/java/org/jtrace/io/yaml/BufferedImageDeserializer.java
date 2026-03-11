@@ -17,7 +17,7 @@ import java.nio.file.Paths;
  */
 public class BufferedImageDeserializer extends JsonDeserializer<BufferedImage> {
     
-    private final Path basePath;
+    private Path basePath;
     
     public BufferedImageDeserializer() {
         this.basePath = null;
@@ -35,19 +35,47 @@ public class BufferedImageDeserializer extends JsonDeserializer<BufferedImage> {
             return null;
         }
         
-        Path resolvedPath = basePath != null ? basePath.resolve(texturePath) : Paths.get(texturePath);
-        File textureFile = resolvedPath.toFile();
-        
-        if (!textureFile.exists()) {
-            // Try as resource from classpath
-            try {
-                return ImageIO.read(getClass().getResourceAsStream("/" + texturePath));
-            } catch (Exception e) {
-                System.err.println("Warning: Could not load texture: " + texturePath);
-                return null;
+        // Try to resolve relative to basePath first
+        if (basePath != null) {
+            Path resolvedPath = basePath.resolve(texturePath);
+            File textureFile = resolvedPath.toFile();
+            
+            if (textureFile.exists()) {
+                System.err.println("DEBUG: Loading texture from file: " + textureFile.getAbsolutePath());
+                return ImageIO.read(textureFile);
             }
         }
         
-        return ImageIO.read(textureFile);
+        // Try as absolute path
+        File absoluteFile = new File(texturePath);
+        if (absoluteFile.exists()) {
+            System.err.println("DEBUG: Loading texture from absolute: " + absoluteFile.getAbsolutePath());
+            return ImageIO.read(absoluteFile);
+        }
+        
+        // Try as resource from classpath
+        try {
+            BufferedImage img = ImageIO.read(getClass().getResourceAsStream("/" + texturePath));
+            if (img != null) {
+                System.err.println("DEBUG: Loading texture from classpath: /" + texturePath);
+                return img;
+            }
+        } catch (Exception e) {
+            // ignore
+        }
+        
+        // Try without leading slash
+        try {
+            BufferedImage img = ImageIO.read(getClass().getResourceAsStream(texturePath));
+            if (img != null) {
+                System.err.println("DEBUG: Loading texture from classpath: " + texturePath);
+                return img;
+            }
+        } catch (Exception e) {
+            // ignore
+        }
+        
+        System.err.println("Warning: Could not load texture: " + texturePath);
+        return null;
     }
 }

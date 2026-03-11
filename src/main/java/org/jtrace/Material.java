@@ -6,6 +6,10 @@ import org.jtrace.geometry.GeometricObject;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.ReflectanceCoefficient;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.jtrace.io.yaml.BufferedImageDeserializer;
+
 /**
  * Class representing a Material with physical properties such as
  * {@link ReflectanceCoefficient} and texture information.
@@ -51,6 +55,11 @@ public class Material {
      * object with this {@link Material}.
      */
     private BufferedImage texture;
+    
+    /**
+     * Path to the texture file (used for YAML deserialization).
+     */
+    private String texturePath;
 
     /**
      * Default constructor for Jackson deserialization.
@@ -212,6 +221,14 @@ public class Material {
     
     public BufferedImage getTexture() {
         return texture;
+    }
+    
+    public String getTexturePath() {
+        return texturePath;
+    }
+    
+    public void setTexturePath(String texturePath) {
+        this.texturePath = texturePath;
     }
 
 }

@@ -157,7 +157,7 @@ materials:
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `color` | !color | Yes (if no texture) | Base material color |
-| `texture` | string | No | Path to texture image file |
+| `texturePath` | string | No | Path to texture image file |
 | `kAmbient` | !reflect | Yes | Ambient light reflectance |
 | `kDiffuse` | !reflect | Yes | Diffuse light reflectance |
 | `kSpecular` | !reflect | No | Specular light reflectance (omit for matte) |

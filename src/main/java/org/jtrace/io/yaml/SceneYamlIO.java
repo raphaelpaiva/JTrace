@@ -269,11 +269,62 @@ public class SceneYamlIO {
     /**
      * Fixes materials that have a texture but no color.
      * Sets a default white color when texture is present but color is null.
+     * Also loads textures from texturePath if specified.
      */
     private void fixMaterial(Material material) {
+        // Load texture from texturePath if specified
+        String texturePath = material.getTexturePath();
+        if (texturePath != null && !texturePath.isEmpty() && material.getTexture() == null) {
+            material.setTexture(loadTexture(texturePath));
+        }
+        
         if (material.getTexture() != null && material.getColor() == null) {
             material.setColor(new org.jtrace.primitives.ColorRGB(1.0, 1.0, 1.0));
         }
+    }
+    
+    /**
+     * Loads a texture image from the given path.
+     */
+    private java.awt.image.BufferedImage loadTexture(String texturePath) {
+        // Try relative to scenes folder
+        if (currentBasePath != null) {
+            java.io.File file = currentBasePath.resolve(texturePath).toFile();
+            if (file.exists()) {
+                try {
+                    return javax.imageio.ImageIO.read(file);
+                } catch (Exception e) {
+                    // continue to try other methods
+                }
+            }
+        }
+        
+        // Try as file
+        java.io.File absoluteFile = new java.io.File(texturePath);
+        if (absoluteFile.exists()) {
+            try {
+                return javax.imageio.ImageIO.read(absoluteFile);
+            } catch (Exception e) {
+                // continue
+            }
+        }
+        
+        // Try as classpath resource
+        try {
+            java.awt.image.BufferedImage img = javax.imageio.ImageIO.read(getClass().getResourceAsStream("/" + texturePath));
+            if (img != null) return img;
+        } catch (Exception e) {
+            // continue
+        }
+        
+        try {
+            java.awt.image.BufferedImage img = javax.imageio.ImageIO.read(getClass().getResourceAsStream(texturePath));
+            if (img != null) return img;
+        } catch (Exception e) {
+            // continue
+        }
+        
+        return null;
     }
     
     /**
