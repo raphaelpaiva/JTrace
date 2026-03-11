@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.jtrace.Material;
 import org.jtrace.Scene;
+import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
@@ -23,7 +24,7 @@ import java.util.Map;
  * - Custom primitive tags (!pt, !vector, !color, !reflect)
  * - Material libraries with $reference support
  * - Include directives for external material libraries
- * - Polymorphic deserialization of GeometricObjects, Cameras, and Lights
+ * - Polymorphic deserialization of GeometricObjects, Cameras, Lights, Shaders, Listeners
  */
 public class SceneYamlIO {
     
@@ -68,6 +69,102 @@ public class SceneYamlIO {
     }
     
     /**
+     * Loads a tracer configuration from a YAML file.
+     * 
+     * @param path the path to the YAML file
+     * @return the loaded Tracer
+     * @throws IOException if the file cannot be read or parsed
+     */
+    public Tracer loadTracer(Path path) throws IOException {
+        this.currentBasePath = path.getParent();
+        this.mapper = new ObjectMapper(new YAMLFactory());
+        this.mapper.registerModule(new JTraceYamlModule(currentBasePath));
+        
+        String content = new String(Files.readAllBytes(path));
+        
+        // Process includes first
+        content = processIncludes(content, currentBasePath);
+        
+        // Parse the YAML
+        JsonNode root = mapper.readTree(content);
+        
+        // Build material library from file first
+        buildMaterialLibrary(root);
+        
+        // Replace material references in objects with actual material objects
+        replaceMaterialReferences(root);
+        
+        // Parse scene configuration
+        SceneConfig config = mapper.treeToValue(root, SceneConfig.class);
+        
+        return config.getTracer();
+    }
+    
+    /**
+     * Loads a ViewPlane configuration from a YAML file.
+     * 
+     * @param path the path to the YAML file
+     * @return the loaded ViewPlane
+     * @throws IOException if the file cannot be read or parsed
+     */
+    public ViewPlane loadViewPlane(Path path) throws IOException {
+        this.currentBasePath = path.getParent();
+        this.mapper = new ObjectMapper(new YAMLFactory());
+        this.mapper.registerModule(new JTraceYamlModule(currentBasePath));
+        
+        String content = new String(Files.readAllBytes(path));
+        
+        // Process includes first
+        content = processIncludes(content, currentBasePath);
+        
+        // Parse the YAML
+        JsonNode root = mapper.readTree(content);
+        
+        // Build material library from file first
+        buildMaterialLibrary(root);
+        
+        // Replace material references in objects with actual material objects
+        replaceMaterialReferences(root);
+        
+        // Parse scene configuration
+        SceneConfig config = mapper.treeToValue(root, SceneConfig.class);
+        
+        return config.getViewPlane();
+    }
+    
+    /**
+     * Loads all configuration from a YAML file.
+     * 
+     * @param path the path to the YAML file
+     * @return the loaded SceneConfiguration containing scene, tracer, and viewPlane
+     * @throws IOException if the file cannot be read or parsed
+     */
+    public SceneConfiguration loadConfiguration(Path path) throws IOException {
+        this.currentBasePath = path.getParent();
+        this.mapper = new ObjectMapper(new YAMLFactory());
+        this.mapper.registerModule(new JTraceYamlModule(currentBasePath));
+        
+        String content = new String(Files.readAllBytes(path));
+        
+        // Process includes first
+        content = processIncludes(content, currentBasePath);
+        
+        // Parse the YAML
+        JsonNode root = mapper.readTree(content);
+        
+        // Build material library from file first
+        buildMaterialLibrary(root);
+        
+        // Replace material references in objects with actual material objects
+        replaceMaterialReferences(root);
+        
+        // Parse scene configuration
+        SceneConfig config = mapper.treeToValue(root, SceneConfig.class);
+        
+        return new SceneConfiguration(config.getScene(), config.getTracer(), config.getViewPlane());
+    }
+    
+    /**
      * Saves a scene to a YAML file.
      * 
      * @param scene the scene to save
@@ -76,6 +173,20 @@ public class SceneYamlIO {
      */
     public void save(Scene scene, Path path) throws IOException {
         SceneConfig config = new SceneConfig(scene);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(path.toFile(), config);
+    }
+    
+    /**
+     * Saves a scene, tracer, and viewPlane to a YAML file.
+     * 
+     * @param scene the scene to save
+     * @param tracer the tracer to save
+     * @param viewPlane the viewPlane to save
+     * @param path the path to write to
+     * @throws IOException if the file cannot be written
+     */
+    public void save(Scene scene, Tracer tracer, ViewPlane viewPlane, Path path) throws IOException {
+        SceneConfig config = new SceneConfig(scene, tracer, viewPlane);
         mapper.writerWithDefaultPrettyPrinter().writeValue(path.toFile(), config);
     }
     
@@ -173,11 +284,19 @@ public class SceneYamlIO {
     public static class SceneConfig {
         private Map<String, Material> materials = new HashMap<>();
         private Scene scene = new Scene();
+        private Tracer tracer = new Tracer();
+        private ViewPlane viewPlane = new ViewPlane(640, 480);
         
         public SceneConfig() {}
         
         public SceneConfig(Scene scene) {
             this.scene = scene;
+        }
+        
+        public SceneConfig(Scene scene, Tracer tracer, ViewPlane viewPlane) {
+            this.scene = scene;
+            this.tracer = tracer;
+            this.viewPlane = viewPlane;
         }
         
         public Map<String, Material> getMaterials() {
@@ -194,6 +313,49 @@ public class SceneYamlIO {
         
         public void setScene(Scene scene) {
             this.scene = scene;
+        }
+        
+        public Tracer getTracer() {
+            return tracer;
+        }
+        
+        public void setTracer(Tracer tracer) {
+            this.tracer = tracer;
+        }
+        
+        public ViewPlane getViewPlane() {
+            return viewPlane;
+        }
+        
+        public void setViewPlane(ViewPlane viewPlane) {
+            this.viewPlane = viewPlane;
+        }
+    }
+    
+    /**
+     * Container for scene, tracer, and viewPlane configuration.
+     */
+    public static class SceneConfiguration {
+        private final Scene scene;
+        private final Tracer tracer;
+        private final ViewPlane viewPlane;
+        
+        public SceneConfiguration(Scene scene, Tracer tracer, ViewPlane viewPlane) {
+            this.scene = scene;
+            this.tracer = tracer;
+            this.viewPlane = viewPlane;
+        }
+        
+        public Scene getScene() {
+            return scene;
+        }
+        
+        public Tracer getTracer() {
+            return tracer;
+        }
+        
+        public ViewPlane getViewPlane() {
+            return viewPlane;
         }
     }
 }

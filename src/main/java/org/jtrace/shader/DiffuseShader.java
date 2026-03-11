@@ -10,6 +10,10 @@ import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
 
 public class DiffuseShader implements Shader {
+	
+	public DiffuseShader() {
+	}
+	
 	public ColorRGB shade(Light light, Hit hit, Jay jay, GeometricObject object) {
 		Material material = object.getMaterial();
 		ColorRGB objectColor = object.getColor(hit.getPoint(jay));

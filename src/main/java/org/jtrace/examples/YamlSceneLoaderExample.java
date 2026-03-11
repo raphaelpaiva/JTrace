@@ -1,7 +1,10 @@
 package org.jtrace.examples;
 
 import org.jtrace.Scene;
+import org.jtrace.Tracer;
+import org.jtrace.ViewPlane;
 import org.jtrace.io.yaml.SceneYamlIO;
+import org.jtrace.shader.Shader;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,6 +16,8 @@ import java.nio.file.Paths;
  * - Custom primitive tags (!pt, !vector, !color, !reflect)
  * - Material libraries with $references
  * - Polymorphic objects (Sphere, Plane, PinHoleCamera, PointLight)
+ * - Tracer configuration (shaders, listeners)
+ * - ViewPlane resolution
  */
 public class YamlSceneLoaderExample {
     
@@ -26,11 +31,28 @@ public class YamlSceneLoaderExample {
         SceneYamlIO yamlIO = new SceneYamlIO();
         
         try {
-            Scene scene = yamlIO.load(scenePath);
+            SceneYamlIO.SceneConfiguration config = yamlIO.loadConfiguration(scenePath);
+            
+            Scene scene = config.getScene();
+            Tracer tracer = config.getTracer();
+            ViewPlane viewPlane = config.getViewPlane();
+            
             System.out.println("Scene loaded successfully!");
             System.out.println("Objects: " + scene.getObjects().size());
             System.out.println("Lights: " + scene.getLigths().size());
             System.out.println("Camera: " + scene.getCamera().getClass().getSimpleName());
+            
+            System.out.println("\nTracer:");
+            System.out.println("  Type: " + tracer.getClass().getSimpleName());
+            System.out.println("  Shaders: " + tracer.getShaders().size());
+            for (Shader shader : tracer.getShaders()) {
+                System.out.println("    - " + shader.getClass().getSimpleName());
+            }
+            System.out.println("  Listeners: " + tracer.getListeners().size());
+            
+            System.out.println("\nViewPlane:");
+            System.out.println("  Resolution: " + viewPlane.getHres() + "x" + viewPlane.getVres());
+            
         } catch (IOException e) {
             System.err.println("Failed to load scene: " + e.getMessage());
             e.printStackTrace();

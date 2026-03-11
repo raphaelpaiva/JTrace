@@ -10,7 +10,10 @@ import org.jtrace.primitives.ReflectanceCoefficient;
 
 public class AmbientShader implements Shader {
 
-    @Override
+	public AmbientShader() {
+	}
+
+	@Override
     public ColorRGB shade(Light light, Hit hit, Jay jay, GeometricObject object) {
         Material material = object.getMaterial();
         ColorRGB objectColor = object.getColor(hit.getPoint(jay));

@@ -11,15 +11,26 @@ import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.shader.Shader;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Abstract class containing the common operation and fields of a Tracer.
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Tracer.class, name = "Tracer"),
+    @JsonSubTypes.Type(value = MultiThreadTracer.class, name = "MultiThreadTracer")
+})
 public class Tracer {
 
     private List<TracerListener> listeners = new LinkedList<TracerListener>();
     private List<TracerInterceptor> interceptors = new LinkedList<TracerInterceptor>();
     
     private List<Shader> shaders = new LinkedList<Shader>();
+
+    public Tracer() {
+    }
 
     /**
      * Traces the given {@link Jay}.
@@ -180,4 +191,28 @@ public class Tracer {
     public void clearListeners() {
         listeners.clear();
     }
+
+	public List<TracerListener> getListeners() {
+		return listeners;
+	}
+
+	public void setListeners(List<TracerListener> listeners) {
+		this.listeners = listeners;
+	}
+
+	public List<TracerInterceptor> getInterceptors() {
+		return interceptors;
+	}
+
+	public void setInterceptors(List<TracerInterceptor> interceptors) {
+		this.interceptors = interceptors;
+	}
+
+	public List<Shader> getShaders() {
+		return shaders;
+	}
+
+	public void setShaders(List<Shader> shaders) {
+		this.shaders = shaders;
+	}
 }

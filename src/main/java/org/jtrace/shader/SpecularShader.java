@@ -12,6 +12,10 @@ public class SpecularShader implements Shader {
 
 	private double specularFactor;
 	
+	public SpecularShader() {
+		this.specularFactor = 1.0;
+	}
+	
 	public SpecularShader(double specularFactor) {
 		this.specularFactor = specularFactor;
 	}
@@ -60,6 +64,14 @@ public class SpecularShader implements Shader {
 		Vector3D reflected = anTimes2.subtract(lightVector);
 		
 		return reflected;
+	}
+	
+	public double getSpecularFactor() {
+		return specularFactor;
+	}
+	
+	public void setSpecularFactor(double specularFactor) {
+		this.specularFactor = specularFactor;
 	}
 
 }

@@ -14,8 +14,11 @@ import org.jtrace.shader.Shader;
 
 public class ShadowInterceptor implements TracerInterceptor {
 
-	private Tracer tracer;
-	private Scene scene;
+	private transient Tracer tracer;
+	private transient Scene scene;
+	
+	public ShadowInterceptor() {
+	}
 	
 	@Override
 	public void init(Tracer tracer, Scene scene) {

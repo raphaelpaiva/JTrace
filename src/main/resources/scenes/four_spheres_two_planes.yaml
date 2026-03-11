@@ -83,3 +83,20 @@ scene:
     - type: PointLight
       position: !pt {x: 0.0, y: 20.0, z: -10.0}
       color: !color {r: 1.0, g: 1.0, b: 1.0}
+
+tracer:
+  type: Tracer
+  shaders:
+    - type: AmbientShader
+    - type: DiffuseShader
+    - type: SpecularShader
+      specularFactor: 4.0
+  listeners:
+    - type: ImageListener
+      fileName: output.png
+      format: png
+    - type: TimeListener
+
+viewPlane:
+  hres: 1920
+  vres: 1080

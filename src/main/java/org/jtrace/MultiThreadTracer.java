@@ -11,11 +11,12 @@ import org.jtrace.primitives.ColorRGB;
 
 public class MultiThreadTracer extends Tracer {
 
-    private ThreadPoolExecutor executor;
+    private transient ThreadPoolExecutor executor;
 
-    private Semaphore finishSemaphore = new Semaphore(1);
-    private AtomicInteger pixelsPainted = new AtomicInteger(0);
+    private transient Semaphore finishSemaphore = new Semaphore(1);
+    private transient AtomicInteger pixelsPainted = new AtomicInteger(0);
     private int totalPixels = 0;
+    private int threads;
 
     public MultiThreadTracer()
     {
@@ -24,12 +25,21 @@ public class MultiThreadTracer extends Tracer {
 
     public MultiThreadTracer(int threads)
     {
+        this.threads = threads;
         executor = new ThreadPoolExecutor(threads, threads,
                 0L, TimeUnit.MILLISECONDS,
                 new ArrayBlockingQueue<Runnable>(100),
                 new ThreadPoolExecutor.CallerRunsPolicy());
 
         executor.prestartAllCoreThreads();
+    }
+
+    public int getThreads() {
+        return threads;
+    }
+
+    public void setThreads(int threads) {
+        this.threads = threads;
     }
 
     @Override

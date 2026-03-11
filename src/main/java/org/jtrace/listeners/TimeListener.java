@@ -8,6 +8,9 @@ public class TimeListener implements TracerListener {
 	
 	long startTime;
 
+	public TimeListener() {
+	}
+
 	@Override
 	public void start(ViewPlane viewPlane) {
 		startTime = System.currentTimeMillis();
