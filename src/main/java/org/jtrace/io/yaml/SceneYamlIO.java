@@ -77,12 +77,59 @@ public class SceneYamlIO {
     
     /**
      * Fixes all materials in the scene that have a texture but no color.
+     * Also loads textures from texturePath if specified.
      */
     private void fixSceneMaterials(Scene scene) {
         for (org.jtrace.geometry.GeometricObject obj : scene.getObjects()) {
             Material material = obj.getMaterial();
             if (material != null) {
                 fixMaterial(material);
+            }
+            
+            // Fix Triangle - rebuild plane after deserialization
+            if (obj instanceof org.jtrace.geometry.Triangle) {
+                org.jtrace.geometry.Triangle triangle = (org.jtrace.geometry.Triangle) obj;
+                fixTriangle(triangle);
+            }
+        }
+    }
+    
+    /**
+     * Fixes a Triangle after Jackson deserialization - rebuilds the internal plane.
+     */
+    private void fixTriangle(org.jtrace.geometry.Triangle triangle) {
+        org.jtrace.primitives.Point3D v1 = triangle.getV1();
+        org.jtrace.primitives.Point3D v2 = triangle.getV2();
+        org.jtrace.primitives.Point3D v3 = triangle.getV3();
+        
+        if (v1 != null && v2 != null && v3 != null) {
+            org.jtrace.primitives.Vector3D a12 = new org.jtrace.primitives.Vector3D(v1, v2);
+            org.jtrace.primitives.Vector3D a31 = new org.jtrace.primitives.Vector3D(v3, v1);
+            org.jtrace.primitives.Vector3D a23 = new org.jtrace.primitives.Vector3D(v2, v3);
+            
+            org.jtrace.primitives.Vector3D normal = a31.cross(a12).normal();
+            
+            org.jtrace.geometry.Plane plane = new org.jtrace.geometry.Plane(v1, normal, triangle.getMaterial());
+            
+            // Use reflection to set the private plane field
+            try {
+                java.lang.reflect.Field planeField = org.jtrace.geometry.Triangle.class.getDeclaredField("plane");
+                planeField.setAccessible(true);
+                planeField.set(triangle, plane);
+                
+                java.lang.reflect.Field a12Field = org.jtrace.geometry.Triangle.class.getDeclaredField("a12");
+                a12Field.setAccessible(true);
+                a12Field.set(triangle, a12);
+                
+                java.lang.reflect.Field a23Field = org.jtrace.geometry.Triangle.class.getDeclaredField("a23");
+                a23Field.setAccessible(true);
+                a23Field.set(triangle, a23);
+                
+                java.lang.reflect.Field a31Field = org.jtrace.geometry.Triangle.class.getDeclaredField("a31");
+                a31Field.setAccessible(true);
+                a31Field.set(triangle, a31);
+            } catch (Exception e) {
+                System.err.println("Warning: Could not fix Triangle: " + e.getMessage());
             }
         }
     }
