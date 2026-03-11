@@ -55,14 +55,14 @@ public class SceneYamlIO {
         // Parse the YAML
         JsonNode root = mapper.readTree(content);
         
-        // Build material library from file
+        // Build material library from file first (before deserializing objects)
         buildMaterialLibrary(root);
+        
+        // Replace material references in objects with actual material objects
+        replaceMaterialReferences(root);
         
         // Parse scene configuration
         SceneConfig config = mapper.treeToValue(root, SceneConfig.class);
-        
-        // Resolve material references in objects
-        resolveMaterialReferences(config);
         
         return config.getScene();
     }
@@ -120,17 +120,51 @@ public class SceneYamlIO {
                     Material material = mapper.treeToValue(materialNode, Material.class);
                     materialLibrary.register(materialName, material);
                 } catch (Exception e) {
-                    System.err.println("Failed to parse material: " + materialName);
+                    System.err.println("Failed to parse material: " + materialName + " - " + e.getMessage());
                 }
             }
         }
     }
     
     /**
-     * Resolves material references ($name) in scene objects.
+     * Replaces material references ($name) in objects with actual material objects.
      */
-    private void resolveMaterialReferences(SceneConfig config) {
-        // This is handled during deserialization via custom deserializer
+    private void replaceMaterialReferences(JsonNode root) throws IOException {
+        if (!root.has("scene")) {
+            return;
+        }
+        
+        JsonNode sceneNode = root.get("scene");
+        if (!sceneNode.has("objects")) {
+            return;
+        }
+        
+        JsonNode objectsNode = sceneNode.get("objects");
+        if (!objectsNode.isArray()) {
+            return;
+        }
+        
+        for (JsonNode objectNode : objectsNode) {
+            if (objectNode.has("material")) {
+                JsonNode materialNode = objectNode.get("material");
+                
+                if (materialNode.isTextual()) {
+                    String materialValue = materialNode.asText();
+                    if (materialValue.startsWith("$")) {
+                        String materialName = materialValue.substring(1);
+                        Material material = materialLibrary.get(materialName);
+                        
+                        if (material == null) {
+                            throw new IOException("Unknown material reference: " + materialName);
+                        }
+                        
+                        // Replace the string with the actual material object as JSON
+                        ((com.fasterxml.jackson.databind.node.ObjectNode) objectNode).replace("material", 
+                            mapper.valueToTree(material));
+                    }
+                }
+            }
+        }
     }
     
     /**

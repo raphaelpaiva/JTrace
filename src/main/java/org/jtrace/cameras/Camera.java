@@ -133,4 +133,24 @@ public abstract class Camera {
         computeUVW();
     }
 
+    public void setEye(Point3D eye) {
+        this.eye = eye;
+    }
+
+    public Point3D getLookAt() {
+        return lookAt;
+    }
+
+    public void setLookAt(Point3D lookAt) {
+        this.lookAt = lookAt;
+    }
+
+    public Vector3D getUp() {
+        return up;
+    }
+
+    public void setUp(Vector3D up) {
+        this.up = up;
+    }
+
 }

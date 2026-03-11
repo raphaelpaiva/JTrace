@@ -14,6 +14,9 @@ import org.jtrace.primitives.Vector3D;
  */
 public class OrthogonalCamera extends Camera {
 
+  public OrthogonalCamera() {
+  }
+
   public OrthogonalCamera(final Point3D eye, final Point3D lookAt, final Vector3D up) {
     this.eye = eye;
     this.lookAt = lookAt;

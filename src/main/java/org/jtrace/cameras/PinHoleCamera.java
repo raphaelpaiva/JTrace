@@ -15,6 +15,9 @@ import org.jtrace.primitives.Vector3D;
  */
 public class PinHoleCamera extends Camera {
 
+	public PinHoleCamera() {
+	}
+
 	public PinHoleCamera(final Point3D eye, final Point3D lookAt, final Vector3D up) {
 		this.eye = eye;
 		this.lookAt = lookAt;
