@@ -1,0 +1,84 @@
+# Checkerboard Floor Scene
+# Demonstrates textured materials with a sphere floating above a checkerboard floor
+
+materials:
+  checkerboard:
+    texture: "checkerboard.png"
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+  
+  redGlossy:
+    color: !color {r: 1.0, g: 0.1, b: 0.1}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.9, g: 0.9, b: 0.9}
+  
+  blueGlossy:
+    color: !color {r: 0.1, g: 0.3, b: 1.0}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kSpecular: !reflect {r: 0.9, g: 0.9, b: 0.9}
+
+scene:
+  backgroundColor: !color {r: 0.05, g: 0.05, b: 0.1}
+  
+  camera:
+    type: PinHoleCamera
+    eye: !pt {x: 0.0, y: 30.0, z: 80.0}
+    lookAt: !pt {x: 0.0, y: 0.0, z: 0.0}
+    up: !vector {x: 0.0, y: 1.0, z: 0.0}
+    zoomFactor: 12.0
+  
+  objects:
+    # Main floating sphere
+    - type: Sphere
+      center: !pt {x: 0.0, y: 15.0, z: 0.0}
+      radius: 12.0
+      material: $redGlossy
+    
+    # Secondary sphere
+    - type: Sphere
+      center: !pt {x: -25.0, y: 10.0, z: 15.0}
+      radius: 8.0
+      material: $blueGlossy
+    
+    # Third sphere
+    - type: Sphere
+      center: !pt {x: 25.0, y: 8.0, z: 10.0}
+      radius: 6.0
+      material: $redGlossy
+    
+    # Checkerboard floor
+    - type: Plane
+      point: !pt {x: 0.0, y: -5.0, z: 0.0}
+      normal: !vector {x: 0.0, y: 1.0, z: 0.0}
+      material: $checkerboard
+    
+    # Ceiling (optional, for depth)
+    - type: Plane
+      point: !pt {x: 0.0, y: 50.0, z: 0.0}
+      normal: !vector {x: 0.0, y: -1.0, z: 0.0}
+      material: $checkerboard
+  
+  lights:
+    - type: PointLight
+      position: !pt {x: 40.0, y: 60.0, z: 40.0}
+      color: !color {r: 1.0, g: 1.0, b: 1.0}
+    
+    - type: PointLight
+      position: !pt {x: -30.0, y: 40.0, z: 30.0}
+      color: !color {r: 0.9, g: 0.95, b: 1.0}
+
+tracer:
+  type: Tracer
+  shaders:
+    - type: AmbientShader
+    - type: DiffuseShader
+    - type: SpecularShader
+      specularFactor: 64.0
+  interceptors:
+    - type: ShadowInterceptor
+
+viewPlane:
+  hres: 1280
+  vres: 720

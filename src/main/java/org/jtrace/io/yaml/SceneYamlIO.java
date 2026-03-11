@@ -66,10 +66,25 @@ public class SceneYamlIO {
         // Parse scene configuration
         SceneConfig config = mapper.treeToValue(root, SceneConfig.class);
         
+        // Fix materials in scene (set default color if texture present but color is null)
+        fixSceneMaterials(config.getScene());
+        
         // Initialize camera coordinate system
         initializeCamera(config.getScene());
         
         return config.getScene();
+    }
+    
+    /**
+     * Fixes all materials in the scene that have a texture but no color.
+     */
+    private void fixSceneMaterials(Scene scene) {
+        for (org.jtrace.geometry.GeometricObject obj : scene.getObjects()) {
+            Material material = obj.getMaterial();
+            if (material != null) {
+                fixMaterial(material);
+            }
+        }
     }
     
     /**
@@ -168,6 +183,9 @@ public class SceneYamlIO {
         // Parse scene configuration
         SceneConfig config = mapper.treeToValue(root, SceneConfig.class);
         
+        // Fix materials in scene (set default color if texture present but color is null)
+        fixSceneMaterials(config.getScene());
+        
         // Initialize camera coordinate system
         initializeCamera(config.getScene());
         
@@ -239,11 +257,22 @@ public class SceneYamlIO {
                 
                 try {
                     Material material = mapper.treeToValue(materialNode, Material.class);
+                    fixMaterial(material);
                     materialLibrary.register(materialName, material);
                 } catch (Exception e) {
                     System.err.println("Failed to parse material: " + materialName + " - " + e.getMessage());
                 }
             }
+        }
+    }
+    
+    /**
+     * Fixes materials that have a texture but no color.
+     * Sets a default white color when texture is present but color is null.
+     */
+    private void fixMaterial(Material material) {
+        if (material.getTexture() != null && material.getColor() == null) {
+            material.setColor(new org.jtrace.primitives.ColorRGB(1.0, 1.0, 1.0));
         }
     }
     

@@ -209,5 +209,9 @@ public class Material {
     public void setTexture(BufferedImage texture) {
         this.texture = texture;
     }
+    
+    public BufferedImage getTexture() {
+        return texture;
+    }
 
 }
