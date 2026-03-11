@@ -52,6 +52,8 @@ public class YamlSceneLoaderExample {
             
             System.out.println("\nViewPlane:");
             System.out.println("  Resolution: " + viewPlane.getHres() + "x" + viewPlane.getVres());
+
+            tracer.render(scene, viewPlane);
             
         } catch (IOException e) {
             System.err.println("Failed to load scene: " + e.getMessage());

@@ -10,6 +10,7 @@ import org.jtrace.ViewPlane;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
+import org.jtrace.cameras.Camera;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -65,6 +66,9 @@ public class SceneYamlIO {
         // Parse scene configuration
         SceneConfig config = mapper.treeToValue(root, SceneConfig.class);
         
+        // Initialize camera coordinate system
+        initializeCamera(config.getScene());
+        
         return config.getScene();
     }
     
@@ -96,6 +100,9 @@ public class SceneYamlIO {
         
         // Parse scene configuration
         SceneConfig config = mapper.treeToValue(root, SceneConfig.class);
+        
+        // Initialize camera coordinate system
+        initializeCamera(config.getScene());
         
         return config.getTracer();
     }
@@ -160,6 +167,9 @@ public class SceneYamlIO {
         
         // Parse scene configuration
         SceneConfig config = mapper.treeToValue(root, SceneConfig.class);
+        
+        // Initialize camera coordinate system
+        initializeCamera(config.getScene());
         
         return new SceneConfiguration(config.getScene(), config.getTracer(), config.getViewPlane());
     }
@@ -275,6 +285,18 @@ public class SceneYamlIO {
                     }
                 }
             }
+        }
+    }
+    
+    /**
+     * Initializes the camera's coordinate system after deserialization.
+     * This is necessary because computeUVW() is called in constructors
+     * but Jackson uses setters which bypass the constructor.
+     */
+    private void initializeCamera(Scene scene) {
+        Camera camera = scene.getCamera();
+        if (camera != null) {
+            camera.update();
         }
     }
     
