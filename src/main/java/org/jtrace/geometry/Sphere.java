@@ -68,14 +68,14 @@ public class Sphere extends GeometricObject {
             t = (-b - deltaRoot) / 2*a;
             if (t > Constants.epsilon) {
                 final Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-                return new Hit(t, normal.normal());
+                return new Hit(t, normal.normal(), jay.getOrigin(), jay.getPointAt(t));
             }
 
             //larger root
             t = (-b + deltaRoot) / 2*a;
             if (t > Constants.epsilon) {
                 final Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-                return new Hit(t, normal.normal());
+                return new Hit(t, normal.normal(), jay.getOrigin(), jay.getPointAt(t));
             }
 
             return new NotHit();
@@ -136,12 +136,12 @@ public class Sphere extends GeometricObject {
         	//smaller root
             t = (-b - deltaRoot) / 2*a;
             Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-            smallerRootHit = new Hit(t, normal.normal());
+            smallerRootHit = new Hit(t, normal.normal(), jay.getOrigin(), jay.getPointAt(t));
 
             //larger root
             t = (-b + deltaRoot) / 2*a;
             normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-            largerRootHit = new Hit(t, normal.normal());
+            largerRootHit = new Hit(t, normal.normal(), jay.getOrigin(), jay.getPointAt(t));
             
             sections.add(new Section(smallerRootHit, largerRootHit));
         }

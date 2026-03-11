@@ -48,7 +48,7 @@ public class Plane extends GeometricObject {
 			double t = b / a;
 
 			if (t > Constants.epsilon) {
-				return new Hit(t, this.getNormal().normal());
+				return new Hit(t, this.getNormal().normal(), jay.getOrigin(), jay.getPointAt(t));
 			}
 		}
 		
@@ -62,10 +62,9 @@ public class Plane extends GeometricObject {
 		double b = new Vector3D(jay.getOrigin(), point).dot(normal);
 		double a = jay.getDirection().dot(normal);
 		
-		
 		if (a != 0) {
 			double t = b / a;
-			Hit hit = new Hit(t, this.getNormal().normal());
+			Hit hit = new Hit(t, this.getNormal().normal(), jay.getOrigin(), jay.getPointAt(t));
 			
 			sections.add(new Section(hit, hit));
 		}

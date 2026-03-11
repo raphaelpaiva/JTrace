@@ -38,7 +38,7 @@ public class DiffuseShaderUnitTest {
 	public void testCalculusDiffuseContribution_0Degrees() {
 		Hit hit = SPHERE.hit(JAY);
 		
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_0DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_0DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -51,7 +51,7 @@ public class DiffuseShaderUnitTest {
 	public void testCalculusDiffuseContribution_45Degrees() {
 		Hit hit = SPHERE.hit(JAY);
 		
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_45DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_45DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -64,7 +64,7 @@ public class DiffuseShaderUnitTest {
 	public void testCalculusDiffuseContribution_90Degrees() {
 		Hit hit = SPHERE.hit(JAY);
 		
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_90DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_90DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -77,7 +77,7 @@ public class DiffuseShaderUnitTest {
 	public void testCalculusDiffuseContribution_Greater_90Degrees() {
 		Hit hit = SPHERE.hit(JAY);
 		
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_GREATER_90DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_GREATER_90DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -90,7 +90,7 @@ public class DiffuseShaderUnitTest {
 	public void testDiffuse_Light_Jay_0Degrees() {
 		Hit hit = SPHERE.hit(JAY);
 
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_0DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_0DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -100,14 +100,14 @@ public class DiffuseShaderUnitTest {
 		
 		ColorRGB expectedColor = new ColorRGB(red, green, blue);
 		
-		Assert.assertEquals(expectedColor, DIFFUSE_SHADER.shade(LIGHT_0DEGREES, hit, JAY, SPHERE));
+		Assert.assertEquals(expectedColor, DIFFUSE_SHADER.shade(LIGHT_0DEGREES, hit, SPHERE));
 	}
 	
 	@Test
 	public void testDiffuse_Light_Jay_45Degrees() {
 		Hit hit = SPHERE.hit(JAY);
 		
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_45DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_45DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -117,14 +117,14 @@ public class DiffuseShaderUnitTest {
 		
 		ColorRGB expectedColor = new ColorRGB(red, green, blue);
 		
-		Assert.assertEquals(expectedColor, DIFFUSE_SHADER.shade(LIGHT_45DEGREES, hit, JAY, SPHERE));
+		Assert.assertEquals(expectedColor, DIFFUSE_SHADER.shade(LIGHT_45DEGREES, hit, SPHERE));
 	}
 	
 	@Test
 	public void testDiffuse_Light_Jay_90Degrees() {
 		Hit hit = SPHERE.hit(JAY);
 		
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_90DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_90DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -134,14 +134,14 @@ public class DiffuseShaderUnitTest {
 		
 		ColorRGB expectedColor = new ColorRGB(red, green, blue);
 		
-		Assert.assertEquals(expectedColor, DIFFUSE_SHADER.shade(LIGHT_90DEGREES, hit, JAY, SPHERE));
+		Assert.assertEquals(expectedColor, DIFFUSE_SHADER.shade(LIGHT_90DEGREES, hit, SPHERE));
 	}
 	
 	@Test
 	public void testDiffuse_Light_Jay_Greater_90Degrees() {
 		Hit hit = SPHERE.hit(JAY);
 		
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_GREATER_90DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_GREATER_90DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -151,7 +151,7 @@ public class DiffuseShaderUnitTest {
 		
 		ColorRGB expectedColor = new ColorRGB(red, green, blue);
 		
-		Assert.assertEquals(expectedColor, DIFFUSE_SHADER.shade(LIGHT_GREATER_90DEGREES, hit, JAY, SPHERE));
+		Assert.assertEquals(expectedColor, DIFFUSE_SHADER.shade(LIGHT_GREATER_90DEGREES, hit, SPHERE));
 	}
 	
 }
