@@ -6,7 +6,7 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.MultiThreadTracer;
 import org.jtrace.Scene;
 import org.jtrace.Tracer;

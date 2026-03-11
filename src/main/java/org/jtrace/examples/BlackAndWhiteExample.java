@@ -6,7 +6,7 @@ import static org.jtrace.primitives.Vector3D.UNIT_Y;
 
 import java.io.IOException;
 
-import org.jtrace.Materials;
+import org.jtrace.material.Materials;
 import org.jtrace.MultiThreadTracer;
 import org.jtrace.Scene;
 import org.jtrace.Tracer;
@@ -17,7 +17,6 @@ import org.jtrace.geometry.Plane;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.interceptor.ShadowInterceptor;
 import org.jtrace.lights.DecayingPointLight;
-import org.jtrace.lights.PointLight;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
 import org.jtrace.primitives.Point3D;

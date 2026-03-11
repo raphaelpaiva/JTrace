@@ -4,6 +4,7 @@ import org.jtrace.geometry.Plane;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
 import org.jtrace.lights.PointLight;
+import org.jtrace.material.Material;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;

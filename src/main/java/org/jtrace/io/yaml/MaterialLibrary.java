@@ -1,6 +1,6 @@
 package org.jtrace.io.yaml;
 
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 
 import java.util.HashMap;
 import java.util.Map;

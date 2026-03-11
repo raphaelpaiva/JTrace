@@ -1,7 +1,7 @@
 package org.jtrace.shader;
 
 import org.jtrace.Hit;
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
@@ -15,7 +15,7 @@ public class DiffuseShader implements Shader {
 	
 	public ColorRGB shade(Light light, Hit hit, GeometricObject object) {
 		Material material = object.getMaterial();
-		ColorRGB objectColor = object.getColor(hit.getPoint());
+		ColorRGB objectColor = object.getColor(hit);
 		ReflectanceCoefficient kDiffuse = material.getkDiffuse();
 		
 		Vector3D pointToLight = new Vector3D(hit.getPoint(), light.getPosition());

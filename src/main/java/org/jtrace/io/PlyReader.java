@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.geometry.Triangle;
 import org.jtrace.geometry.TriangleMesh;
 import org.jtrace.primitives.Point3D;

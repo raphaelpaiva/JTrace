@@ -4,7 +4,7 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.jtrace.Materials;
+import org.jtrace.material.Materials;
 import org.jtrace.Scene;
 import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;

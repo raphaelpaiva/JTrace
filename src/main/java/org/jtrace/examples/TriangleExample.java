@@ -1,6 +1,6 @@
 package org.jtrace.examples;
 
-import org.jtrace.Materials;
+import org.jtrace.material.Materials;
 import org.jtrace.Scene;
 import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;

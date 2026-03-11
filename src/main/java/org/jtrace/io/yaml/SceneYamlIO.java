@@ -3,13 +3,10 @@ package org.jtrace.io.yaml;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.Scene;
 import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
-import org.jtrace.geometry.GeometricObject;
-import org.jtrace.lights.Light;
-import org.jtrace.primitives.ColorRGB;
 import org.jtrace.cameras.Camera;
 
 import java.io.IOException;

@@ -147,7 +147,7 @@ materials:
     # No kSpecular = matte material
   
   texturedFloor:
-    texture: "textures/marble.jpg"
+    texturePath: "textures/marble.jpg"
     kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
     kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
 ```
@@ -158,9 +158,55 @@ materials:
 |-------|------|----------|-------------|
 | `color` | !color | Yes (if no texture) | Base material color |
 | `texturePath` | string | No | Path to texture image file |
+| `textureMapper` | string | No | Texture mapping mode: `planar` (default) or `spherical` |
+| `textureScale` | double | No | Texture scaling factor |
 | `kAmbient` | !reflect | Yes | Ambient light reflectance |
 | `kDiffuse` | !reflect | Yes | Diffuse light reflectance |
 | `kSpecular` | !reflect | No | Specular light reflectance (omit for matte) |
+
+### Texture Mapping
+
+JTrace supports texture mapping for materials with image-based textures. The `textureMapper` field controls how 2D texture coordinates are calculated from 3D surfaces.
+
+#### Available Texture Mappers
+
+| Mapper | Description |
+|--------|-------------|
+| `planar` (default) | Planar projection - maps texture using a plane perpendicular to the Z-axis |
+| `spherical` | Spherical projection - wraps texture around objects like a sphere |
+
+#### Example: Textured Material with Planar Mapping
+
+```yaml
+materials:
+  floorMaterial:
+    texturePath: "textures/checkerboard.png"
+    textureMapper: "planar"
+    textureScale: 1.0
+    kAmbient: !reflect {r: 0.05, g: 0.05, b: 0.05}
+    kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+```
+
+#### Example: Sphere with Spherical Mapping
+
+```yaml
+materials:
+  earthMaterial:
+    texturePath: "textures/earth.jpg"
+    textureMapper: "spherical"
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+```
+
+#### Example: Material without Texture Mapping
+
+```yaml
+materials:
+  simpleRed:
+    color: !color {r: 1.0, g: 0.0, b: 0.0}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+```
 
 ### Referencing Materials
 
@@ -472,7 +518,9 @@ viewPlane:
 # Define local materials
 materials:
   floorMaterial:
-    texture: "textures/checkerboard.png"
+    texturePath: "textures/checkerboard.png"
+    textureMapper: "planar"
+    textureScale: 1.0
     kAmbient: !reflect {r: 0.05, g: 0.05, b: 0.05}
     kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
     kSpecular: !reflect {r: 0.1, g: 0.1, b: 0.1}

@@ -2,6 +2,7 @@ package org.jtrace.io.yaml;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.jtrace.material.TextureMapper;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
@@ -28,6 +29,7 @@ public class JTraceYamlModule extends SimpleModule {
         addSerializer(ColorRGB.class, new ColorRGBSerializer());
         addSerializer(ReflectanceCoefficient.class, new ReflectanceCoefficientSerializer());
         addSerializer(BufferedImage.class, new BufferedImageSerializer());
+        addSerializer(TextureMapper.class, new TextureMapperSerializer());
         
         // Register deserializers for primitives
         addDeserializer(Point3D.class, new Point3DDeserializer());
@@ -35,5 +37,6 @@ public class JTraceYamlModule extends SimpleModule {
         addDeserializer(ColorRGB.class, new ColorRGBDeserializer());
         addDeserializer(ReflectanceCoefficient.class, new ReflectanceCoefficientDeserializer());
         addDeserializer(BufferedImage.class, new BufferedImageDeserializer(basePath));
+        addDeserializer(TextureMapper.class, new TextureMapperDeserializer());
     }
 }

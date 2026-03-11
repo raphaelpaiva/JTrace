@@ -2,7 +2,7 @@ package org.jtrace.shader;
 
 import org.jtrace.Hit;
 import org.jtrace.Jay;
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
 import org.jtrace.lights.PointLight;

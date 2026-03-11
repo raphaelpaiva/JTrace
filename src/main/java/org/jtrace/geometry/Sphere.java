@@ -6,8 +6,10 @@ import java.util.List;
 import org.jtrace.Constants;
 import org.jtrace.Hit;
 import org.jtrace.Jay;
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.NotHit;
+import org.jtrace.material.SphericalTextureMapper;
+import org.jtrace.material.UVMapping;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.Section;
 import org.jtrace.primitives.Point3D;
@@ -80,35 +82,6 @@ public class Sphere extends GeometricObject {
 
             return new NotHit();
         }
-    }
-    
-    @Override
-    public ColorRGB getColor(Point3D point) {
-        Vector3D pole = Vector3D.UNIT_Y;
-        Vector3D equator = Vector3D.UNIT_X;
- 
-        Vector3D normal = new Vector3D(center, point).normal();
- 
-        double normalDotPole = normal.dot(pole);
-        double phi = Math.acos(normalDotPole);
- 
-        double v = phi / Math.PI;
- 
-        Vector3D poleCrossEquator = pole.cross(equator);
- 
-        double equatorDotNormal = equator.dot(normal);
- 
-        double theta = Math.acos(equatorDotNormal / Math.sin(phi)) / (2 * Math.PI);
- 
-        double u = 0;
- 
-        if (poleCrossEquator.dot(normal) > 0) {
-            u = theta;
-        } else {
-            u = 1 - theta;
-        }
-            
-        return getMaterial().getColor(u, v);
     }
 
     public List<Section> sections(Jay jay) {
