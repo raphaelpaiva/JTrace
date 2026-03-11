@@ -79,8 +79,8 @@ public class Tracer {
         for (Light light : scene.getLigths()) {
         	beforeShade(light, color);
             for (Shader shader : shaders) {
-            	if (shouldShade(shader, light, hit, jay, hit.getObject())) {
-            		ColorRGB shaderColor = shader.shade(light, hit, jay, hit.getObject());
+            	if (shouldShade(shader, light, hit, hit.getObject())) {
+            		ColorRGB shaderColor = shader.shade(light, hit, hit.getObject());
                 
             		color = color.add(shaderColor);
             	}
@@ -91,11 +91,11 @@ public class Tracer {
         return color;
     }
 
-    private boolean shouldShade(Shader shader, Light light, Hit hit, Jay jay, GeometricObject object) {
+    private boolean shouldShade(Shader shader, Light light, Hit hit, GeometricObject object) {
 		boolean shouldShade = true;
     	
 		for (TracerInterceptor interceptor : interceptors) {
-			shouldShade = shouldShade && interceptor.shouldShade(shader, light, hit, jay, object);
+			shouldShade = shouldShade && interceptor.shouldShade(shader, light, hit, object);
 		}
 		
     	return shouldShade;

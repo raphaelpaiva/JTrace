@@ -24,6 +24,7 @@ public class AmbientShaderUnitTest {
 	
 	private static Vector3D DIRECTION = new Vector3D(0, 0, -1);
 	private static Point3D ORIGIN = new Point3D(0, 0, 0);
+	private static Point3D HIT_POINT = new Point3D(0, 0, -10);
 	
 	private static Jay JAY = new Jay(ORIGIN, DIRECTION);
 	
@@ -34,6 +35,7 @@ public class AmbientShaderUnitTest {
 		double blue = ColorRGB.BLUE.getBlue() * K_AMBIENT.getBlue();
 		ColorRGB expectedColor = new ColorRGB(red, green, blue);
 		
-		Assert.assertEquals(expectedColor, new AmbientShader().shade(new PointLight(ORIGIN), new Hit(10, Vector3D.UNIT_Z), JAY, SPHERE));
+		Hit hit = new Hit(10, Vector3D.UNIT_Z, JAY);
+		Assert.assertEquals(expectedColor, new AmbientShader().shade(new PointLight(ORIGIN), hit, SPHERE));
 	}
 }

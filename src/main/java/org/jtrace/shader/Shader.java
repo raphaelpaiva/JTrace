@@ -16,5 +16,5 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = SpecularShader.class, name = "SpecularShader")
 })
 public interface Shader {
-	public ColorRGB shade(Light light, Hit hit, Jay jay, GeometricObject object);
+	public ColorRGB shade(Light light, Hit hit, GeometricObject object);
 }

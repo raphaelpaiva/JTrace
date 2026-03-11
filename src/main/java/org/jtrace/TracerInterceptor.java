@@ -16,7 +16,7 @@ public interface TracerInterceptor {
 	public void init(Tracer tracer, Scene scene);
 	
 	public void beforeShade(Light light, ColorRGB color);
-	public boolean shouldShade(Shader shader, Light light, Hit hit, Jay jay, GeometricObject object);
+	public boolean shouldShade(Shader shader, Light light, Hit hit, GeometricObject object);
 	public void afterShade(Light light, ColorRGB color);
 	
 }

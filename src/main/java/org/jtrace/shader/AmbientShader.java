@@ -1,7 +1,6 @@
 package org.jtrace.shader;
 
 import org.jtrace.Hit;
-import org.jtrace.Jay;
 import org.jtrace.Material;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
@@ -14,9 +13,9 @@ public class AmbientShader implements Shader {
 	}
 
 	@Override
-    public ColorRGB shade(Light light, Hit hit, Jay jay, GeometricObject object) {
+    public ColorRGB shade(Light light, Hit hit, GeometricObject object) {
         Material material = object.getMaterial();
-        ColorRGB objectColor = object.getColor(hit.getPoint(jay));
+        ColorRGB objectColor = object.getColor(hit.getPoint());
         ReflectanceCoefficient kAmbient = material.getkAmbient();
 
         double red = light.getColor().getRed() * kAmbient.getRed() * objectColor.getRed();
