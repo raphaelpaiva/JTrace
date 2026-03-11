@@ -27,13 +27,12 @@ import java.util.Map;
  */
 public class SceneYamlIO {
     
-    private final ObjectMapper mapper;
+    private ObjectMapper mapper;
     private final MaterialLibrary materialLibrary;
+    private Path currentBasePath;
     
     public SceneYamlIO() {
         this.materialLibrary = new MaterialLibrary();
-        this.mapper = new ObjectMapper(new YAMLFactory());
-        this.mapper.registerModule(new JTraceYamlModule());
     }
     
     /**
@@ -44,10 +43,14 @@ public class SceneYamlIO {
      * @throws IOException if the file cannot be read or parsed
      */
     public Scene load(Path path) throws IOException {
+        this.currentBasePath = path.getParent();
+        this.mapper = new ObjectMapper(new YAMLFactory());
+        this.mapper.registerModule(new JTraceYamlModule(currentBasePath));
+        
         String content = new String(Files.readAllBytes(path));
         
         // Process includes first
-        content = processIncludes(content, path.getParent());
+        content = processIncludes(content, currentBasePath);
         
         // Parse the YAML
         JsonNode root = mapper.readTree(content);
