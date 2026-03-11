@@ -53,6 +53,12 @@ public class Material {
     private BufferedImage texture;
 
     /**
+     * Default constructor for Jackson deserialization.
+     */
+    public Material() {
+    }
+
+    /**
      * Creates a {@link Material} with static color, no texture and no specular reflection.
      * 
      * Good for matte materials.
@@ -166,6 +172,42 @@ public class Material {
 
     public void setkSpecular(ReflectanceCoefficient kSpecular) {
         this.kSpecular = kSpecular;
+    }
+
+    /**
+     * Sets the {@link Material}'s base color.
+     * 
+     * @param color the color to set
+     */
+    public void setColor(ColorRGB color) {
+        this.color = color;
+    }
+
+    /**
+     * Sets the ambient reflectance coefficient.
+     * 
+     * @param kAmbient the ambient reflectance to set
+     */
+    public void setkAmbient(ReflectanceCoefficient kAmbient) {
+        this.kAmbient = kAmbient;
+    }
+
+    /**
+     * Sets the diffuse reflectance coefficient.
+     * 
+     * @param kDiffuse the diffuse reflectance to set
+     */
+    public void setkDiffuse(ReflectanceCoefficient kDiffuse) {
+        this.kDiffuse = kDiffuse;
+    }
+
+    /**
+     * Sets the texture for this material.
+     * 
+     * @param texture the texture to set
+     */
+    public void setTexture(BufferedImage texture) {
+        this.texture = texture;
     }
 
 }
