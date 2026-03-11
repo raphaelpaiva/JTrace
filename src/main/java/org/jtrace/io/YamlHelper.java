@@ -7,6 +7,7 @@ import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.constructor.AbstractConstruct;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -15,6 +16,7 @@ import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Represent;
 import org.yaml.snakeyaml.representer.Representer;
+import org.yaml.snakeyaml.DumperOptions;
 
 public class YamlHelper {
 
@@ -26,6 +28,7 @@ public class YamlHelper {
     static class JTraceConstructor extends Constructor {
 
         public JTraceConstructor() {
+            super(new LoaderOptions());
             yamlConstructors.put(new Tag(VECTOR3D_TAG), new ConstructVector3D());
 
             addTypeDescription(new TypeDescription(Point3D.class, new Tag(POINT3D_TAG)));
@@ -50,6 +53,7 @@ public class YamlHelper {
 
     static class JTraceRepresenter extends Representer {
         public JTraceRepresenter() {
+            super(new DumperOptions());
             representers.put(Vector3D.class, new RepresentVector3D());
 
             addClassTag(Point3D.class, new Tag(POINT3D_TAG));
@@ -68,7 +72,7 @@ public class YamlHelper {
                 map.put("y", vec.getY());
                 map.put("z", vec.getZ());
 
-                return representMapping(new Tag(VECTOR3D_TAG), (Map) map, Boolean.TRUE);
+                return representMapping(new Tag(VECTOR3D_TAG), (Map) map, DumperOptions.FlowStyle.BLOCK);
             }
         }
     }
