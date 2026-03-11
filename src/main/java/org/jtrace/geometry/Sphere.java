@@ -33,7 +33,7 @@ public class Sphere extends GeometricObject {
      * 
      * @param center a {@link Point3D} representing the coordinates of the center of the {@link Sphere}
      * @param radius the radius of the {@link Sphere}
-     * @param color the color of the {@link Sphere}
+     * @param material the {@link Material} of the {@link Sphere}
      */
     public Sphere(final Point3D center, final double radius, final Material material) {
         super(material);
@@ -44,7 +44,7 @@ public class Sphere extends GeometricObject {
     /**
      * Calculates if a given {@link Jay} hits the Object.
      * 
-     * @param jay the casted {@link Jay}.
+     * @param jay the cast {@link Jay}.
      * @return {@link Hit} if the {@link Jay} hits the object.
      */
     @Override
@@ -68,14 +68,14 @@ public class Sphere extends GeometricObject {
             t = (-b - deltaRoot) / 2*a;
             if (t > Constants.epsilon) {
                 final Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-                return new Hit(t, normal.normal(), jay.getOrigin(), jay.getPointAt(t));
+                return new Hit(t, normal.normal(), jay);
             }
 
             //larger root
             t = (-b + deltaRoot) / 2*a;
             if (t > Constants.epsilon) {
                 final Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-                return new Hit(t, normal.normal(), jay.getOrigin(), jay.getPointAt(t));
+                return new Hit(t, normal.normal(), jay);
             }
 
             return new NotHit();
@@ -136,12 +136,12 @@ public class Sphere extends GeometricObject {
         	//smaller root
             t = (-b - deltaRoot) / 2*a;
             Vector3D normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-            smallerRootHit = new Hit(t, normal.normal(), jay.getOrigin(), jay.getPointAt(t));
+            smallerRootHit = new Hit(t, normal.normal(), jay);
 
             //larger root
             t = (-b + deltaRoot) / 2*a;
             normal = temp.add(jay.getDirection().multiply(t)).divide(t);
-            largerRootHit = new Hit(t, normal.normal(), jay.getOrigin(), jay.getPointAt(t));
+            largerRootHit = new Hit(t, normal.normal(), jay);
             
             sections.add(new Section(smallerRootHit, largerRootHit));
         }

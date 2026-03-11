@@ -35,7 +35,7 @@ public class AmbientShaderUnitTest {
 		double blue = ColorRGB.BLUE.getBlue() * K_AMBIENT.getBlue();
 		ColorRGB expectedColor = new ColorRGB(red, green, blue);
 		
-		Hit hit = new Hit(10, Vector3D.UNIT_Z, ORIGIN, HIT_POINT);
+		Hit hit = new Hit(10, Vector3D.UNIT_Z, JAY);
 		Assert.assertEquals(expectedColor, new AmbientShader().shade(new PointLight(ORIGIN), hit, SPHERE));
 	}
 }

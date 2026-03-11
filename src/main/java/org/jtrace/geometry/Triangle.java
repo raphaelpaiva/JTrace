@@ -105,7 +105,7 @@ public class Triangle extends GeometricObject {
 		Double d2 = t1.dot(t3);
 		
 		if (d1 >= 0.0 && d2 >= 0.0) {
-			return new Hit(planeHit.getT(), planeHit.getNormal(), jay.getOrigin(), p);
+			return new Hit(planeHit.getT(), planeHit.getNormal(), jay);
 		}
 		
 		return new NotHit();
