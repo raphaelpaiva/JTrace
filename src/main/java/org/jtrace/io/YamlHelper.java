@@ -1,6 +1,7 @@
 package org.jtrace.io;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.jtrace.primitives.ColorRGB;
@@ -67,12 +68,12 @@ public class YamlHelper {
             public Node representData(final Object data) {
                 final Vector3D vec = (Vector3D) data;
 
-                final Map<String, Double> map = new HashMap<String, Double>();
-                map.put("x", vec.getX());
-                map.put("y", vec.getY());
+                final Map<String, Double> map = new LinkedHashMap<String, Double>();
                 map.put("z", vec.getZ());
+                map.put("y", vec.getY());
+                map.put("x", vec.getX());
 
-                return representMapping(new Tag(VECTOR3D_TAG), (Map) map, DumperOptions.FlowStyle.BLOCK);
+                return representMapping(new Tag(VECTOR3D_TAG), (Map) map, DumperOptions.FlowStyle.FLOW);
             }
         }
     }
