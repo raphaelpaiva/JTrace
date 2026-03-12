@@ -113,6 +113,7 @@ viewPlane:
 ```java
 import org.jtrace.*;
 import org.jtrace.io.yaml.SceneYamlIO;
+import org.jtrace.tracer.Tracer;
 
 Path scenePath = Paths.get("scene.yaml");
 SceneYamlIO yamlIO = new SceneYamlIO();
@@ -121,7 +122,7 @@ SceneYamlIO.SceneConfiguration config = yamlIO.loadConfiguration(scenePath);
 Tracer tracer = config.getTracer();
 ViewPlane viewPlane = config.getViewPlane();
 
-tracer.render(config.getScene(), viewPlane);
+tracer.render(config.getScene(),viewPlane);
 ```
 
 ## Examples

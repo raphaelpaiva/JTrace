@@ -2,7 +2,7 @@ package org.jtrace.examples;
 
 import org.jtrace.material.Materials;
 import org.jtrace.Scene;
-import org.jtrace.Tracer;
+import org.jtrace.tracer.Tracer;
 import org.jtrace.ViewPlane;
 import org.jtrace.cameras.PinHoleCamera;
 import org.jtrace.geometry.Sphere;

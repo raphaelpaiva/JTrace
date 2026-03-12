@@ -1,6 +1,6 @@
 package org.jtrace.shader;
 
-import org.jtrace.Hit;
+import org.jtrace.tracer.Hit;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;

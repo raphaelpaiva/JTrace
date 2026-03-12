@@ -7,9 +7,9 @@ import static org.jtrace.primitives.Vector3D.UNIT_Y;
 import java.io.IOException;
 
 import org.jtrace.material.Materials;
-import org.jtrace.MultiThreadTracer;
+import org.jtrace.tracer.MultiThreadTracer;
 import org.jtrace.Scene;
-import org.jtrace.Tracer;
+import org.jtrace.tracer.Tracer;
 import org.jtrace.ViewPlane;
 import org.jtrace.cameras.Camera;
 import org.jtrace.cameras.PinHoleCamera;

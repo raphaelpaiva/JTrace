@@ -1,10 +1,10 @@
 package org.jtrace.interceptor;
 
-import org.jtrace.Hit;
+import org.jtrace.tracer.Hit;
 import org.jtrace.Jay;
 import org.jtrace.Scene;
-import org.jtrace.Tracer;
-import org.jtrace.TracerInterceptor;
+import org.jtrace.tracer.Tracer;
+import org.jtrace.tracer.TracerInterceptor;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;

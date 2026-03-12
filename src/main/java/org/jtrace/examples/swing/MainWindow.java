@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.jtrace.Scene;
-import org.jtrace.Tracer;
+import org.jtrace.tracer.Tracer;
 import org.jtrace.ViewPlane;
 import org.jtrace.shader.Shaders;
 import org.jtrace.swing.TracerPanel;

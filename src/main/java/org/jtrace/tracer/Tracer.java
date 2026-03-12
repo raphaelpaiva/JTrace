@@ -1,10 +1,11 @@
-package org.jtrace;
+package org.jtrace.tracer;
 
 import static java.util.Arrays.asList;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import org.jtrace.*;
 import org.jtrace.cameras.Camera;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;

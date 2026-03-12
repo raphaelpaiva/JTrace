@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.jtrace.Scene;
-import org.jtrace.TracerListener;
+import org.jtrace.tracer.TracerListener;
 import org.jtrace.ViewPlane;
 import org.jtrace.primitives.ColorRGB;
 

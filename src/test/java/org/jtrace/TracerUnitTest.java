@@ -11,6 +11,8 @@ import org.jtrace.primitives.Vector3D;
 import org.jtrace.shader.AmbientShader;
 import org.jtrace.shader.DiffuseShader;
 import org.jtrace.shader.Shader;
+import org.jtrace.tracer.Hit;
+import org.jtrace.tracer.Tracer;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

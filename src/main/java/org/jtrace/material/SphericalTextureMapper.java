@@ -1,6 +1,6 @@
 package org.jtrace.material;
 
-import org.jtrace.Hit;
+import org.jtrace.tracer.Hit;
 import org.jtrace.primitives.Vector3D;
 
 public class SphericalTextureMapper implements TextureMapper{

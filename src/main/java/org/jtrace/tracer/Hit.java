@@ -1,5 +1,6 @@
-package org.jtrace;
+package org.jtrace.tracer;
 
+import org.jtrace.Jay;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;

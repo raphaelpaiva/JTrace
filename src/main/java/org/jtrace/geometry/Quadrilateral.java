@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.jtrace.Hit;
+import org.jtrace.tracer.Hit;
 import org.jtrace.Jay;
 import org.jtrace.material.Material;
-import org.jtrace.NotHit;
+import org.jtrace.tracer.NotHit;
 import org.jtrace.Section;
 import org.jtrace.primitives.Point3D;
 

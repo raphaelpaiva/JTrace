@@ -1,4 +1,4 @@
-package org.jtrace;
+package org.jtrace.tracer;
 
 public class NotHit extends Hit {
 
