@@ -6,7 +6,7 @@ import java.util.List;
 import org.jtrace.Constants;
 import org.jtrace.Hit;
 import org.jtrace.Jay;
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.NotHit;
 import org.jtrace.Section;
 import org.jtrace.primitives.Point3D;
@@ -21,6 +21,10 @@ import org.jtrace.primitives.Vector3D;
 public class Plane extends GeometricObject {
 	private Point3D point;
 	private Vector3D normal;
+
+	public Plane() {
+        super(null);
+    }
 	
 	/**
 	 * Creates a {@link Plane} from a {@link Point3D} contained on it and its normal {@link Vector3D}.
@@ -44,7 +48,7 @@ public class Plane extends GeometricObject {
 			double t = b / a;
 
 			if (t > Constants.epsilon) {
-				return new Hit(t, this.getNormal().normal());
+				return new Hit(t, this.getNormal().normal(), jay);
 			}
 		}
 		
@@ -58,10 +62,9 @@ public class Plane extends GeometricObject {
 		double b = new Vector3D(jay.getOrigin(), point).dot(normal);
 		double a = jay.getDirection().dot(normal);
 		
-		
 		if (a != 0) {
 			double t = b / a;
-			Hit hit = new Hit(t, this.getNormal().normal());
+			Hit hit = new Hit(t, this.getNormal().normal(), jay);
 			
 			sections.add(new Section(hit, hit));
 		}

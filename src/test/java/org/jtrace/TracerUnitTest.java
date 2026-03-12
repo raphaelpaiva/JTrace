@@ -3,6 +3,7 @@ package org.jtrace;
 import org.jtrace.geometry.Sphere;
 import org.jtrace.lights.Light;
 import org.jtrace.lights.PointLight;
+import org.jtrace.material.Material;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.ReflectanceCoefficient;
@@ -66,7 +67,7 @@ public class TracerUnitTest {
 		Scene scene = new Scene().add(SPHERE).add(LIGHT_0DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_0DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_0DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -91,7 +92,7 @@ public class TracerUnitTest {
 		
 		Hit hit = SPHERE.hit(JAY);
 		
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_45DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_45DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -116,7 +117,7 @@ public class TracerUnitTest {
 		
 		Hit hit = SPHERE.hit(JAY);
 		
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_90DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_90DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -141,7 +142,7 @@ public class TracerUnitTest {
 		
 		Hit hit = SPHERE.hit(JAY);
 
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_90DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_90DEGREES.getPosition());
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
 		double red = ColorRGB.BLUE.getRed() * K_AMBIENT.getRed();
@@ -164,7 +165,7 @@ public class TracerUnitTest {
 		Scene scene = new Scene().add(SPHERE).add(LIGHT_0DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_0DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_0DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -184,7 +185,7 @@ public class TracerUnitTest {
 		Scene scene = new Scene().add(SPHERE).add(LIGHT_45DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_45DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_45DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -204,7 +205,7 @@ public class TracerUnitTest {
 		Scene scene = new Scene().add(SPHERE).add(LIGHT_90DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_90DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_90DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		
@@ -224,7 +225,7 @@ public class TracerUnitTest {
 		Scene scene = new Scene().add(SPHERE).add(LIGHT_GREATER_90DEGREES);
 		
 		Hit hit = SPHERE.hit(JAY);
-		Vector3D pointToLight = new Vector3D(hit.getPoint(JAY), LIGHT_GREATER_90DEGREES.getPosition());
+		Vector3D pointToLight = new Vector3D(hit.getPoint(), LIGHT_GREATER_90DEGREES.getPosition());
 		
 		double diffuseCotribution = DIFFUSE_SHADER.calculateDiffuseContribution(pointToLight, hit.getNormal());
 		

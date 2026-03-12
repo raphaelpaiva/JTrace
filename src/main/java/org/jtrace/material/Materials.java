@@ -1,4 +1,4 @@
-package org.jtrace;
+package org.jtrace.material;
 
 import java.awt.image.BufferedImage;
 

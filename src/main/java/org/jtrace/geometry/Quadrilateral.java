@@ -2,9 +2,11 @@ package org.jtrace.geometry;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jtrace.Hit;
 import org.jtrace.Jay;
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.NotHit;
 import org.jtrace.Section;
 import org.jtrace.primitives.Point3D;
@@ -33,7 +35,12 @@ public class Quadrilateral extends GeometricObject {
 	 * @param p3 the fourth edge in counter-clockwise order
 	 * @param material the {@link Quadrilateral}'s {@link Material}.
 	 */
-	public Quadrilateral(Point3D p0, Point3D p1, Point3D p2, Point3D p3, Material material) {
+  @JsonCreator
+	public Quadrilateral(@JsonProperty("p0") Point3D p0,
+                       @JsonProperty("p1") Point3D p1,
+                       @JsonProperty("p2") Point3D p2,
+                       @JsonProperty("p3") Point3D p3,
+                       @JsonProperty("material") Material material) {
 		super(material);
 		
 		t1 = new Triangle(p0, p1, p2, material);

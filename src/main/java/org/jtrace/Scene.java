@@ -10,6 +10,9 @@ import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Represents the scene to be rendered.
  * 
@@ -23,10 +26,33 @@ import org.jtrace.primitives.ColorRGB;
  *
  */
 public class Scene {
-    private final Set<GeometricObject> objects = new LinkedHashSet<GeometricObject>();
-    private final Set<Light> lights = new LinkedHashSet<Light>();
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+    @JsonSubTypes({
+        @JsonSubTypes.Type(value = org.jtrace.geometry.Sphere.class, name = "Sphere"),
+        @JsonSubTypes.Type(value = org.jtrace.geometry.Plane.class, name = "Plane"),
+        @JsonSubTypes.Type(value = org.jtrace.geometry.Triangle.class, name = "Triangle"),
+        @JsonSubTypes.Type(value = org.jtrace.geometry.TriangleMesh.class, name = "TriangleMesh"),
+        @JsonSubTypes.Type(value = org.jtrace.geometry.Quadrilateral.class, name = "Quadrilateral")
+    })
+    private Set<GeometricObject> objects = new LinkedHashSet<GeometricObject>();
+    
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+    @JsonSubTypes({
+        @JsonSubTypes.Type(value = org.jtrace.lights.PointLight.class, name = "PointLight"),
+        @JsonSubTypes.Type(value = org.jtrace.lights.DecayingPointLight.class, name = "DecayingPointLight")
+    })
+    private Set<Light> lights = new LinkedHashSet<Light>();
     private ColorRGB backgroundColor = ColorRGB.BLACK;
+    
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+    @JsonSubTypes({
+        @JsonSubTypes.Type(value = org.jtrace.cameras.PinHoleCamera.class, name = "PinHoleCamera"),
+        @JsonSubTypes.Type(value = org.jtrace.cameras.OrthogonalCamera.class, name = "OrthogonalCamera")
+    })
     private Camera camera;
+
+    public Scene() {
+    }
 
     public Scene withBackground(final ColorRGB color) {
         backgroundColor = color;
@@ -57,12 +83,24 @@ public class Scene {
         return objects;
     }
 
+    public void setObjects(Set<GeometricObject> objects) {
+        this.objects = objects;
+    }
+
     public Set<Light> getLigths() {
         return lights;
     }
 
+    public void setLights(Set<Light> lights) {
+        this.lights = lights;
+    }
+
     public ColorRGB getBackgroundColor() {
         return backgroundColor;
+    }
+
+    public void setBackgroundColor(ColorRGB backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
     public Camera getCamera() {
@@ -72,6 +110,10 @@ public class Scene {
     public Scene setCamera(final Camera camera) {
         this.camera = camera;
         return this;
+    }
+
+    public void setCameraVoid(final Camera camera) {
+        this.camera = camera;
     }
 
 }

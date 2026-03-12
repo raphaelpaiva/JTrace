@@ -18,9 +18,14 @@ import org.jtrace.primitives.ColorRGB;
  */
 public class ImageListener implements TracerListener {
 
-	private BufferedImage image;
+	private transient BufferedImage image;
 	private String fileName;
 	private String format;
+
+	public ImageListener() {
+		this.fileName = "output.png";
+		this.format = "png";
+	}
 
 	/**
 	 * Creates a {@link ImageListener}.
@@ -50,9 +55,26 @@ public class ImageListener implements TracerListener {
 	public void finish() {
 		try {
 			ImageIO.write(image, format, new File(fileName));
+      System.out.println("Wrote " + fileName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
 	}
 
 }

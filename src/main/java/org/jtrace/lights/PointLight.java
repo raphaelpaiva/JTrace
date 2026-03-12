@@ -4,6 +4,11 @@ import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 
 public class PointLight extends Light {
+	
+	public PointLight() {
+		super(new Point3D(0, 0, 0), ColorRGB.WHITE);
+	}
+	
 	public PointLight(Point3D position, ColorRGB color) {
 		super(position, color);
 	}

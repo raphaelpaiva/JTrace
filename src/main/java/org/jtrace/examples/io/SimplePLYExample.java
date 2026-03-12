@@ -4,7 +4,7 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.jtrace.Materials;
+import org.jtrace.material.Materials;
 import org.jtrace.Scene;
 import org.jtrace.Tracer;
 import org.jtrace.ViewPlane;
@@ -23,7 +23,7 @@ import org.jtrace.shader.Shaders;
 public class SimplePLYExample {
 	public static void main(String[] args) throws IOException {
 				
-		InputStream is = SimplePLYExample.class.getResourceAsStream("simple.ply");
+		InputStream is = SimplePLYExample.class.getResourceAsStream("/org/jtrace/examples/io/simple.ply");
 		TriangleMesh simple;
  
 		simple = PlyReader.read(is, Materials.metallic(ColorRGB.WHITE));

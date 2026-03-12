@@ -3,17 +3,30 @@ package org.jtrace.lights;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Basic class representing a point light in three-dimensional space.
  * 
  * @author raphaelpaiva
  * 
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = PointLight.class, name = "PointLight"),
+    @JsonSubTypes.Type(value = DecayingPointLight.class, name = "DecayingPointLight")
+})
 public abstract class Light {
 
 	private Point3D position;
 
 	private ColorRGB color;
+	
+	public Light() {
+		this.position = new Point3D(0, 0, 0);
+		this.color = ColorRGB.WHITE;
+	}
 
 	/**
 	 * Calculates the intensity of the light based on the distance to the light.
@@ -35,6 +48,10 @@ public abstract class Light {
 
 	public Point3D getPosition() {
 		return position;
+	}
+	
+	public void setPosition(Point3D position) {
+		this.position = position;
 	}
 
 	public ColorRGB getColor() {

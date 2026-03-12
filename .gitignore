@@ -1,3 +1,5 @@
+.idea/
+.settings/
 bin/*
 test-output/*
 *.jpg
@@ -5,3 +7,4 @@ test-output/*
 build/
 dist/
 lib/*
+target/

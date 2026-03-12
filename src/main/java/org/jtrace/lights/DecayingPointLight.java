@@ -7,7 +7,12 @@ import org.jtrace.primitives.Point3D;
 
 public class DecayingPointLight extends Light {
 
-	final double initialIntensity;
+	double initialIntensity;
+	
+	public DecayingPointLight() {
+		super();
+		this.initialIntensity = 1.0;
+	}
 	
 	public DecayingPointLight(Point3D position, ColorRGB color, double initialIntensity) {
 		super(position, color);
@@ -24,6 +29,14 @@ public class DecayingPointLight extends Light {
 	public DecayingPointLight(Point3D position, double initialIntensity) {
 		super(position, WHITE);
 		
+		this.initialIntensity = initialIntensity;
+	}
+	
+	public double getInitialIntensity() {
+		return initialIntensity;
+	}
+	
+	public void setInitialIntensity(double initialIntensity) {
 		this.initialIntensity = initialIntensity;
 	}
 	

@@ -2,10 +2,19 @@ package org.jtrace;
 
 import org.jtrace.primitives.ColorRGB;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * A listener interface that respond to {@link Tracer} events.
  * 
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = org.jtrace.listeners.ImageListener.class, name = "ImageListener"),
+    @JsonSubTypes.Type(value = org.jtrace.listeners.TimeListener.class, name = "TimeListener"),
+    @JsonSubTypes.Type(value = org.jtrace.swing.SwingListener.class, name = "SwingListener")
+})
 public interface TracerListener {
 	/**
 	 * Called at the Tracer initialization, just before it begin the rendering.

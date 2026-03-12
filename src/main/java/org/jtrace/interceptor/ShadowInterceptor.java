@@ -14,8 +14,11 @@ import org.jtrace.shader.Shader;
 
 public class ShadowInterceptor implements TracerInterceptor {
 
-	private Tracer tracer;
-	private Scene scene;
+	private transient Tracer tracer;
+	private transient Scene scene;
+	
+	public ShadowInterceptor() {
+	}
 	
 	@Override
 	public void init(Tracer tracer, Scene scene) {
@@ -27,8 +30,8 @@ public class ShadowInterceptor implements TracerInterceptor {
 	public void beforeShade(Light light, ColorRGB color) {}
 
 	@Override
-	public boolean shouldShade(Shader shader, Light light, Hit hit, Jay jay, GeometricObject object) {
-      Point3D hitPoint = hit.getPoint(jay);
+	public boolean shouldShade(Shader shader, Light light, Hit hit, GeometricObject object) {
+      Point3D hitPoint = hit.getPoint();
       Vector3D lightDirection = new Vector3D(hitPoint, light.getPosition());
 
       double hitPointToLightDistance = lightDirection.module();

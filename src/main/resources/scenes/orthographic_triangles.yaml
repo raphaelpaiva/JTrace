@@ -1,0 +1,67 @@
+# Orthographic Camera Scene
+# Demonstrates OrthogonalCamera (no perspective)
+
+materials:
+  cyan:
+    color: !color {r: 0.0, g: 1.0, b: 1.0}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kSpecular: !reflect {r: 0.6, g: 0.6, b: 0.6}
+  
+  magenta:
+    color: !color {r: 1.0, g: 0.0, b: 1.0}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kSpecular: !reflect {r: 0.6, g: 0.6, b: 0.6}
+  
+  yellow:
+    color: !color {r: 1.0, g: 1.0, b: 0.0}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kSpecular: !reflect {r: 0.6, g: 0.6, b: 0.6}
+
+scene:
+  backgroundColor: !color {r: 0.1, g: 0.1, b: 0.15}
+  
+  camera:
+    type: OrthogonalCamera
+    eye: !pt {x: 0.0, y: 0.0, z: 100.0}
+    lookAt: !pt {x: 0.0, y: 0.0, z: 0.0}
+    up: !vector {x: 0.0, y: 1.0, z: 0.0}
+    zoomFactor: 8.0
+  
+  objects:
+    - type: Triangle
+      v1: !pt {x: 0.0, y: 30.0, z: 0.0}
+      v2: !pt {x: -30.0, y: -30.0, z: 0.0}
+      v3: !pt {x: 30.0, y: -30.0, z: 0.0}
+      material: $cyan
+    
+    - type: Triangle
+      v1: !pt {x: 60.0, y: 30.0, z: 0.0}
+      v2: !pt {x: 30.0, y: -30.0, z: 0.0}
+      v3: !pt {x: 90.0, y: -30.0, z: 0.0}
+      material: $magenta
+    
+    - type: Triangle
+      v1: !pt {x: -60.0, y: 30.0, z: 0.0}
+      v2: !pt {x: -90.0, y: -30.0, z: 0.0}
+      v3: !pt {x: -30.0, y: -30.0, z: 0.0}
+      material: $yellow
+  
+  lights:
+    - type: PointLight
+      position: !pt {x: 0.0, y: 0.0, z: 100.0}
+      color: !color {r: 1.0, g: 1.0, b: 1.0}
+
+tracer:
+  type: Tracer
+  shaders:
+    - type: AmbientShader
+    - type: DiffuseShader
+    - type: SpecularShader
+      specularFactor: 32.0
+
+viewPlane:
+  hres: 800
+  vres: 600

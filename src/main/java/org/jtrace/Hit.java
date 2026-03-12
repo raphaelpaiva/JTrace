@@ -13,7 +13,7 @@ import org.jtrace.primitives.Vector3D;
  */
 public class Hit {
 
-	private double t;
+  private double t;
 
 	private boolean hit;
 
@@ -21,24 +21,32 @@ public class Hit {
 
 	private GeometricObject object;
 
-	public Hit(double t, Vector3D normal) {
+  private final Jay jay;
+
+	private final Point3D point;
+
+	public Hit(double t, Vector3D normal, Jay jay) {
 		this.t = t;
 		this.normal = normal;
+    this.jay = jay;
+		this.point = jay.getPointAt(t);
 		this.hit = true;
 	}
 
 	protected Hit() {
 		this.t = 0;
 		this.normal = null;
+		this.point = null;
 		this.hit = false;
+    this.jay = null;
 	}
 
-	public Point3D getPoint(Jay jay) {
-		Point3D point = jay.getOrigin();
+	public Point3D getPoint() {
+		return point;
+	}
 
-		Vector3D direction = jay.getDirection().multiply(getT());
-
-		return point.add(direction);
+	public Point3D getOrigin() {
+		return jay.getOrigin();
 	}
 
 	/**

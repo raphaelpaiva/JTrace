@@ -2,7 +2,7 @@ package org.jtrace.geometry;
 
 import org.jtrace.Hit;
 import org.jtrace.Jay;
-import org.jtrace.Materials;
+import org.jtrace.material.Materials;
 import org.jtrace.NotHit;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;

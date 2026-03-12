@@ -1,0 +1,81 @@
+# Shadows Scene
+# Demonstrates shadow casting with ShadowInterceptor
+
+materials:
+  red:
+    color: !color {r: 1.0, g: 0.0, b: 0.0}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kSpecular: !reflect {r: 0.5, g: 0.5, b: 0.5}
+  
+  green:
+    color: !color {r: 0.0, g: 1.0, b: 0.0}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kSpecular: !reflect {r: 0.5, g: 0.5, b: 0.5}
+  
+  blue:
+    color: !color {r: 0.0, g: 0.0, b: 1.0}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kSpecular: !reflect {r: 0.5, g: 0.5, b: 0.5}
+  
+  white:
+    color: !color {r: 1.0, g: 1.0, b: 1.0}
+    kAmbient: !reflect {r: 0.1, g: 0.1, b: 0.1}
+    kDiffuse: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kSpecular: !reflect {r: 0.5, g: 0.5, b: 0.5}
+
+scene:
+  backgroundColor: !color {r: 0.0, g: 0.0, b: 0.0}
+  
+  camera:
+    type: PinHoleCamera
+    eye: !pt {x: 0.0, y: 50.0, z: 100.0}
+    lookAt: !pt {x: 0.0, y: 0.0, z: 0.0}
+    up: !vector {x: 0.0, y: 1.0, z: 0.0}
+    zoomFactor: 15.0
+  
+  objects:
+    # Red sphere (will cast shadow on green sphere)
+    - type: Sphere
+      center: !pt {x: -15.0, y: 0.0, z: 0.0}
+      radius: 10.0
+      material: $red
+    
+    # Green sphere (will be shadowed)
+    - type: Sphere
+      center: !pt {x: 15.0, y: 0.0, z: 0.0}
+      radius: 10.0
+      material: $green
+    
+    # Blue sphere (behind, catches shadow from red)
+    - type: Sphere
+      center: !pt {x: 0.0, y: 0.0, z: -20.0}
+      radius: 10.0
+      material: $blue
+    
+    # Floor plane
+    - type: Plane
+      point: !pt {x: 0.0, y: -15.0, z: 0.0}
+      normal: !vector {x: 0.0, y: 1.0, z: 0.0}
+      material: $white
+  
+  lights:
+    - type: PointLight
+      position: !pt {x: 50.0, y: 50.0, z: 50.0}
+      color: !color {r: 1.0, g: 1.0, b: 1.0}
+
+tracer:
+  type: Tracer
+  shaders:
+    - type: AmbientShader
+    - type: DiffuseShader
+    - type: SpecularShader
+      specularFactor: 32.0
+  interceptors:
+    - type: ShadowInterceptor
+
+viewPlane:
+  hres: 800
+  vres: 600

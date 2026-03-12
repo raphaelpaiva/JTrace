@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.jtrace.Hit;
 import org.jtrace.Jay;
-import org.jtrace.Material;
+import org.jtrace.material.Material;
 import org.jtrace.NotHit;
 import org.jtrace.Section;
 import org.jtrace.primitives.Point3D;
@@ -25,6 +25,10 @@ public class Triangle extends GeometricObject {
 
 	private Vector3D a12, a23, a31;
 
+	public Triangle() {
+		super(null);
+	}
+	
 	/**
 	 * Creates a Triangle with the vertices in points <code>paramV1</code>,
 	 * <code>paramV2</code> and <code>paramV3</code>. <br>
@@ -101,7 +105,7 @@ public class Triangle extends GeometricObject {
 		Double d2 = t1.dot(t3);
 		
 		if (d1 >= 0.0 && d2 >= 0.0) {
-			return new Hit(planeHit.getT(), planeHit.getNormal());
+			return new Hit(planeHit.getT(), planeHit.getNormal(), jay);
 		}
 		
 		return new NotHit();
@@ -177,5 +181,29 @@ public class Triangle extends GeometricObject {
 	public List<Section> sections(Jay jay) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Point3D getV1() {
+		return v1;
+	}
+	
+	public void setV1(Point3D v1) {
+		this.v1 = v1;
+	}
+	
+	public Point3D getV2() {
+		return v2;
+	}
+	
+	public void setV2(Point3D v2) {
+		this.v2 = v2;
+	}
+	
+	public Point3D getV3() {
+		return v3;
+	}
+	
+	public void setV3(Point3D v3) {
+		this.v3 = v3;
 	}
 }
