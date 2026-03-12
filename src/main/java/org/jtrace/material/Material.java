@@ -2,6 +2,7 @@ package org.jtrace.material;
 
 import java.awt.image.BufferedImage;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.jtrace.tracer.Hit;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.primitives.ColorRGB;
@@ -47,6 +48,13 @@ public class Material {
      */
     private ReflectanceCoefficient kSpecular;
 
+  /**
+   * How much light is reflected from bouncing rays.
+   *
+   * @see ReflectanceCoefficient
+   */
+  private ReflectanceCoefficient kReflect = new ReflectanceCoefficient(0.001, 0.001, 0.001);
+
     /**
      * A {@link BufferedImage} representing the texture to be applied to the
      * object with this {@link Material}.
@@ -58,7 +66,7 @@ public class Material {
      */
     private String texturePath;
 
-    private double textureScale = 1.0d; // TODO: implement texture scaling in YAML configuration
+    private double textureScale = 1.0d;
 
     private TextureMapper textureMapper = TextureMappers.SPHERICAL;
 
@@ -169,6 +177,11 @@ public class Material {
         return new ColorRGB(intColor);
     }
 
+    @JsonIgnore
+    public boolean isReflective() {
+      return kReflect.getRed() > 0 || kReflect.getGreen() > 0 || kReflect.getBlue() > 0;
+    }
+
     /**
      * @return the {@link Material}'s base color.
      */
@@ -219,7 +232,15 @@ public class Material {
         this.kDiffuse = kDiffuse;
     }
 
-    /**
+  public ReflectanceCoefficient getkReflect() {
+    return kReflect;
+  }
+
+  public void setkReflect(ReflectanceCoefficient kReflect) {
+    this.kReflect = kReflect;
+  }
+
+  /**
      * Sets the texture for this material.
      * 
      * @param texture the texture to set

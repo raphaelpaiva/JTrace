@@ -21,7 +21,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = Tracer.class, name = "Tracer"),
-    @JsonSubTypes.Type(value = MultiThreadTracer.class, name = "MultiThreadTracer")
+    @JsonSubTypes.Type(value = MultiThreadTracer.class, name = "MultiThreadTracer"),
+    @JsonSubTypes.Type(value = TaskTracer.class, name = "TaskTracer")
 })
 public class Tracer {
 

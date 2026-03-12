@@ -9,7 +9,21 @@ materials:
     kSpecular: !reflect {r: 0.0, g: 0.0, b: 0.0}
     texturePath: checkerboard.png
     textureMapper: planar
-    textureScale: 50 
+    textureScale: 50
+  whiteMetallic:
+    color: !color {r: 1.0, g: 1.0, b: 1.0}
+    kAmbient: !reflect {r: 0.25, g: 0.25, b: 0.25}
+    kDiffuse: !reflect {r: 1, g: 1, b: 1}
+    kSpecular: !reflect {r: 1.0, g: 1.0, b: 1.0}
+    kReflect: !reflect {r: 0.75, g: 0.75, b: 0.75}
+  grayMetallic:
+    color: !color { r: 0.5, g: 0.5, b: 0.5 }
+    kAmbient: !reflect { r: 0.25, g: 0.25, b: 0.25 }
+    kDiffuse: !reflect { r: 1, g: 1, b: 1 }
+    kReflect: !reflect { r: 0.75, g: 0.75, b: 0.75 }
+    texturePath: checkerboard.png
+    textureMapper: planar
+    textureScale: 50
 
 scene:
   backgroundColor: !color {r: 0.05, g: 0.05, b: 0.1}
@@ -41,25 +55,29 @@ scene:
       p3: !pt {x: 10.0, y: 10.0,  z: 0.0}
       material: $grayGlossy
     - type: Plane 
-      point: !pt {x: 0.0, y: -30.0, z: 0.0}
+      point: !pt {x: 0.0, y: -20.0, z: 0.0}
       normal: !vector {x: 0.0, y: 1.0,  z: 0.0}
-      material: $grayGlossy
+      material: $grayMetallic
+    - type: Sphere
+      center: !pt {x: 20.0, y: 20.0, z: 0.0}
+      radius: 7.0
+      material: $whiteMetallic
   
   lights:
+#    - type: PointLight
+#      position: !pt {x: 80.0, y: 0, z: -80.0}
+#      color: !color {r: 1.0, g: 1.0, b: 1.0}
     - type: PointLight
-      position: !pt {x: 80.0, y: 0, z: -80.0}
-      color: !color {r: 1.0, g: 1.0, b: 1.0}
-    - type: PointLight
-      position: !pt {x: -80.0, y: 80.0, z: 80.0}
+      position: !pt {x: -800.0, y: 800.0, z: 800.0}
       color: !color {r: 1.0, g: 1.0, b: 1.0}
     
 tracer:
-  type: Tracer
+  type: TaskTracer
   shaders:
     - type: AmbientShader
     - type: DiffuseShader
     - type: SpecularShader
-      specularFactor: 64.0
+      specularFactor: 128.0
   interceptors:
     - type: ShadowInterceptor
 
