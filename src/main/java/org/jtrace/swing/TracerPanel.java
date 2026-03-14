@@ -12,7 +12,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 
 import org.jtrace.Scene;
-import org.jtrace.Tracer;
+import org.jtrace.tracer.Tracer;
 import org.jtrace.ViewPlane;
 
 public class TracerPanel extends JPanel {

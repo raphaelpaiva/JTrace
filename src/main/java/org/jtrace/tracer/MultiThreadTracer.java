@@ -1,4 +1,4 @@
-package org.jtrace;
+package org.jtrace.tracer;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Semaphore;
@@ -6,6 +6,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jtrace.Jay;
+import org.jtrace.Scene;
+import org.jtrace.ViewPlane;
 import org.jtrace.cameras.Camera;
 import org.jtrace.primitives.ColorRGB;
 

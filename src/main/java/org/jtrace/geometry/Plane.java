@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jtrace.Constants;
-import org.jtrace.Hit;
+import org.jtrace.tracer.Hit;
 import org.jtrace.Jay;
 import org.jtrace.material.Material;
-import org.jtrace.NotHit;
+import org.jtrace.tracer.NotHit;
 import org.jtrace.Section;
 import org.jtrace.primitives.Point3D;
 import org.jtrace.primitives.Vector3D;

@@ -1,8 +1,12 @@
 package org.jtrace;
 
+import org.jtrace.interceptor.ShadowInterceptor;
 import org.jtrace.io.yaml.SceneYamlIO;
 import org.jtrace.listeners.ImageListener;
 import org.jtrace.listeners.TimeListener;
+import org.jtrace.shader.Shaders;
+import org.jtrace.tracer.TaskTracer;
+import org.jtrace.tracer.Tracer;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -90,9 +94,8 @@ public class Main {
         } else {
             // Respect existing ImageListener from YAML
             for (Object listener : tracer.getListeners()) {
-                if (listener instanceof ImageListener) {
-                    ImageListener imageListener = (ImageListener) listener;
-                    System.out.println("Output: " + imageListener.getFileName());
+                if (listener instanceof ImageListener imageListener) {
+                  System.out.println("Output: " + imageListener.getFileName());
                 }
             }
         }

@@ -18,6 +18,7 @@ import org.jtrace.primitives.Vector3D;
 import org.jtrace.shader.AmbientShader;
 import org.jtrace.shader.DiffuseShader;
 import org.jtrace.shader.SpecularShader;
+import org.jtrace.tracer.Tracer;
 
 public class Benchmark {
 

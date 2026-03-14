@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.SwingUtilities;
 
-import org.jtrace.TracerListener;
+import org.jtrace.tracer.TracerListener;
 import org.jtrace.ViewPlane;
 import org.jtrace.primitives.ColorRGB;
 

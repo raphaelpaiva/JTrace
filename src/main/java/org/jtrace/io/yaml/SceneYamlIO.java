@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.jtrace.material.Material;
 import org.jtrace.Scene;
-import org.jtrace.Tracer;
+import org.jtrace.tracer.Tracer;
 import org.jtrace.ViewPlane;
 import org.jtrace.cameras.Camera;
 

@@ -594,29 +594,31 @@ viewPlane:
 ```java
 import org.jtrace.*;
 import org.jtrace.io.yaml.SceneYamlIO;
+import org.jtrace.tracer.Tracer;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class SceneLoader {
-    public static void main(String[] args) throws Exception {
-        SceneYamlIO yamlIO = new SceneYamlIO();
-        
-        // Load all configuration (scene, tracer, viewPlane)
-        Path sceneFile = Paths.get("myscene.yaml");
-        SceneYamlIO.SceneConfiguration config = yamlIO.loadConfiguration(sceneFile);
-        
-        Scene scene = config.getScene();
-        Tracer tracer = config.getTracer();
-        ViewPlane viewPlane = config.getViewPlane();
-        
-        // Or load individually
-        // Scene scene = yamlIO.load(sceneFile);
-        // Tracer tracer = yamlIO.loadTracer(sceneFile);
-        // ViewPlane viewPlane = yamlIO.loadViewPlane(sceneFile);
-        
-        // Render
-        tracer.render(scene, viewPlane);
-    }
+  public static void main(String[] args) throws Exception {
+    SceneYamlIO yamlIO = new SceneYamlIO();
+
+    // Load all configuration (scene, tracer, viewPlane)
+    Path sceneFile = Paths.get("myscene.yaml");
+    SceneYamlIO.SceneConfiguration config = yamlIO.loadConfiguration(sceneFile);
+
+    Scene scene = config.getScene();
+    Tracer tracer = config.getTracer();
+    ViewPlane viewPlane = config.getViewPlane();
+
+    // Or load individually
+    // Scene scene = yamlIO.load(sceneFile);
+    // Tracer tracer = yamlIO.loadTracer(sceneFile);
+    // ViewPlane viewPlane = yamlIO.loadViewPlane(sceneFile);
+
+    // Render
+    tracer.render(scene, viewPlane);
+  }
 }
 ```
 

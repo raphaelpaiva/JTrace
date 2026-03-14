@@ -1,6 +1,6 @@
 package org.jtrace.geometry;
 
-import org.jtrace.Hit;
+import org.jtrace.tracer.Hit;
 import org.jtrace.Jay;
 import org.jtrace.material.Material;
 import org.jtrace.material.Materials;

@@ -1,10 +1,11 @@
-package org.jtrace;
+package org.jtrace.tracer;
 
 import static java.util.Arrays.asList;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import org.jtrace.*;
 import org.jtrace.cameras.Camera;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
@@ -20,7 +21,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = Tracer.class, name = "Tracer"),
-    @JsonSubTypes.Type(value = MultiThreadTracer.class, name = "MultiThreadTracer")
+    @JsonSubTypes.Type(value = MultiThreadTracer.class, name = "MultiThreadTracer"),
+    @JsonSubTypes.Type(value = TaskTracer.class, name = "TaskTracer")
 })
 public class Tracer {
 

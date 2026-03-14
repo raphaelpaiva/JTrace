@@ -1,5 +1,6 @@
-package org.jtrace;
+package org.jtrace.tracer;
 
+import org.jtrace.Scene;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;

@@ -12,6 +12,7 @@ import org.jtrace.primitives.ColorRGB;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.jtrace.tracer.Tracer;
 
 /**
  * Represents the scene to be rendered.

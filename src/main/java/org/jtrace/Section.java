@@ -1,6 +1,8 @@
 package org.jtrace;
 
 import org.jtrace.geometry.GeometricObject;
+import org.jtrace.tracer.Hit;
+import org.jtrace.tracer.NotHit;
 
 /**
  * Represents a section of a {@link GeometricObject} that a {@link Jay} goes

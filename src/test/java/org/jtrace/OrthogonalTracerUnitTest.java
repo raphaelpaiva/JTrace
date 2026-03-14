@@ -11,6 +11,7 @@ import org.jtrace.primitives.ReflectanceCoefficient;
 import org.jtrace.primitives.Vector3D;
 import org.jtrace.shader.AmbientShader;
 import org.jtrace.shader.DiffuseShader;
+import org.jtrace.tracer.Tracer;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

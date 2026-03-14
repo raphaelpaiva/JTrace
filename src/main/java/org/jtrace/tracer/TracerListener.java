@@ -1,5 +1,7 @@
-package org.jtrace;
+package org.jtrace.tracer;
 
+import org.jtrace.Jay;
+import org.jtrace.ViewPlane;
 import org.jtrace.primitives.ColorRGB;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;

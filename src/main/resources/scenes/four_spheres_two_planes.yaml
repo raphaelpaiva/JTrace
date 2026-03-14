@@ -4,39 +4,43 @@
 materials:
   redMetallic:
     color: !color {r: 1.0, g: 0.0, b: 0.0}
-    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kAmbient: !reflect {r: 0.25, g: 0.25, b: 0.25}
     kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
     kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
   
   blueMetallic:
     color: !color {r: 0.0, g: 0.0, b: 1.0}
-    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kAmbient: !reflect {r: 0.25, g: 0.25, b: 0.25}
     kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
     kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kReflect:  !reflect {r: 0.3, g: 0.3, b: 0.3}
   
   purpleMetallic:
     color: !color {r: 0.5, g: 0.0, b: 0.5}
-    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kAmbient: !reflect {r: 0.25, g: 0.25, b: 0.25}
     kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
     kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
   
   whiteMetallic:
     color: !color {r: 1.0, g: 1.0, b: 1.0}
-    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
-    kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
+    kAmbient: !reflect {r: 0.25, g: 0.25, b: 0.25}
+    kDiffuse: !reflect {r: 1, g: 1.0, b: 1.}
     kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kReflect:  !reflect {r: 1, g: 1, b: 1}
   
-  yellowMetallic:
+  yellowMatte:
     color: !color {r: 1.0, g: 1.0, b: 0.0}
-    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kAmbient: !reflect {r: 0.25, g: 0.25, b: 0.25}
     kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
     kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kReflect:  !reflect {r: 0, g: 0, b: 0}
   
-  greenMetallic:
+  greenMatte:
     color: !color {r: 0.0, g: 1.0, b: 0.0}
-    kAmbient: !reflect {r: 0.07, g: 0.07, b: 0.07}
+    kAmbient: !reflect {r: 0.25, g: 0.25, b: 0.25}
     kDiffuse: !reflect {r: 0.7, g: 0.7, b: 0.7}
     kSpecular: !reflect {r: 0.8, g: 0.8, b: 0.8}
+    kReflect:  !reflect {r: 0, g: 0, b: 0}
 
 scene:
   backgroundColor: !color {r: 0.0, g: 0.0, b: 0.0}
@@ -57,6 +61,11 @@ scene:
     - type: Sphere
       center: !pt {x: -30.0, y: 0.0, z: 0.0}
       radius: 10.0
+      material: $whiteMetallic
+
+    - type: Sphere
+      center: !pt { x: -10.0, y: 0.0, z: 10.0 }
+      radius: 7.0
       material: $blueMetallic
     
     - type: Sphere
@@ -64,20 +73,15 @@ scene:
       radius: 0.3
       material: $purpleMetallic
     
-    - type: Sphere
-      center: !pt {x: 0.0, y: 20.0, z: -10.0}
-      radius: 0.3
-      material: $whiteMetallic
-    
     - type: Plane
       point: !pt {x: 0.0, y: -10.1, z: 0.0}
       normal: !vector {x: 0.0, y: 1.0, z: 0.0}
-      material: $yellowMetallic
-    
+      material: $yellowMatte
+
     - type: Plane
       point: !pt {x: 0.0, y: 30.0, z: 0.0}
       normal: !vector {x: 0.0, y: -1.0, z: 0.0}
-      material: $greenMetallic
+      material: $greenMatte
   
   lights:
     - type: PointLight
@@ -85,18 +89,21 @@ scene:
       color: !color {r: 1.0, g: 1.0, b: 1.0}
 
 tracer:
-  type: Tracer
+  type: TaskTracer
+  maxDepth: 2
   shaders:
     - type: AmbientShader
     - type: DiffuseShader
     - type: SpecularShader
-      specularFactor: 4.0
+      specularFactor: 64.0
   listeners:
     - type: ImageListener
       fileName: output.png
       format: png
     - type: TimeListener
+  interceptors:
+    - type: ShadowInterceptor
 
 viewPlane:
-  hres: 1920
-  vres: 1080
+  hres: 3840
+  vres: 2160
