@@ -1,0 +1,49 @@
+# TriangleMesh Scene
+# Tests loading TriangleMesh via YAML from classpath
+
+materials:
+  marble:
+    color: !color {r: 1.0, g: 1.0, b: 1.0}
+    kAmbient: !reflect {k: 0.1}
+    kDiffuse: !reflect {k: 0.9}
+    texturePath: org/jtrace/examples/marble.jpg
+    textureMapper: planar
+  mirror:
+    color: !color { r: 1.0, g: 1.0, b: 1.0 }
+    kAmbient: !reflect { k: 0.1 }
+    kDiffuse: !reflect { k: 1 }
+    kReflect: !reflect { k: 1 }
+
+scene:
+  backgroundColor: !color {r: 0.0, g: 0.0, b: 0.0}
+  
+  camera:
+    type: PinHoleCamera
+    eye: !pt {x: 10.0, y: 0.0, z: 10.0}
+    lookAt: !pt {x: 0.0, y: 0.0, z: 0.0}
+    up: !vector {x: 0.0, y: 1.0, z: 0.0}
+    zoomFactor: 70.0
+  
+  objects:
+    - type: TriangleMesh
+      path: org/jtrace/examples/io/beethoven.ply
+      material: $marble
+    - type: Plane
+      point: !pt {x: 0.0, y: 0.0, z: -5.0}
+      normal: !vector {x: 0.0, y: 0.0, z: -1.0}
+      material: $mirror
+  
+  lights:
+    - type: PointLight
+      position: !pt {x: 100.0, y: 100.0, z: 100.0}
+
+tracer:
+  type: TaskTracer
+  shaders:
+    - type: DiffuseShader
+  interceptors:
+    - type: ShadowInterceptor
+
+viewPlane:
+  hres: 1920
+  vres: 1080

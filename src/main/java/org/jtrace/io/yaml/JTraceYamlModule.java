@@ -2,6 +2,7 @@ package org.jtrace.io.yaml;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.jtrace.geometry.TriangleMesh;
 import org.jtrace.material.TextureMapper;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
@@ -38,5 +39,6 @@ public class JTraceYamlModule extends SimpleModule {
         addDeserializer(ReflectanceCoefficient.class, new ReflectanceCoefficientDeserializer());
         addDeserializer(BufferedImage.class, new BufferedImageDeserializer(basePath));
         addDeserializer(TextureMapper.class, new TextureMapperDeserializer());
+        addDeserializer(TriangleMesh.class, new TriangleMeshDeserializer(basePath));
     }
 }
