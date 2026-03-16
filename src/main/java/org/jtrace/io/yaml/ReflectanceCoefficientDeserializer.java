@@ -16,7 +16,7 @@ public class ReflectanceCoefficientDeserializer extends JsonDeserializer<Reflect
     
     @Override
     public ReflectanceCoefficient deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        double r = 0.0, g = 0.0, b = 0.0;
+        Double r = null, g = null, b = null, k = null;
         
         while (p.nextToken() != JsonToken.END_OBJECT) {
             String fieldName = p.getCurrentName();
@@ -32,7 +32,14 @@ public class ReflectanceCoefficientDeserializer extends JsonDeserializer<Reflect
                 case "b":
                     b = p.getDoubleValue();
                     break;
+                case "k":
+                    k = p.getDoubleValue();
+                    break;
             }
+        }
+
+        if (k != null) {
+            return new ReflectanceCoefficient(k);
         }
         
         return new ReflectanceCoefficient(r, g, b);

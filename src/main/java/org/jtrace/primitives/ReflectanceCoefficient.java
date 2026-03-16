@@ -9,7 +9,15 @@ public class ReflectanceCoefficient {
 	private double blue;
 
 	private ReflectanceCoefficient() { }
-	
+
+  public ReflectanceCoefficient(double k) {
+    this();
+
+    this.red = k;
+    this.green = k;
+    this.blue = k;
+  }
+
 	public ReflectanceCoefficient(double red, double green, double blue) {
 		this();
 		
