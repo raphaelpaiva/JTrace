@@ -34,8 +34,8 @@ public class Cylinder extends GeometricObject {
     this.height = height;
 
     if (height > 0) {
-      this.lowerCap = new Disk(base, axis.multiply(-1), radius, material);
-      this.upperCap = new Disk(base.add(axis.multiply(height)), axis, radius, material);
+      this.lowerCap = new Disk(base, this.axis.multiply(-1), radius, material);
+      this.upperCap = new Disk(base.add(this.axis.multiply(height)), this.axis, radius, material);
     }
   }
 
