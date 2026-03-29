@@ -26,7 +26,7 @@ public class QuadrilateralUnitTest {
 	@Test
 	public void testHit_FrontalJay_ShouldHit() {
 
-		Vector3D expectedNormal = Vector3D.UNIT_Z;
+		Vector3D expectedNormal = Vector3D.UNIT_Z.multiply(-1);
 		
 		Jay jay = new Jay(JAY_ORIGIN, Vector3D.UNIT_Z);
 		
@@ -40,7 +40,7 @@ public class QuadrilateralUnitTest {
 	@Test
 	public void testHit_FrontalShiftedJay_ShouldHit() {
 
-		Vector3D expectedNormal = Vector3D.UNIT_Z;
+		Vector3D expectedNormal = Vector3D.UNIT_Z.multiply(-1);
 		
 		Jay jay = new Jay(new Point3D(0.5, 0.5, -5), Vector3D.UNIT_Z);
 		
