@@ -32,10 +32,10 @@ public class ColorRGB {
      */
     public ColorRGB(final double paramR, final double paramG, final double paramB) {
 	    	this();
-	    	
-	      setRed(paramR);
-	      setGreen(paramG);
-	      setBlue(paramB);
+
+        red   = Math.max(MIN_COLOR_VALUE, Math.min(MAX_COLOR_VALUE, paramR));
+        green = Math.max(MIN_COLOR_VALUE, Math.min(MAX_COLOR_VALUE, paramG));
+        blue  = Math.max(MIN_COLOR_VALUE, Math.min(MAX_COLOR_VALUE, paramB));
     }
 
     public ColorRGB(int intColor) {
@@ -85,8 +85,7 @@ public class ColorRGB {
     }
 
     public void setRed(final double r) {
-        red = Math.min(MAX_COLOR_VALUE, r);
-        red = Math.max(MIN_COLOR_VALUE, red);
+        red = Math.max(MIN_COLOR_VALUE, Math.min(MAX_COLOR_VALUE, r));
     }
 
     public double getGreen() {
@@ -94,8 +93,7 @@ public class ColorRGB {
     }
 
     public void setGreen(final double g) {
-        green = Math.min(MAX_COLOR_VALUE, g);
-        green = Math.max(MIN_COLOR_VALUE, green);
+        green = Math.max(MIN_COLOR_VALUE, Math.min(MAX_COLOR_VALUE, g));
     }
 
     public double getBlue() {
@@ -103,8 +101,7 @@ public class ColorRGB {
     }
 
     public void setBlue(final double b) {
-        blue = Math.min(MAX_COLOR_VALUE, b);
-        blue = Math.max(MIN_COLOR_VALUE, blue);
+        blue = Math.max(MIN_COLOR_VALUE, Math.min(MAX_COLOR_VALUE, b));
     }
 
     @Override
