@@ -38,8 +38,8 @@ public class CylinderFrustrum extends GeometricObject {
 
   @Override
   public Hit hit(Jay jay) {
-    Hit upperCapHit = new NotHit();
-    Hit lowerCapHit = new NotHit();
+    Hit upperCapHit = NotHit.INSTANCE;
+    Hit lowerCapHit = NotHit.INSTANCE;
 
     if (height > 0) {
       upperCapHit = upperCap.hit(jay);
@@ -55,7 +55,7 @@ public class CylinderFrustrum extends GeometricObject {
     double minT = Math.min(bodyT, Math.min(upperCapT, lowerCapT));
 
     if (minT == Double.POSITIVE_INFINITY) {
-      return new NotHit();
+      return NotHit.INSTANCE;
     }
 
     Hit closestHit = null;
@@ -94,7 +94,7 @@ public class CylinderFrustrum extends GeometricObject {
     double delta = b * b - 4 * a * c;
 
     if (delta < 0) {
-      return new NotHit();
+      return NotHit.INSTANCE;
     }
 
     if (delta == 0) {
@@ -109,7 +109,7 @@ public class CylinderFrustrum extends GeometricObject {
         return new Hit(t, normal, jay);
       }
 
-      return new NotHit();
+      return NotHit.INSTANCE;
     }
 
     if (delta > 0) {
@@ -127,7 +127,7 @@ public class CylinderFrustrum extends GeometricObject {
       boolean t2Valid = t2 >= Constants.epsilon && isWithinBounds(hitHeightT2);
 
       if (!t1Valid && !t2Valid) {
-        return new NotHit();
+        return NotHit.INSTANCE;
       }
 
       double t;
@@ -154,7 +154,7 @@ public class CylinderFrustrum extends GeometricObject {
       return new Hit(t, normal, jay);
     }
 
-    return new NotHit();
+    return NotHit.INSTANCE;
   }
 
   private boolean isWithinBounds(double hitHeight) {

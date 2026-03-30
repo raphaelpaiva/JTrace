@@ -50,7 +50,7 @@ public class Disk extends GeometricObject {
       }
     }
 
-    return new NotHit();
+    return NotHit.INSTANCE;
   }
 
   public double getRadius() {

@@ -2,7 +2,9 @@ package org.jtrace.tracer;
 
 public class NotHit extends Hit {
 
-	public NotHit() {
+  public static final NotHit INSTANCE = new NotHit();
+
+	private NotHit() {
 		super();
 	}
 	

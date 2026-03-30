@@ -55,7 +55,7 @@ public class Vector extends GeometricObject {
     } else if (tipHit.isHit()) {
       return tipHit;
     } else {
-      return new NotHit();
+      return NotHit.INSTANCE;
     }
   }
 

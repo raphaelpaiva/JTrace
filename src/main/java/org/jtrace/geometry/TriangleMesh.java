@@ -51,7 +51,7 @@ public class TriangleMesh extends GeometricObject {
     public Hit hit(Jay jay) {
  
         double tMin = Double.MAX_VALUE;
-        Hit hitMin = new NotHit();
+        Hit hitMin = NotHit.INSTANCE;
  
         for (Triangle triangle : triangles) {
             Hit hit = triangle.hit(jay);

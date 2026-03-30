@@ -59,7 +59,7 @@ public class Sphere extends GeometricObject {
         double t;
 
         if (delta < 0.0) {
-            return new NotHit();
+            return NotHit.INSTANCE;
         } else {
         	final double deltaRoot = Math.sqrt(delta);
 
@@ -77,7 +77,7 @@ public class Sphere extends GeometricObject {
                 return new Hit(t, normal.normal(), jay);
             }
 
-            return new NotHit();
+            return NotHit.INSTANCE;
         }
     }
 
@@ -98,8 +98,8 @@ public class Sphere extends GeometricObject {
         if (delta < 0.0) {
             return sections;
         } else {
-        	Hit smallerRootHit = new NotHit();
-        	Hit largerRootHit  = new NotHit();
+        	Hit smallerRootHit = NotHit.INSTANCE;
+        	Hit largerRootHit  = NotHit.INSTANCE;
             
         	final double deltaRoot = Math.sqrt(delta);
 

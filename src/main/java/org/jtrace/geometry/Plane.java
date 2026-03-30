@@ -58,7 +58,7 @@ public class Plane extends GeometricObject {
 			}
 		}
 		
-		return new NotHit();
+		return NotHit.INSTANCE;
 	}
 	
 	@Override

@@ -108,7 +108,7 @@ public class Triangle extends GeometricObject {
 			return new Hit(planeHit.getT(), planeHit.getNormal(), jay);
 		}
 		
-		return new NotHit();
+		return NotHit.INSTANCE;
 	}
 	
 	public double getXMax() {

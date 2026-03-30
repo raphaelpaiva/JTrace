@@ -68,7 +68,7 @@ public class Quadrilateral extends GeometricObject {
 			}
 		}
 		
-		return new NotHit();
+		return NotHit.INSTANCE;
 	}
 
 	@Override
