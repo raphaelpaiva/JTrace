@@ -24,26 +24,23 @@ public class Hit {
 
   private final Jay jay;
 
-	private final Point3D point;
 
 	public Hit(double t, Vector3D normal, Jay jay) {
 		this.t = t;
 		this.normal = normal;
     this.jay = jay;
-		this.point = jay.getPointAt(t);
 		this.hit = true;
 	}
 
 	protected Hit() {
 		this.t = 0;
 		this.normal = null;
-		this.point = null;
 		this.hit = false;
     this.jay = null;
 	}
 
 	public Point3D getPoint() {
-		return point;
+		return jay.getPointAt(t);
 	}
 
 	public Point3D getOrigin() {
