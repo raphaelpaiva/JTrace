@@ -40,7 +40,7 @@ public class Plane extends GeometricObject {
 		this.point = point;
 		this.normal = normal.normal();
     this.inverseNormal = this.normal.multiply(-1);
-    this.d = point.dot(normal);
+    this.d = point.dot(this.normal);
 	}
 
 	@Override
