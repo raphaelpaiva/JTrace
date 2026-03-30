@@ -29,7 +29,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = TriangleMesh.class, name = "TriangleMesh"),
     @JsonSubTypes.Type(value = Quadrilateral.class, name = "Quadrilateral"),
     @JsonSubTypes.Type(value = Disk.class, name = "Disk"),
-    @JsonSubTypes.Type(value = Cylinder.class, name = "Cylinder")
+    @JsonSubTypes.Type(value = Cylinder.class, name = "Cylinder"),
+    @JsonSubTypes.Type(value = CylinderFrustrum.class, name = "CylinderFrustrum"),
+    @JsonSubTypes.Type(value = Cone.class, name = "Cone"),
+    @JsonSubTypes.Type(value = Vector.class, name = "Vector")
 })
 public abstract class GeometricObject {
 	

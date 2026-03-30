@@ -53,6 +53,10 @@ public class Disk extends GeometricObject {
     return new NotHit();
   }
 
+  public double getRadius() {
+    return radius;
+  }
+
   @Override
   public List<Section> sections(Jay jay) {
     return List.of();
