@@ -232,8 +232,20 @@ public class SceneYamlIO {
         
         // Initialize camera coordinate system
         initializeCamera(config.getScene());
+
+        Scene finalScene = new Scene();
+
+
+        finalScene.add(config.getScene().getObjects());
+
+        for (org.jtrace.lights.Light light : config.getScene().getLigths()) {
+            finalScene.add(light);
+        }
+
+        finalScene.setCamera(config.getScene().getCamera());
+        finalScene.setBackgroundColor(config.getScene().getBackgroundColor());
         
-        return new SceneConfiguration(config.getScene(), config.getTracer(), config.getViewPlane());
+        return new SceneConfiguration(finalScene, config.getTracer(), config.getViewPlane());
     }
     
     /**

@@ -2,15 +2,16 @@ package org.jtrace;
 
 import static java.util.Arrays.asList;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.jtrace.cameras.Camera;
+import org.jtrace.geometry.CompositeGeometricObject;
 import org.jtrace.geometry.GeometricObject;
 import org.jtrace.lights.Light;
 import org.jtrace.primitives.ColorRGB;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.jtrace.tracer.Tracer;
 
@@ -28,28 +29,13 @@ import org.jtrace.tracer.Tracer;
  */
 public class Scene {
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
-    @JsonSubTypes({
-        @JsonSubTypes.Type(value = org.jtrace.geometry.Sphere.class, name = "Sphere"),
-        @JsonSubTypes.Type(value = org.jtrace.geometry.Plane.class, name = "Plane"),
-        @JsonSubTypes.Type(value = org.jtrace.geometry.Triangle.class, name = "Triangle"),
-        @JsonSubTypes.Type(value = org.jtrace.geometry.TriangleMesh.class, name = "TriangleMesh"),
-        @JsonSubTypes.Type(value = org.jtrace.geometry.Quadrilateral.class, name = "Quadrilateral")
-    })
     private Set<GeometricObject> objects = new LinkedHashSet<GeometricObject>();
     
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
-    @JsonSubTypes({
-        @JsonSubTypes.Type(value = org.jtrace.lights.PointLight.class, name = "PointLight"),
-        @JsonSubTypes.Type(value = org.jtrace.lights.DecayingPointLight.class, name = "DecayingPointLight")
-    })
     private Set<Light> lights = new LinkedHashSet<Light>();
     private ColorRGB backgroundColor = ColorRGB.BLACK;
     
     @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
-    @JsonSubTypes({
-        @JsonSubTypes.Type(value = org.jtrace.cameras.PinHoleCamera.class, name = "PinHoleCamera"),
-        @JsonSubTypes.Type(value = org.jtrace.cameras.OrthogonalCamera.class, name = "OrthogonalCamera")
-    })
     private Camera camera;
 
     public Scene() {
@@ -71,14 +57,31 @@ public class Scene {
     }
 
     public Scene add(final GeometricObject object) {
+        if (object instanceof CompositeGeometricObject) {
+            for (GeometricObject child : ((CompositeGeometricObject) object).getChildren()) {
+                add(child);
+            }
+            return this;
+        }
         objects.add(object);
         return this;
     }
 
     public Scene add(final GeometricObject... paramObjects) {
-        objects.addAll(asList(paramObjects));
+        for (GeometricObject object : paramObjects) {
+            add(object);
+        }
+
         return this;
     }
+
+  public Scene add(final Collection<GeometricObject> paramObjects) {
+    for (GeometricObject object : paramObjects) {
+      add(object);
+    }
+
+    return this;
+  }
 
     public Set<GeometricObject> getObjects() {
         return objects;

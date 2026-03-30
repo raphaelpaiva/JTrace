@@ -1,7 +1,5 @@
 package org.jtrace.geometry;
 
-import org.jtrace.Jay;
-import org.jtrace.Section;
 import org.jtrace.material.Material;
 import org.jtrace.primitives.ColorRGB;
 import org.jtrace.primitives.Point3D;
