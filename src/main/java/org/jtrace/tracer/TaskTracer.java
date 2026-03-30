@@ -15,6 +15,9 @@ import java.util.List;
 public class TaskTracer extends Tracer {
 
   private int maxDepth = 3;
+  private int samplesPerPixel = 1;
+  private double adjustMin = 0.3;
+  private double adjustMax = 0.7;
 
   @Override
   public void render(Scene scene, ViewPlane viewPlane) {
@@ -29,8 +32,15 @@ public class TaskTracer extends Tracer {
 
     for (int row = 0; row < vres; row++) {
       for (int column = 0; column < hres; column++) {
-        final Jay jay = camera.createJay(row, column, vres, hres);
-        tasks.add(new TracerTask(row, column, 1, jay, scene, null));
+        if (samplesPerPixel == 1) {
+          final Jay jay = camera.createJay(row, column, vres, hres);
+          tasks.add(new TracerTask(row, column, 1, jay, scene, null));
+        } else {
+          for (int s = 0; s < samplesPerPixel; s++) {
+            final Jay jay = camera.createJay(row, column, vres, hres, adjustMin, adjustMax);
+            tasks.add(new TracerTask(row, column, 1, jay, scene, null));
+          }
+        }
       }
     }
 
@@ -70,9 +80,9 @@ public class TaskTracer extends Tracer {
       var column = r.task().column;
 
       if (colors[row][column] == null) {
-        colors[row][column] = r.color;
+        colors[row][column] = r.color.multiply(1d / samplesPerPixel);
       } else {
-        colors[row][column] = colors[row][column].add(r.color);
+        colors[row][column] = colors[row][column].add(r.color.multiply(1d / samplesPerPixel));
       }
     }
 
@@ -120,6 +130,30 @@ public class TaskTracer extends Tracer {
 
   public void setMaxDepth(int maxDepth) {
     this.maxDepth = maxDepth;
+  }
+
+  public int getSamplesPerPixel() {
+    return samplesPerPixel;
+  }
+
+  public void setSamplesPerPixel(int samplesPerPixel) {
+    this.samplesPerPixel = samplesPerPixel;
+  }
+
+  public double getAdjustMin() {
+    return adjustMin;
+  }
+
+  public void setAdjustMin(double adjustMin) {
+    this.adjustMin = adjustMin;
+  }
+
+  public double getAdjustMax() {
+    return adjustMax;
+  }
+
+  public void setAdjustMax(double adjustMax) {
+    this.adjustMax = adjustMax;
   }
 
   record TracerTask(int row, int column, int depth, Jay jay, Scene scene, TracerTaskResult parent) {}

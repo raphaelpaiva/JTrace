@@ -72,7 +72,7 @@ public class CameraUnitTest {
 		}
 
 		@Override
-		public Jay createJay(int r, int c, int vres, int hres) {
+		public Jay createJay(int r, int c, int vres, int hres, double adjustMin, double adjustMax) {
 			return null;
 		}
 		

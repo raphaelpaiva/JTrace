@@ -102,7 +102,11 @@ public abstract class Camera {
      * @param hres the horizontal resolution of the {@link ViewPlane}.
      * @return A {@link Jay} intersecting P.
      */
-    public abstract Jay createJay(int r, int c, int vres, int hres);
+    public abstract Jay createJay(int r, int c, int vres, int hres, double adjustMin, double adjustMax);
+
+    public Jay createJay(int r, int c, int vres, int hres) {
+      return createJay(r, c, vres, hres, 0.5, 0.5);
+    }
 
     /**
      * The {@link #zoomFactor} usage depends on the concrete implementation of the {@link Camera}.

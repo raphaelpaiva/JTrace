@@ -1,5 +1,6 @@
 package org.jtrace.cameras;
 
+import org.jtrace.Constants;
 import org.jtrace.Jay;
 import org.jtrace.ViewPlane;
 import org.jtrace.primitives.Point3D;
@@ -26,11 +27,21 @@ public class OrthogonalCamera extends Camera {
   }
   
   @Override
-  public Jay createJay(int r, int c, int vres, int hres) {
+  public Jay createJay(int r, int c, int vres, int hres, double adjustMin, double adjustMax) {
     double hresD = hres;
     double vresD = vres;
-    final double viewPlaneX = (c - hresD/2 + 0.5) * 1 / getZoomFactor();
-    final double viewPlaneY = (r - vresD/2 + 0.5) * 1 / getZoomFactor();
+
+    double adjustRange = adjustMax - adjustMin;
+
+    double xAdjust = 0.5;
+    double yAdjust = 0.5;
+    if (adjustRange > Constants.epsilon) {
+      xAdjust = adjustMin + adjustRange * Math.random();
+      yAdjust = adjustMin + adjustRange * Math.random();
+    }
+
+    final double viewPlaneX = (c - hresD/2 + xAdjust) * 1 / getZoomFactor();
+    final double viewPlaneY = (r - vresD/2 + yAdjust) * 1 / getZoomFactor();
     
     Point3D origin = new Point3D(viewPlaneX, viewPlaneY, viewPlaneDistance);
 
