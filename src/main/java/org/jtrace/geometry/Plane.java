@@ -21,6 +21,8 @@ import org.jtrace.primitives.Vector3D;
 public class Plane extends GeometricObject {
 	private Point3D point;
 	private Vector3D normal;
+  private Vector3D inverseNormal;
+  private double d;
 
 	public Plane() {
         super(null);
@@ -36,23 +38,21 @@ public class Plane extends GeometricObject {
 	public Plane(Point3D point, Vector3D normal, Material material) {
 		super(material);
 		this.point = point;
-		this.normal = normal;
+		this.normal = normal.normal();
+    this.inverseNormal = this.normal.multiply(-1);
+    this.d = point.dot(normal);
 	}
 
 	@Override
 	public Hit hit(Jay jay) {
-		double b = new Vector3D(jay.getOrigin(), point).dot(normal);
+		double b =  d - jay.getOrigin().dot(normal); //new Vector3D(jay.getOrigin(), point).dot(normal);
 		double a = jay.getDirection().dot(normal);
-		
+
 		if (a != 0) {
 			double t = b / a;
 
 			if (t > Constants.epsilon) {
-        Vector3D normal = this.getNormal().normal();
-
-        if (normal.dot(jay.getDirection()) > 0) {
-          normal = normal.multiply(-1);
-        }
+        Vector3D normal = a > 0 ? inverseNormal : this.normal;
 
 				return new Hit(t, normal, jay);
 			}
@@ -70,7 +70,7 @@ public class Plane extends GeometricObject {
 		
 		if (a != 0) {
 			double t = b / a;
-			Hit hit = new Hit(t, this.getNormal().normal(), jay);
+			Hit hit = new Hit(t, this.getNormal(), jay);
 			
 			sections.add(new Section(hit, hit));
 		}

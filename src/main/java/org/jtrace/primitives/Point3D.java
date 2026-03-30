@@ -85,6 +85,20 @@ public class Point3D {
 				- otherPoint.getZ());
 	}
 
+  public double dot(Point3D v2) {
+    double result = x * v2.getX();
+    result += y * v2.getY();
+    result += z * v2.getZ();
+    return result;
+  }
+
+  public double dot(Vector3D v2) {
+    double result = x * v2.getX();
+    result += y * v2.getY();
+    result += z * v2.getZ();
+    return result;
+  }
+
 	/**
 	 * Multiply by scalar operation
 	 * 
