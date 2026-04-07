@@ -3,6 +3,7 @@ package org.jtrace.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jtrace.Constants;
 import org.jtrace.tracer.Hit;
 import org.jtrace.Jay;
@@ -35,7 +36,10 @@ public class Plane extends GeometricObject {
 	 * @param normal the {@link Plane}'s normal {@link Vector3D}.
 	 * @param material the {@link Plane}'s {@link Material}.
 	 */
-	public Plane(Point3D point, Vector3D normal, Material material) {
+	public Plane(
+      @JsonProperty("point") Point3D point,
+      @JsonProperty("normal") Vector3D normal,
+      @JsonProperty("material") Material material) {
 		super(material);
 		this.point = point;
 		this.normal = normal.normal();

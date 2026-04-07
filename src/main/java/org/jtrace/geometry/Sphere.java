@@ -3,6 +3,7 @@ package org.jtrace.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jtrace.Constants;
 import org.jtrace.tracer.Hit;
 import org.jtrace.Jay;
@@ -34,7 +35,10 @@ public class Sphere extends GeometricObject {
      * @param radius the radius of the {@link Sphere}
      * @param material the {@link Material} of the {@link Sphere}
      */
-    public Sphere(final Point3D center, final double radius, final Material material) {
+    public Sphere(
+        @JsonProperty("center") final Point3D center,
+        @JsonProperty("radius") final double radius,
+        @JsonProperty("material") final Material material) {
         super(material);
         this.center = center;
         this.radius = radius;
