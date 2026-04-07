@@ -10,7 +10,7 @@ materials:
     textureMapper: planar
   mirror:
     color: !color { r: 1.0, g: 1.0, b: 1.0 }
-    kAmbient: !reflect { k: 0.1 }
+    kAmbient: !reflect { k: 1 }
     kDiffuse: !reflect { k: 1 }
     kReflect: !reflect { k: 1 }
 
@@ -22,16 +22,17 @@ scene:
     eye: !pt {x: 10.0, y: 0.0, z: 10.0}
     lookAt: !pt {x: 0.0, y: 0.0, z: 0.0}
     up: !vector {x: 0.0, y: 1.0, z: 0.0}
-    zoomFactor: 70.0
+    zoomFactor: 5.0
   
   objects:
     - type: TriangleMesh
-      path: org/jtrace/examples/io/beethoven.ply
+#      path: org/jtrace/examples/io/beethoven.ply
+      path: org/jtrace/examples/io/lamp.ply
       material: $marble
-    - type: Plane
-      point: !pt {x: 0.0, y: 0.0, z: -5.0}
-      normal: !vector {x: 0.0, y: 0.0, z: -1.0}
-      material: $mirror
+#    - type: Plane
+#      point: !pt {x: 0.0, y: 0.0, z: -5.0}
+#      normal: !vector {x: 0.0, y: 0.0, z: -1.0}
+#      material: $mirror
   
   lights:
     - type: PointLight
@@ -39,11 +40,14 @@ scene:
 
 tracer:
   type: TaskTracer
+  maxDepth: 1
+  samplesPerPixel: 1
+  adjustMin: 0.1
+  adjustMax: 0.9
   shaders:
     - type: DiffuseShader
-  interceptors:
-    - type: ShadowInterceptor
+  interceptors: []
 
 viewPlane:
-  hres: 1920
-  vres: 1080
+  hres: 800
+  vres: 800

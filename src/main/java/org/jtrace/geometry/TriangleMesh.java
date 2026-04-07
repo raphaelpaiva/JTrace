@@ -25,8 +25,9 @@ public class TriangleMesh extends GeometricObject {
  
     private double zmin = Double.POSITIVE_INFINITY;
     private double zmax = Double.NEGATIVE_INFINITY;
- 
-    public TriangleMesh(Material material) {
+    private AABB bounds;
+
+  public TriangleMesh(Material material) {
         super(material);
     }
  
@@ -49,6 +50,9 @@ public class TriangleMesh extends GeometricObject {
     
     @Override
     public Hit hit(Jay jay) {
+      if (!bounds.hit(jay)) {
+        return NotHit.INSTANCE;
+      }
  
         double tMin = Double.MAX_VALUE;
         Hit hitMin = NotHit.INSTANCE;
@@ -85,6 +89,8 @@ public class TriangleMesh extends GeometricObject {
 
             this.triangles.add(t);
         }
+
+        this.bounds = new AABB(new Point3D(xmin, ymin, zmin), new Point3D(xmax, ymax, zmax));
     }
 
     public Point3D getCenter() {
